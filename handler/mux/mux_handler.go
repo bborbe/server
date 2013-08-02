@@ -10,7 +10,7 @@ type muxHandler struct {
 	errorHandler  http.Handler
 }
 
-func NewMuxHandler(handlerFinder handler_finder.HandlerFinder, errorHandler  http.Handler) *muxHandler {
+func NewMuxHandler(handlerFinder handler_finder.HandlerFinder, errorHandler http.Handler) *muxHandler {
 	m := new(muxHandler)
 	m.handlerFinder = handlerFinder
 	m.errorHandler = errorHandler

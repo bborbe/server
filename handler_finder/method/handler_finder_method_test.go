@@ -1,8 +1,8 @@
 package method
 
 import (
-	"github.com/bborbe/server/handler_finder"
 	. "github.com/bborbe/assert"
+	"github.com/bborbe/server/handler_finder"
 	"testing"
 )
 

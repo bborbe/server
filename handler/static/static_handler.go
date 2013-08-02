@@ -3,12 +3,12 @@ package static
 import "net/http"
 
 type handlerStaticContent struct {
-	content string
+	content    string
 	returnCode int
 }
 
 func NewHandlerStaticContent(content string) *handlerStaticContent {
-	return NewHandlerStaticContentReturnCode(content,http.StatusOK)
+	return NewHandlerStaticContentReturnCode(content, http.StatusOK)
 }
 
 func NewHandlerStaticContentReturnCode(content string, returnCode int) *handlerStaticContent {
