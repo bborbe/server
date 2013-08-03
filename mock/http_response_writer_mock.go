@@ -3,14 +3,15 @@ package mock
 import "net/http"
 
 type responseWriterMock struct {
-	Status  int
-	Content []byte
-	header  http.Header
+	status int
+	writer *writer
+	header http.Header
 }
 
 func NewHttpResponseWriterMock() *responseWriterMock {
 	r := new(responseWriterMock)
 	r.header = make(http.Header)
+	r.writer = NewWriter()
 	return r
 }
 
@@ -19,10 +20,17 @@ func (r *responseWriterMock) Header() http.Header {
 }
 
 func (r *responseWriterMock) Write(b []byte) (int, error) {
-	r.Content = append(b)
-	return len(b), nil
+	return r.writer.Write(b)
 }
 
 func (r *responseWriterMock) WriteHeader(status int) {
-	r.Status = status
+	r.status = status
+}
+
+func (r *responseWriterMock) Status() int {
+	return r.status
+}
+
+func (r *responseWriterMock) Content() []byte {
+	return r.writer.Content()
 }

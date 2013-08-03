@@ -38,7 +38,7 @@ func TestNotHandlerFound(t *testing.T) {
 		t.Error(err)
 	}
 	m.ServeHTTP(responseWriter, request)
-	err = AssertThat(responseWriter.Status, Is(http.StatusNotFound).Message("check status"))
+	err = AssertThat(responseWriter.Status(), Is(http.StatusNotFound).Message("check status"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -56,11 +56,11 @@ func TestHandlerFound(t *testing.T) {
 			t.Error(err)
 		}
 		m.ServeHTTP(responseWriter, request)
-		err = AssertThat(responseWriter.Status, Is(http.StatusOK).Message("check status"))
+		err = AssertThat(responseWriter.Status(), Is(http.StatusOK).Message("check status"))
 		if err != nil {
 			t.Fatal(err)
 		}
-		err = AssertThat(string(responseWriter.Content), Is("/").Message("compare / content"))
+		err = AssertThat(string(responseWriter.Content()), Is("/").Message("compare / content"))
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -72,11 +72,11 @@ func TestHandlerFound(t *testing.T) {
 			t.Error(err)
 		}
 		m.ServeHTTP(responseWriter, request)
-		err = AssertThat(responseWriter.Status, Is(http.StatusOK).Message("check status"))
+		err = AssertThat(responseWriter.Status(), Is(http.StatusOK).Message("check status"))
 		if err != nil {
 			t.Fatal(err)
 		}
-		err = AssertThat(string(responseWriter.Content), Is("/test").Message("compare /test content"))
+		err = AssertThat(string(responseWriter.Content()), Is("/test").Message("compare /test content"))
 		if err != nil {
 			t.Fatal(err)
 		}
