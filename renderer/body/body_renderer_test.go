@@ -1,4 +1,4 @@
-package html
+package body
 
 import (
 	. "github.com/bborbe/assert"
@@ -8,7 +8,7 @@ import (
 )
 
 func TestImplementsRequestHandler(t *testing.T) {
-	v := NewHtmlRenderer()
+	v := NewBodyRenderer()
 	var i (*renderer.Renderer) = nil
 	err := AssertThat(v, Implements(i).Message("check implements view.Renderer"))
 	if err != nil {
@@ -18,7 +18,7 @@ func TestImplementsRequestHandler(t *testing.T) {
 
 func TestRender(t *testing.T) {
 	var err error
-	v := NewHtmlRenderer()
+	v := NewBodyRenderer()
 	writer := mock.NewWriter()
 	err = v.Render(writer)
 	if err != nil {
@@ -28,15 +28,11 @@ func TestRender(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Startswith("<!doctype html>"))
+	err = AssertThat(string(writer.Content()), Contains("<body>"))
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Contains("<html>"))
-	if err != nil {
-		t.Fatal(err)
-	}
-	err = AssertThat(string(writer.Content()), Contains("</html>"))
+	err = AssertThat(string(writer.Content()), Contains("</body>"))
 	if err != nil {
 		t.Fatal(err)
 	}
