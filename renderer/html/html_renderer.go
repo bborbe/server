@@ -11,6 +11,12 @@ import (
 	"io"
 )
 
+type HtmlRenderer interface {
+	renderer.Renderer
+	SetHead(head renderer.Renderer)
+	SetBody(body renderer.Renderer)
+}
+
 type htmlRenderer struct {
 	renderer renderer.Renderer
 	body     placeholder.PlaceholderRenderer
@@ -19,14 +25,13 @@ type htmlRenderer struct {
 
 func NewHtmlRenderer() *htmlRenderer {
 	v := new(htmlRenderer)
-	headPlaceholder := placeholder.NewPlaceholderRenderer()
-	headPlaceholder.SetRenderer(head.NewHeadRenderer())
-	bodyPlaceholder := placeholder.NewPlaceholderRenderer()
-	bodyPlaceholder.SetRenderer(body.NewBodyRenderer())
+	v.head = placeholder.NewPlaceholderRenderer()
+	v.head.SetRenderer(head.NewHeadRenderer())
+	v.body = placeholder.NewPlaceholderRenderer()
+	v.body.SetRenderer(body.NewBodyRenderer())
 	html := tag.NewTagRenderer("html")
-	html.SetContent(list.NewListRenderer(headPlaceholder, bodyPlaceholder))
-	doctype := content.NewContentRenderer("<!doctype html>")
-	v.renderer = list.NewListRenderer(doctype, html)
+	html.SetContent(list.NewListRenderer(v.head, v.body))
+	v.renderer = list.NewListRenderer(content.NewContentRenderer("<!doctype html>"), html)
 	return v
 }
 

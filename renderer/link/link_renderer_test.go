@@ -1,14 +1,15 @@
-package tag
+package link
 
 import (
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/server/mock"
 	"github.com/bborbe/server/renderer"
 	"testing"
+	"github.com/bborbe/server/renderer/content"
 )
 
 func TestImplementsRequestHandler(t *testing.T) {
-	v := NewTagRenderer("mytag")
+	v := NewLinkRenderer()
 	var i (*renderer.Renderer) = nil
 	err := AssertThat(v, Implements(i).Message("check implements view.Renderer"))
 	if err != nil {
@@ -16,9 +17,9 @@ func TestImplementsRequestHandler(t *testing.T) {
 	}
 }
 
-func TestRender(t *testing.T) {
+func TestRenderEmpty(t *testing.T) {
 	var err error
-	v := NewTagRenderer("mytag")
+	v := NewLinkRenderer()
 	writer := mock.NewWriter()
 	err = v.Render(writer)
 	if err != nil {
@@ -28,20 +29,17 @@ func TestRender(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Contains("<mytag>"))
-	if err != nil {
-		t.Fatal(err)
-	}
-	err = AssertThat(string(writer.Content()), Contains("</mytag>"))
+	err = AssertThat(string(writer.Content()), Contains("<a></a>"))
 	if err != nil {
 		t.Fatal(err)
 	}
 }
 
-func TestRenderAttributes(t *testing.T) {
+func TestRender(t *testing.T) {
 	var err error
-	v := NewTagRenderer("mytag")
-	v.SetAttribute("a", "b")
+	v := NewLinkRenderer()
+	v.SetHref("/links")
+	v.SetContent(content.NewContentRenderer("foo bar"))
 	writer := mock.NewWriter()
 	err = v.Render(writer)
 	if err != nil {
@@ -51,7 +49,7 @@ func TestRenderAttributes(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Is("<mytag a=\"b\"></mytag>"))
+	err = AssertThat(string(writer.Content()), Is("<a href=\"/links\">foo bar</a>"))
 	if err != nil {
 		t.Fatal(err)
 	}

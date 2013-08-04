@@ -6,16 +6,25 @@ import (
 	"io"
 )
 
+type BodyRenderer interface {
+	renderer.Renderer
+	SetContent(renderer renderer.Renderer)
+}
+
 type bodyRenderer struct {
-	body renderer.Renderer
+	renderer tag.TagRenderer
 }
 
 func NewBodyRenderer() *bodyRenderer {
 	v := new(bodyRenderer)
-	v.body = tag.NewTagRenderer("body")
+	v.renderer = tag.NewTagRenderer("body")
 	return v
 }
 
+func (v *bodyRenderer) SetContent(renderer renderer.Renderer) {
+	v.renderer.SetContent(renderer)
+}
+
 func (v *bodyRenderer) Render(writer io.Writer) error {
-	return v.body.Render(writer)
+	return v.renderer.Render(writer)
 }
