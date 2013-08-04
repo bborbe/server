@@ -6,15 +6,15 @@ import (
 )
 
 type TagRenderer interface {
-renderer.Renderer
+	renderer.Renderer
 	SetAttribute(key, value string)
 	RemoveAttribute(key string)
 	SetContent(renderer renderer.Renderer)
 }
 
 type tagRenderer struct {
-	name    string
-	content renderer.Renderer
+	name       string
+	content    renderer.Renderer
 	attributes map[string]string
 }
 

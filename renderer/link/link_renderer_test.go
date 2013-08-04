@@ -4,8 +4,8 @@ import (
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/server/mock"
 	"github.com/bborbe/server/renderer"
-	"testing"
 	"github.com/bborbe/server/renderer/content"
+	"testing"
 )
 
 func TestImplementsRequestHandler(t *testing.T) {
