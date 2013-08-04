@@ -1,15 +1,15 @@
-package list
+package placeholder
 
 import (
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/server/mock"
 	"github.com/bborbe/server/renderer"
-	"github.com/bborbe/server/renderer/singletag"
+	"github.com/bborbe/server/renderer/tag"
 	"testing"
 )
 
 func TestImplementsRequestHandler(t *testing.T) {
-	v := NewListRenderer()
+	v := NewPlaceholderRenderer()
 	var i (*renderer.Renderer) = nil
 	err := AssertThat(v, Implements(i).Message("check implements view.Renderer"))
 	if err != nil {
@@ -17,9 +17,9 @@ func TestImplementsRequestHandler(t *testing.T) {
 	}
 }
 
-func TestRenderEmpty(t *testing.T) {
+func TestRenderWithoutContent(t *testing.T) {
 	var err error
-	v := NewListRenderer()
+	v := NewPlaceholderRenderer()
 	writer := mock.NewWriter()
 	err = v.Render(writer)
 	if err != nil {
@@ -31,9 +31,10 @@ func TestRenderEmpty(t *testing.T) {
 	}
 }
 
-func TestRenderOne(t *testing.T) {
+func TestRenderWithContent(t *testing.T) {
 	var err error
-	v := NewListRenderer(singletag.NewSingletagRenderer("br"))
+	v := NewPlaceholderRenderer()
+	v.SetRenderer(tag.NewTagRenderer("h1"))
 	writer := mock.NewWriter()
 	err = v.Render(writer)
 	if err != nil {
@@ -43,25 +44,7 @@ func TestRenderOne(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Is("<br/>"))
-	if err != nil {
-		t.Fatal(err)
-	}
-}
-
-func TestRenderTwo(t *testing.T) {
-	var err error
-	v := NewListRenderer(singletag.NewSingletagRenderer("br"), singletag.NewSingletagRenderer("hr"))
-	writer := mock.NewWriter()
-	err = v.Render(writer)
-	if err != nil {
-		t.Fatal(err)
-	}
-	err = AssertThat(len(writer.Content()), Gt(0))
-	if err != nil {
-		t.Fatal(err)
-	}
-	err = AssertThat(string(writer.Content()), Is("<br/><hr/>"))
+	err = AssertThat(string(writer.Content()), Contains("<h1></h1>"))
 	if err != nil {
 		t.Fatal(err)
 	}
