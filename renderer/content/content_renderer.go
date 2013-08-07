@@ -1,9 +1,13 @@
 package content
 
 import (
+	"github.com/bborbe/server/renderer"
 	"io"
 )
 
+type ContentRenderer interface {
+	renderer.Renderer
+}
 type contentRenderer struct {
 	content string
 }

@@ -1,4 +1,4 @@
-package googleanalytics
+package tablecell
 
 import (
 	. "github.com/bborbe/assert"
@@ -8,7 +8,7 @@ import (
 )
 
 func TestImplementsRenderer(t *testing.T) {
-	v := NewGoogleanalyticsRenderer()
+	v := NewTablecellRenderer()
 	var i (*renderer.Renderer) = nil
 	err := AssertThat(v, Implements(i))
 	if err != nil {
@@ -16,9 +16,9 @@ func TestImplementsRenderer(t *testing.T) {
 	}
 }
 
-func TestImplementsGoogleanalyticsRenderer(t *testing.T) {
-	v := NewGoogleanalyticsRenderer()
-	var i (*GoogleanalyticsRenderer) = nil
+func TestImplementsTablecellRenderer(t *testing.T) {
+	v := NewTablecellRenderer()
+	var i (*TablecellRenderer) = nil
 	err := AssertThat(v, Implements(i))
 	if err != nil {
 		t.Fatal(err)
@@ -27,13 +27,21 @@ func TestImplementsGoogleanalyticsRenderer(t *testing.T) {
 
 func TestRender(t *testing.T) {
 	var err error
-	v := NewGoogleanalyticsRenderer()
+	v := NewTablecellRenderer()
 	writer := mock.NewWriter()
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
 	err = AssertThat(len(writer.Content()), Gt(0))
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = AssertThat(string(writer.Content()), Startswith("<td>"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = AssertThat(string(writer.Content()), Endswith("</td>"))
 	if err != nil {
 		t.Fatal(err)
 	}

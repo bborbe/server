@@ -7,7 +7,7 @@ import (
 
 type PlaceholderRenderer interface {
 	renderer.Renderer
-	SetRenderer(renderer renderer.Renderer)
+	SetRenderer(renderer renderer.Renderer) PlaceholderRenderer
 }
 
 type placeholderRenderer struct {
@@ -19,8 +19,9 @@ func NewPlaceholderRenderer() *placeholderRenderer {
 	return v
 }
 
-func (v *placeholderRenderer) SetRenderer(renderer renderer.Renderer) {
+func (v *placeholderRenderer) SetRenderer(renderer renderer.Renderer) PlaceholderRenderer {
 	v.renderer = renderer
+	return v
 }
 
 func (v *placeholderRenderer) Render(writer io.Writer) error {

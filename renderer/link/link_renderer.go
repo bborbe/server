@@ -6,6 +6,12 @@ import (
 	"io"
 )
 
+type LinkRenderer interface {
+	renderer.Renderer
+	SetHref(href string) LinkRenderer
+	SetContent(content renderer.Renderer) LinkRenderer
+}
+
 type linkRenderer struct {
 	renderer tag.TagRenderer
 }
@@ -16,12 +22,14 @@ func NewLinkRenderer() *linkRenderer {
 	return v
 }
 
-func (v *linkRenderer) SetHref(href string) {
+func (v *linkRenderer) SetHref(href string) LinkRenderer {
 	v.renderer.SetAttribute("href", href)
+	return v
 }
 
-func (v *linkRenderer) SetContent(content renderer.Renderer) {
+func (v *linkRenderer) SetContent(content renderer.Renderer) LinkRenderer {
 	v.renderer.SetContent(content)
+	return v
 }
 
 func (v *linkRenderer) Render(writer io.Writer) error {

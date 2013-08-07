@@ -6,6 +6,10 @@ import (
 	"io"
 )
 
+type HeadRenderer interface {
+	renderer.Renderer
+}
+
 type headRenderer struct {
 	head renderer.Renderer
 }

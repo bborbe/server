@@ -13,8 +13,8 @@ import (
 
 type HtmlRenderer interface {
 	renderer.Renderer
-	SetHead(head renderer.Renderer)
-	SetBody(body renderer.Renderer)
+	SetHead(head renderer.Renderer) HtmlRenderer
+	SetBody(body renderer.Renderer) HtmlRenderer
 }
 
 type htmlRenderer struct {
@@ -35,12 +35,14 @@ func NewHtmlRenderer() *htmlRenderer {
 	return v
 }
 
-func (v *htmlRenderer) SetHead(head renderer.Renderer) {
+func (v *htmlRenderer) SetHead(head renderer.Renderer) HtmlRenderer {
 	v.head.SetRenderer(head)
+	return v
 }
 
-func (v *htmlRenderer) SetBody(body renderer.Renderer) {
+func (v *htmlRenderer) SetBody(body renderer.Renderer) HtmlRenderer {
 	v.body.SetRenderer(body)
+	return v
 }
 
 func (v *htmlRenderer) Render(writer io.Writer) error {

@@ -17,6 +17,10 @@ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga
 })();
 </script>`
 
+type GoogleanalyticsRenderer interface {
+	renderer.Renderer
+}
+
 type googleanalyticsRenderer struct {
 	renderer renderer.Renderer
 }

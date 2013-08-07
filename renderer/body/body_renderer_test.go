@@ -7,10 +7,19 @@ import (
 	"testing"
 )
 
-func TestImplementsRequestHandler(t *testing.T) {
+func TestImplementsRenderer(t *testing.T) {
 	v := NewBodyRenderer()
 	var i (*renderer.Renderer) = nil
-	err := AssertThat(v, Implements(i).Message("check implements view.Renderer"))
+	err := AssertThat(v, Implements(i))
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestImplementsBodyRenderer(t *testing.T) {
+	v := NewBodyRenderer()
+	var i (*BodyRenderer) = nil
+	err := AssertThat(v, Implements(i))
 	if err != nil {
 		t.Fatal(err)
 	}

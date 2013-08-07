@@ -7,9 +7,9 @@ import (
 
 type TagRenderer interface {
 	renderer.Renderer
-	SetAttribute(key, value string)
-	RemoveAttribute(key string)
-	SetContent(renderer renderer.Renderer)
+	SetAttribute(key, value string) TagRenderer
+	RemoveAttribute(key string) TagRenderer
+	SetContent(renderer renderer.Renderer) TagRenderer
 }
 
 type tagRenderer struct {
@@ -25,16 +25,19 @@ func NewTagRenderer(name string) *tagRenderer {
 	return v
 }
 
-func (v *tagRenderer) SetContent(renderer renderer.Renderer) {
+func (v *tagRenderer) SetContent(renderer renderer.Renderer) TagRenderer {
 	v.content = renderer
+	return v
 }
 
-func (v *tagRenderer) SetAttribute(key, value string) {
+func (v *tagRenderer) SetAttribute(key, value string) TagRenderer {
 	v.attributes[key] = value
+	return v
 }
 
-func (v *tagRenderer) RemoveAttribute(key string) {
+func (v *tagRenderer) RemoveAttribute(key string) TagRenderer {
 	delete(v.attributes, key)
+	return v
 }
 
 func (v *tagRenderer) Render(writer io.Writer) error {

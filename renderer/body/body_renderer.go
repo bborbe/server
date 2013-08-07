@@ -8,7 +8,7 @@ import (
 
 type BodyRenderer interface {
 	renderer.Renderer
-	SetContent(renderer renderer.Renderer)
+	SetContent(renderer renderer.Renderer) BodyRenderer
 }
 
 type bodyRenderer struct {
@@ -21,8 +21,9 @@ func NewBodyRenderer() *bodyRenderer {
 	return v
 }
 
-func (v *bodyRenderer) SetContent(renderer renderer.Renderer) {
+func (v *bodyRenderer) SetContent(renderer renderer.Renderer) BodyRenderer {
 	v.renderer.SetContent(renderer)
+	return v
 }
 
 func (v *bodyRenderer) Render(writer io.Writer) error {

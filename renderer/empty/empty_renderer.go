@@ -1,8 +1,13 @@
 package empty
 
 import (
+	"github.com/bborbe/server/renderer"
 	"io"
 )
+
+type EmptyRenderer interface {
+	renderer.Renderer
+}
 
 type emptyRenderer struct {
 }

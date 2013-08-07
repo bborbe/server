@@ -8,10 +8,19 @@ import (
 	"testing"
 )
 
-func TestImplementsRequestHandler(t *testing.T) {
+func TestImplementsRenderer(t *testing.T) {
 	v := NewPlaceholderRenderer()
 	var i (*renderer.Renderer) = nil
-	err := AssertThat(v, Implements(i).Message("check implements view.Renderer"))
+	err := AssertThat(v, Implements(i))
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestImplementsPlaceholderRenderer(t *testing.T) {
+	v := NewPlaceholderRenderer()
+	var i (*PlaceholderRenderer) = nil
+	err := AssertThat(v, Implements(i))
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -1,8 +1,13 @@
 package singletag
 
 import (
+	"github.com/bborbe/server/renderer"
 	"io"
 )
+
+type SingletagRenderer interface {
+	renderer.Renderer
+}
 
 type singletagRenderer struct {
 	name string

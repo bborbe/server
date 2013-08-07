@@ -5,6 +5,11 @@ import (
 	"io"
 )
 
+type ListRenderer interface {
+	renderer.Renderer
+	Add(renderer renderer.Renderer) ListRenderer
+}
+
 type listRenderer struct {
 	list []renderer.Renderer
 }
@@ -15,8 +20,9 @@ func NewListRenderer(list ...renderer.Renderer) *listRenderer {
 	return v
 }
 
-func (v *listRenderer) Add(renderer renderer.Renderer) {
+func (v *listRenderer) Add(renderer renderer.Renderer) ListRenderer {
 	v.list = append(v.list, renderer)
+	return v
 }
 
 func (v *listRenderer) Render(writer io.Writer) error {
