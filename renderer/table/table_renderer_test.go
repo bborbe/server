@@ -4,6 +4,9 @@ import (
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/server/mock"
 	"github.com/bborbe/server/renderer"
+	"github.com/bborbe/server/renderer/content"
+	"github.com/bborbe/server/renderer/tablecell"
+	"github.com/bborbe/server/renderer/tablerow"
 	"testing"
 )
 
@@ -45,4 +48,28 @@ func TestRender(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+}
+
+func TestCompleteTable(t *testing.T) {
+	var err error
+
+	cell := tablecell.NewTablecellRenderer()
+	cell.SetContent(content.NewContentRenderer("hello world"))
+
+	row := tablerow.NewTablerowRenderer()
+	row.AddCell(cell)
+
+	table := NewTableRenderer()
+	table.AddRow(row)
+
+	writer := mock.NewWriter()
+	err = table.Render(writer)
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = AssertThat(string(writer.Content()), Is("<table><tr><td>hello world</td></tr></table>"))
+	if err != nil {
+		t.Fatal(err)
+	}
+
 }

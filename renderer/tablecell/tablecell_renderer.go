@@ -8,6 +8,7 @@ import (
 
 type TablecellRenderer interface {
 	renderer.Renderer
+	SetContent(content renderer.Renderer) TablecellRenderer
 }
 
 type tablecellRenderer struct {
@@ -22,4 +23,9 @@ func NewTablecellRenderer() *tablecellRenderer {
 
 func (v *tablecellRenderer) Render(writer io.Writer) error {
 	return v.renderer.Render(writer)
+}
+
+func (v *tablecellRenderer) SetContent(content renderer.Renderer) TablecellRenderer {
+	v.renderer.SetContent(content)
+	return v
 }
