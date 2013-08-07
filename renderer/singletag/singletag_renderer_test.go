@@ -15,6 +15,7 @@ func TestImplementsRenderer(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
 func TestImplementsSingletagRenderer(t *testing.T) {
 	v := NewSingletagRenderer("mysingletag")
 	var i (*SingletagRenderer) = nil
