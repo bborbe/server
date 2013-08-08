@@ -3,14 +3,13 @@ package tablerow
 import (
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/list"
-	"github.com/bborbe/server/renderer/tablecell"
 	"github.com/bborbe/server/renderer/tag"
 	"io"
 )
 
 type TablerowRenderer interface {
 	renderer.Renderer
-	AddCell(cell tablecell.TablecellRenderer) TablerowRenderer
+	AddCell(renderer renderer.Renderer)
 }
 
 type tablerowRenderer struct {
@@ -32,7 +31,6 @@ func (v *tablerowRenderer) Render(writer io.Writer) error {
 	return v.renderer.Render(writer)
 }
 
-func (v *tablerowRenderer) AddCell(cell tablecell.TablecellRenderer) TablerowRenderer {
-	v.cells.Add(cell)
-	return v
+func (v *tablerowRenderer) AddCell(renderer renderer.Renderer) {
+	v.cells.Add(renderer)
 }

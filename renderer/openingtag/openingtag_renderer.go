@@ -8,10 +8,8 @@ import (
 
 type OpeningtagRenderer interface {
 	renderer.Renderer
-	SetAttribute(key, value string) OpeningtagRenderer
-	RemoveAttribute(key string) OpeningtagRenderer
-	AddClass(class string) OpeningtagRenderer
-	RemoveClass(class string) OpeningtagRenderer
+	renderer.Attribute
+	renderer.Class
 }
 
 type openingtagRenderer struct {
@@ -42,26 +40,22 @@ func (v *openingtagRenderer) GetAttribute(key string) string {
 	return v.attributes[key]
 }
 
-func (v *openingtagRenderer) SetAttribute(key, value string) OpeningtagRenderer {
+func (v *openingtagRenderer) SetAttribute(key, value string) {
 	v.attributes[key] = value
-	return v
 }
 
-func (v *openingtagRenderer) RemoveAttribute(key string) OpeningtagRenderer {
+func (v *openingtagRenderer) RemoveAttribute(key string) {
 	delete(v.attributes, key)
-	return v
 }
 
-func (v *openingtagRenderer) AddClass(class string) OpeningtagRenderer {
+func (v *openingtagRenderer) AddClass(class string) {
 	if len(class) > 0 {
 		v.classes[class] = true
 	}
-	return v
 }
 
-func (v *openingtagRenderer) RemoveClass(class string) OpeningtagRenderer {
+func (v *openingtagRenderer) RemoveClass(class string) {
 	delete(v.classes, class)
-	return v
 }
 
 func (v *openingtagRenderer) generateAttributes() {

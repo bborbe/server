@@ -8,8 +8,8 @@ import (
 
 type TablecellRenderer interface {
 	renderer.Renderer
-	SetContent(content renderer.Renderer) TablecellRenderer
-	AddClass(class string) TablecellRenderer
+	renderer.Class
+	SetContent(content renderer.Renderer)
 }
 
 type tablecellRenderer struct {
@@ -28,12 +28,14 @@ func (v *tablecellRenderer) Render(writer io.Writer) error {
 	return v.renderer.Render(writer)
 }
 
-func (v *tablecellRenderer) SetContent(content renderer.Renderer) TablecellRenderer {
+func (v *tablecellRenderer) SetContent(content renderer.Renderer) {
 	v.renderer.SetContent(content)
-	return v
 }
 
-func (v *tablecellRenderer) AddClass(class string) TablecellRenderer {
+func (v *tablecellRenderer) AddClass(class string) {
 	v.renderer.AddClass(class)
-	return v
+}
+
+func (v *tablecellRenderer) RemoveClass(class string) {
+	v.renderer.RemoveClass(class)
 }
