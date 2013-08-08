@@ -10,7 +10,8 @@ import (
 
 type TableRenderer interface {
 	renderer.Renderer
-	AddRow(row tablerow.TablerowRenderer) TableRenderer
+	renderer.Attribute
+	AddRow(row tablerow.TablerowRenderer)
 }
 
 type tableRenderer struct {
@@ -32,7 +33,14 @@ func (v *tableRenderer) Render(writer io.Writer) error {
 	return v.renderer.Render(writer)
 }
 
-func (v *tableRenderer) AddRow(tablerow tablerow.TablerowRenderer) TableRenderer {
+func (v *tableRenderer) AddRow(tablerow tablerow.TablerowRenderer) {
 	v.rows.Add(tablerow)
-	return v
+}
+
+func (v *tableRenderer) SetAttribute(key, value string) {
+	v.renderer.SetAttribute(key, value)
+}
+
+func (v *tableRenderer) RemoveAttribute(key string) {
+	v.renderer.RemoveAttribute(key)
 }
