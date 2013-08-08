@@ -8,7 +8,7 @@ import (
 )
 
 func TestImplementsRenderer(t *testing.T) {
-	v := NewContentRenderer("mycontent")
+	v := NewContentRenderer()
 	var i (*renderer.Renderer) = nil
 	err := AssertThat(v, Implements(i))
 	if err != nil {
@@ -17,7 +17,7 @@ func TestImplementsRenderer(t *testing.T) {
 }
 
 func TestImplementsContentRenderer(t *testing.T) {
-	v := NewContentRenderer("mycontent")
+	v := NewContentRenderer()
 	var i (*ContentRenderer) = nil
 	err := AssertThat(v, Implements(i))
 	if err != nil {
@@ -27,7 +27,8 @@ func TestImplementsContentRenderer(t *testing.T) {
 
 func TestRender(t *testing.T) {
 	var err error
-	v := NewContentRenderer("mycontent")
+	v := NewContentRenderer()
+	v.SetContent("mycontent")
 	writer := mock.NewWriter()
 	err = v.Render(writer)
 	if err != nil {

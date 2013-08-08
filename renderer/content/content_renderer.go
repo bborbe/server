@@ -7,14 +7,14 @@ import (
 
 type ContentRenderer interface {
 	renderer.Renderer
+	SetContent(content string)
 }
 type contentRenderer struct {
 	content string
 }
 
-func NewContentRenderer(content string) *contentRenderer {
+func NewContentRenderer() *contentRenderer {
 	v := new(contentRenderer)
-	v.content = content
 	return v
 }
 
@@ -25,4 +25,8 @@ func (v *contentRenderer) Render(writer io.Writer) error {
 		return err
 	}
 	return err
+}
+
+func (v *contentRenderer) SetContent(content string) {
+	v.content = content
 }

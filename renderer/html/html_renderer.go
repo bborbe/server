@@ -31,7 +31,9 @@ func NewHtmlRenderer() *htmlRenderer {
 	v.body.SetRenderer(body.NewBodyRenderer())
 	html := tag.NewTagRenderer("html")
 	html.SetContent(list.NewListRenderer(v.head, v.body))
-	v.renderer = list.NewListRenderer(content.NewContentRenderer("<!doctype html>\n"), html)
+	contentRenderer := content.NewContentRenderer()
+	contentRenderer.SetContent("<!doctype html>\n")
+	v.renderer = list.NewListRenderer(contentRenderer, html)
 	return v
 }
 

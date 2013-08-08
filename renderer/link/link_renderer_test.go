@@ -47,7 +47,9 @@ func TestRender(t *testing.T) {
 	var err error
 	v := NewLinkRenderer()
 	v.SetHref("/links")
-	v.SetContent(content.NewContentRenderer("foo bar"))
+	contentRenderer := content.NewContentRenderer()
+	contentRenderer.SetContent("foo bar")
+	v.SetContent(contentRenderer)
 	writer := mock.NewWriter()
 	err = v.Render(writer)
 	if err != nil {

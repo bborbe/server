@@ -54,7 +54,9 @@ func TestCompleteTable(t *testing.T) {
 	var err error
 
 	cell := tablecell.NewTablecellRenderer()
-	cell.SetContent(content.NewContentRenderer("hello world"))
+	contentRenderer := content.NewContentRenderer()
+	contentRenderer.SetContent("hello world")
+	cell.SetContent(contentRenderer)
 
 	row := tablerow.NewTablerowRenderer()
 	row.AddCell(cell)
