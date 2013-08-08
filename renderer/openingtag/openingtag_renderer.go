@@ -3,6 +3,7 @@ package openingtag
 import (
 	"github.com/bborbe/server/renderer"
 	"io"
+	"sort"
 	"strings"
 )
 
@@ -71,6 +72,7 @@ func (v *openingtagRenderer) generateAttributes() {
 			classes[pos] = k
 			pos++
 		}
+		sort.Strings(classes)
 		v.SetAttribute("class", strings.Join(classes, " "))
 	} else {
 		v.RemoveAttribute("class")

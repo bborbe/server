@@ -60,3 +60,24 @@ func TestAddClass(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestAddClassSorted(t *testing.T) {
+	var err error
+	r := NewCloseRenderer("div")
+	writer := mock.NewWriter()
+	r.AddClass("c")
+	r.AddClass("a")
+	r.AddClass("b")
+	err = r.Render(writer)
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = AssertThat(len(writer.Content()), Gt(0))
+	if err != nil {
+		t.Fatal(err)
+	}
+	err = AssertThat(string(writer.Content()), Contains("<div class=\"a b c\"/>"))
+	if err != nil {
+		t.Fatal(err)
+	}
+}
