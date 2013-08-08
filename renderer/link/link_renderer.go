@@ -8,6 +8,7 @@ import (
 
 type LinkRenderer interface {
 	renderer.Renderer
+	renderer.Attribute
 	SetHref(href string) LinkRenderer
 	SetContent(content renderer.Renderer) LinkRenderer
 }
@@ -34,4 +35,12 @@ func (v *linkRenderer) SetContent(content renderer.Renderer) LinkRenderer {
 
 func (v *linkRenderer) Render(writer io.Writer) error {
 	return v.renderer.Render(writer)
+}
+
+func (v *linkRenderer) SetAttribute(key, value string) {
+	v.renderer.SetAttribute(key, value)
+}
+
+func (v *linkRenderer) RemoveAttribute(key string) {
+	v.renderer.RemoveAttribute(key)
 }

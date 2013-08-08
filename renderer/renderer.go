@@ -20,3 +20,8 @@ type RendererWithClass interface {
 	Renderer
 	Class
 }
+
+type RendererWithAttribute interface {
+	Renderer
+	Attribute
+}

@@ -8,8 +8,8 @@ import (
 
 type SingletagRenderer interface {
 	renderer.Renderer
-	SetAttribute(key, value string) SingletagRenderer
-	RemoveAttribute(key string) SingletagRenderer
+	renderer.Attribute
+	renderer.Class
 }
 
 type singletagRenderer struct {
@@ -27,12 +27,17 @@ func (v *singletagRenderer) Render(writer io.Writer) error {
 	return v.openingtagRenderer.Render(writer)
 }
 
-func (v *singletagRenderer) SetAttribute(key, value string) SingletagRenderer {
+func (v *singletagRenderer) SetAttribute(key, value string) {
 	v.openingtagRenderer.SetAttribute(key, value)
-	return v
 }
 
-func (v *singletagRenderer) RemoveAttribute(key string) SingletagRenderer {
+func (v *singletagRenderer) RemoveAttribute(key string) {
 	v.openingtagRenderer.RemoveAttribute(key)
-	return v
+}
+func (v *singletagRenderer) AddClass(class string) {
+	v.openingtagRenderer.AddClass(class)
+}
+
+func (v *singletagRenderer) RemoveClass(class string) {
+	v.openingtagRenderer.RemoveClass(class)
 }
