@@ -1,6 +1,7 @@
 package part
 
 import (
+	"github.com/bborbe/log"
 	"net/http"
 	"strings"
 )
@@ -9,6 +10,8 @@ type handlerFinderPart struct {
 	prefix  string
 	handler map[string]http.Handler
 }
+
+var logger = log.DefaultLogger
 
 func NewHandlerFinderPart(prefix string) *handlerFinderPart {
 	h := new(handlerFinderPart)
@@ -23,6 +26,7 @@ func (h *handlerFinderPart) RegisterHandler(part string, handler http.Handler) {
 
 func (h *handlerFinderPart) FindHandler(request *http.Request) http.Handler {
 	rest := request.RequestURI[len(h.prefix):]
+	logger.Tracef("requestUri: %s prefix: %s => rest: %s", request.RequestURI, h.prefix, rest)
 	if len(rest) == 0 {
 		return h.handler[rest]
 	}
