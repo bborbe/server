@@ -28,7 +28,7 @@ type googleanalyticsRenderer struct {
 func NewGoogleanalyticsRenderer() *googleanalyticsRenderer {
 	v := new(googleanalyticsRenderer)
 	contentRenderer := content.NewContentRenderer()
-	contentRenderer.SetContent(CONTENT)
+	contentRenderer.SetContentString(CONTENT)
 	v.renderer = contentRenderer
 	return v
 }

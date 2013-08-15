@@ -52,7 +52,7 @@ func TestSetContent(t *testing.T) {
 	var err error
 	v := NewTablecellRenderer()
 	contentRenderer := content.NewContentRenderer()
-	contentRenderer.SetContent("hello world")
+	contentRenderer.SetContentString("hello world")
 	v.SetContent(contentRenderer)
 	writer := mock.NewWriter()
 	err = v.Render(writer)

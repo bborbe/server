@@ -7,10 +7,12 @@ import (
 
 type ContentRenderer interface {
 	renderer.Renderer
-	SetContent(content string)
+	SetContent(content []byte)
+	SetContentString(content string)
 }
+
 type contentRenderer struct {
-	content string
+	content []byte
 }
 
 func NewContentRenderer() *contentRenderer {
@@ -20,13 +22,17 @@ func NewContentRenderer() *contentRenderer {
 
 func (v *contentRenderer) Render(writer io.Writer) error {
 	var err error
-	_, err = writer.Write([]byte(v.content))
+	_, err = writer.Write(v.content)
 	if err != nil {
 		return err
 	}
 	return err
 }
 
-func (v *contentRenderer) SetContent(content string) {
+func (v *contentRenderer) SetContentString(content string) {
+	v.SetContent([]byte(content))
+}
+
+func (v *contentRenderer) SetContent(content []byte) {
 	v.content = content
 }

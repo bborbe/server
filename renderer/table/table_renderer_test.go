@@ -55,7 +55,7 @@ func TestCompleteTable(t *testing.T) {
 
 	cell := tablecell.NewTablecellRenderer()
 	contentRenderer := content.NewContentRenderer()
-	contentRenderer.SetContent("hello world")
+	contentRenderer.SetContentString("hello world")
 	cell.SetContent(contentRenderer)
 
 	row := tablerow.NewTablerowRenderer()

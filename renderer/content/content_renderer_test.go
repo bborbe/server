@@ -28,7 +28,7 @@ func TestImplementsContentRenderer(t *testing.T) {
 func TestRender(t *testing.T) {
 	var err error
 	v := NewContentRenderer()
-	v.SetContent("mycontent")
+	v.SetContentString("mycontent")
 	writer := mock.NewWriter()
 	err = v.Render(writer)
 	if err != nil {

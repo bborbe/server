@@ -48,7 +48,7 @@ func TestRender(t *testing.T) {
 	v := NewLinkRenderer()
 	v.SetHref("/links")
 	contentRenderer := content.NewContentRenderer()
-	contentRenderer.SetContent("foo bar")
+	contentRenderer.SetContentString("foo bar")
 	v.SetContent(contentRenderer)
 	writer := mock.NewWriter()
 	err = v.Render(writer)
