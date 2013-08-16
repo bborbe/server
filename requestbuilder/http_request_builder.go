@@ -33,10 +33,29 @@ func (r *httpRequestBuilder) AddParameter(key string, values ...string) {
 }
 
 func (r *httpRequestBuilder) GetResponse() (*http.Response, error) {
-	req, err := http.NewRequest(r.method, r.url, nil)
+	req, err := http.NewRequest(r.method, r.getUrlWithParameter(), nil)
 	if err != nil {
 		return nil, err
 	}
 	req.Header = r.header
 	return http.DefaultClient.Do(req)
+}
+
+func (r *httpRequestBuilder) getUrlWithParameter() string {
+	result := r.url
+	first := true
+	for key, values := range r.parameter {
+		for _, value := range values {
+			if first {
+				first = false
+				result += "?"
+			} else {
+				result += "&"
+			}
+			result += key
+			result += "="
+			result += value
+		}
+	}
+	return result
 }
