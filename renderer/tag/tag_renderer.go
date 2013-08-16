@@ -8,11 +8,11 @@ import (
 
 type TagRenderer interface {
 	renderer.Renderer
-	SetContent(renderer renderer.Renderer) TagRenderer
-	SetAttribute(key, value string) TagRenderer
-	RemoveAttribute(key string) TagRenderer
-	AddClass(class string) TagRenderer
-	RemoveClass(class string) TagRenderer
+	SetContent(renderer renderer.Renderer)
+	SetAttribute(key, value string)
+	RemoveAttribute(key string)
+	AddClass(class string)
+	RemoveClass(class string)
 }
 
 type tagRenderer struct {
@@ -28,19 +28,16 @@ func NewTagRenderer(name string) *tagRenderer {
 	return v
 }
 
-func (v *tagRenderer) SetContent(renderer renderer.Renderer) TagRenderer {
+func (v *tagRenderer) SetContent(renderer renderer.Renderer) {
 	v.content = renderer
-	return v
 }
 
-func (v *tagRenderer) SetAttribute(key, value string) TagRenderer {
+func (v *tagRenderer) SetAttribute(key, value string) {
 	v.openingtagRenderer.SetAttribute(key, value)
-	return v
 }
 
-func (v *tagRenderer) RemoveAttribute(key string) TagRenderer {
+func (v *tagRenderer) RemoveAttribute(key string) {
 	v.openingtagRenderer.RemoveAttribute(key)
-	return v
 }
 
 func (v *tagRenderer) Render(writer io.Writer) error {
@@ -70,12 +67,10 @@ func (v *tagRenderer) Render(writer io.Writer) error {
 	return err
 }
 
-func (v *tagRenderer) AddClass(class string) TagRenderer {
+func (v *tagRenderer) AddClass(class string) {
 	v.openingtagRenderer.AddClass(class)
-	return v
 }
 
-func (v *tagRenderer) RemoveClass(class string) TagRenderer {
+func (v *tagRenderer) RemoveClass(class string) {
 	v.openingtagRenderer.RemoveClass(class)
-	return v
 }
