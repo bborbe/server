@@ -31,11 +31,8 @@ func NewBaseHandler(viewRendererProvider ViewRendererProvider, failureRendererPr
 func (m *baseHandler) ServeHTTP(responseWriter http.ResponseWriter, request *http.Request) {
 	v, err := m.viewRendererProvider.GetViewRenderer(request)
 	if err != nil {
-		responseWriter.WriteHeader(http.StatusInternalServerError)
 		logger.Errorf("getView failed: %v", err)
 		v = m.failureRendererProvider.GetFailureRenderer(err)
-	} else {
-		responseWriter.WriteHeader(http.StatusOK)
 	}
 	err = v.Render(responseWriter)
 	if err != nil {
