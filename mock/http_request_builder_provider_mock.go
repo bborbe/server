@@ -18,11 +18,11 @@ func NewHttpRequestBuilderProviderMock() *httpRequestBuilderProviderMock {
 }
 
 func (p *httpRequestBuilderProviderMock) NewHttpRequestBuilder(url string) requestbuilder.HttpRequestBuilder {
-	logger.Debugf("NewHttpRequestBuilder url: %s", url)
+	logger.Debugf("httpRequestBuilderProviderMock.NewHttpRequestBuilder url: %s", url)
 	return p.builder[url]
 }
 
 func (p *httpRequestBuilderProviderMock) Register(url string, requestbuilder requestbuilder.HttpRequestBuilder) {
-	logger.Debugf("Register url: %s rb: %v", url, requestbuilder)
+	logger.Debugf("httpRequestBuilderProviderMock.Register url: %s rb: %v", url, requestbuilder)
 	p.builder[url] = requestbuilder
 }

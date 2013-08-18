@@ -2,16 +2,16 @@ package base
 
 import (
 	"github.com/bborbe/log"
-	"github.com/bborbe/server/renderer"
+	"github.com/bborbe/www/view"
 	"net/http"
 )
 
 type ViewRendererProvider interface {
-	GetViewRenderer(request *http.Request) (renderer.Renderer, error)
+	GetViewRenderer(request *http.Request) (view.View, error)
 }
 
 type FailureRendererProvider interface {
-	GetFailureRenderer(err error) renderer.Renderer
+	GetFailureRenderer(err error) view.View
 }
 
 var logger = log.DefaultLogger
