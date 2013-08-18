@@ -1,4 +1,4 @@
-package static
+package fallback
 
 import (
 	. "github.com/bborbe/assert"
@@ -7,7 +7,7 @@ import (
 )
 
 func TestImplementsHandler(t *testing.T) {
-	r := NewHandlerStaticContent("hello")
+	r := NewFallback(nil, nil)
 	var i *http.Handler
 	err := AssertThat(r, Implements(i))
 	if err != nil {
