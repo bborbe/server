@@ -2,7 +2,7 @@ package base
 
 import (
 	"github.com/bborbe/log"
-	"github.com/bborbe/www/view"
+	"github.com/bborbe/server/view"
 	"net/http"
 )
 
