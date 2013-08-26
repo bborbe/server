@@ -90,7 +90,14 @@ func (v *openingtagRenderer) Render(writer io.Writer) error {
 		return err
 	}
 	v.generateAttributes()
-	for k, v := range v.attributes {
+
+	var attributes []string
+	for k := range v.attributes {
+		attributes = append(attributes, k)
+	}
+	sort.Strings(attributes)
+	for _, k := range attributes {
+		v := v.attributes[k]
 		_, err = writer.Write([]byte(" "))
 		if err != nil {
 			return err

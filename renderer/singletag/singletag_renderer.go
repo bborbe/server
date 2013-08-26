@@ -34,6 +34,7 @@ func (v *singletagRenderer) SetAttribute(key, value string) {
 func (v *singletagRenderer) RemoveAttribute(key string) {
 	v.openingtagRenderer.RemoveAttribute(key)
 }
+
 func (v *singletagRenderer) AddClass(class string) {
 	v.openingtagRenderer.AddClass(class)
 }
