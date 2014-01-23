@@ -23,6 +23,7 @@ func (m *jsonHandler) ServeHTTP(responseWriter http.ResponseWriter, request *htt
 	logger.Debug("write json")
 	b, err := json.Marshal(m.m)
 	if err != nil {
+		logger.Debugf("Marshal json failed: %v", err)
 		e := error.NewErrorMessage(http.StatusInternalServerError, err.Error())
 		e.ServeHTTP(responseWriter, request)
 		return
