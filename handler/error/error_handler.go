@@ -27,8 +27,11 @@ func NewErrorMessage(status int, message string) *object {
 func (o *object) ServeHTTP(responseWriter http.ResponseWriter, request *http.Request) {
 	logger.Debug("handle error")
 	r := failure.NewFailureRendererMessage(o.status, o.message)
+	logger.Debugf("set status: %d", o.status)
 	responseWriter.WriteHeader(o.status)
 	responseWriter.Header().Set("Content-Type", "application/json")
 	err := r.Render(responseWriter)
-	logger.Warnf("render failureRenderer failed! %v", err)
+	if err != nil {
+		logger.Warnf("render failureRenderer failed! %v", err)
+	}
 }

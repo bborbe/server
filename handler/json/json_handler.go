@@ -2,9 +2,12 @@ package json
 
 import (
 	"encoding/json"
+	"github.com/bborbe/log"
 	"github.com/bborbe/server/handler/error"
 	"net/http"
 )
+
+var logger = log.DefaultLogger
 
 type jsonHandler struct {
 	m interface{}
@@ -17,6 +20,7 @@ func NewJsonHandler(m interface{}) *jsonHandler {
 }
 
 func (m *jsonHandler) ServeHTTP(responseWriter http.ResponseWriter, request *http.Request) {
+	logger.Debug("write json")
 	b, err := json.Marshal(m.m)
 	if err != nil {
 		e := error.NewErrorMessage(http.StatusInternalServerError, err.Error())
