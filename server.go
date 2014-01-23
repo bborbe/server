@@ -4,6 +4,7 @@ import (
 	"errors"
 	"net"
 	"net/http"
+	"strconv"
 )
 
 type Server interface {
@@ -17,6 +18,11 @@ type server struct {
 	listener net.Listener
 	handler  http.Handler
 	done     chan bool
+}
+
+func NewServerPort(port int, handler http.Handler) *server {
+	addr := "0.0.0.0:" + strconv.Itoa(port)
+	return NewServer(addr, handler)
 }
 
 func NewServer(addr string, handler http.Handler) *server {
