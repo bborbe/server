@@ -8,6 +8,11 @@ Documentation
 
 http://godoc.org/github.com/bborbe/server
 
+Continuous integration
+----------------------
+
+http://jenkins.benjamin-borbe.de/job/Go-Server/
+
 Copyright and license
 ---------------------
 
