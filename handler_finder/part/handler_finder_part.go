@@ -1,9 +1,10 @@
 package part
 
 import (
-	"github.com/bborbe/log"
 	"net/http"
 	"strings"
+
+	"github.com/bborbe/log"
 )
 
 type handlerFinderPart struct {

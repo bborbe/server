@@ -1,9 +1,10 @@
 package link
 
 import (
+	"io"
+
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/tag"
-	"io"
 )
 
 type LinkRenderer interface {

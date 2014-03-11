@@ -2,9 +2,10 @@ package json
 
 import (
 	"encoding/json"
+	"net/http"
+
 	"github.com/bborbe/log"
 	"github.com/bborbe/server/handler/error"
-	"net/http"
 )
 
 var logger = log.DefaultLogger

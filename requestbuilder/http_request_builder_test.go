@@ -1,10 +1,10 @@
 package requestbuilder
 
 import (
-	. "github.com/bborbe/assert"
 	"io/ioutil"
 	"net/http"
 	"testing"
+	. "github.com/bborbe/assert"
 )
 
 func TestImplementsHttpRequestBuilder(t *testing.T) {

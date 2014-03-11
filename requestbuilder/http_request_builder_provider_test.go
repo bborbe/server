@@ -1,8 +1,8 @@
 package requestbuilder
 
 import (
-	. "github.com/bborbe/assert"
 	"testing"
+	. "github.com/bborbe/assert"
 )
 
 func TestImplementsNewHttpRequestBuilderProvider(t *testing.T) {

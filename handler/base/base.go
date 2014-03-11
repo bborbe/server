@@ -1,9 +1,10 @@
 package base
 
 import (
+	"net/http"
+
 	"github.com/bborbe/log"
 	"github.com/bborbe/server/view"
-	"net/http"
 )
 
 type ViewRendererProvider interface {

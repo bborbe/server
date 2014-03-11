@@ -1,6 +1,8 @@
 package html
 
 import (
+	"io"
+
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/body"
 	"github.com/bborbe/server/renderer/content"
@@ -8,7 +10,6 @@ import (
 	"github.com/bborbe/server/renderer/list"
 	"github.com/bborbe/server/renderer/placeholder"
 	"github.com/bborbe/server/renderer/tag"
-	"io"
 )
 
 type HtmlRenderer interface {

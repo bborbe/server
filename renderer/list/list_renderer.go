@@ -1,8 +1,9 @@
 package list
 
 import (
-	"github.com/bborbe/server/renderer"
 	"io"
+
+	"github.com/bborbe/server/renderer"
 )
 
 type ListRenderer interface {

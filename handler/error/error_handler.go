@@ -1,9 +1,10 @@
 package error
 
 import (
+	"net/http"
+
 	"github.com/bborbe/log"
 	"github.com/bborbe/server/renderer/failure"
-	"net/http"
 )
 
 var logger = log.DefaultLogger

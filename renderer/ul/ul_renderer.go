@@ -1,11 +1,12 @@
 package ul
 
 import (
+	"io"
+
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/li"
 	"github.com/bborbe/server/renderer/list"
 	"github.com/bborbe/server/renderer/tag"
-	"io"
 )
 
 type UlRenderer interface {

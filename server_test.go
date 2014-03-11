@@ -1,11 +1,11 @@
 package server
 
 import (
-	. "github.com/bborbe/assert"
 	"io/ioutil"
 	"net/http"
 	"strconv"
 	"testing"
+	. "github.com/bborbe/assert"
 )
 
 func TestImplementsServer(t *testing.T) {

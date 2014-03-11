@@ -1,8 +1,8 @@
 package mock
 
 import (
-	. "github.com/bborbe/assert"
 	"testing"
+	. "github.com/bborbe/assert"
 )
 
 func TestNewHttpRequestMock(t *testing.T) {

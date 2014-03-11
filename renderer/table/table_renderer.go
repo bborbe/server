@@ -1,11 +1,12 @@
 package table
 
 import (
+	"io"
+
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/list"
 	"github.com/bborbe/server/renderer/tablerow"
 	"github.com/bborbe/server/renderer/tag"
-	"io"
 )
 
 type TableRenderer interface {

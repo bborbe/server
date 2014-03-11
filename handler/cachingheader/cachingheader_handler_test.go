@@ -1,9 +1,9 @@
 package cachingheader
 
 import (
-	. "github.com/bborbe/assert"
 	"net/http"
 	"testing"
+	. "github.com/bborbe/assert"
 )
 
 func TestImplementsHandler(t *testing.T) {

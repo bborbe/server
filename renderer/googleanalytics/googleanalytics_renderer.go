@@ -1,9 +1,10 @@
 package googleanalytics
 
 import (
+	"io"
+
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/content"
-	"io"
 )
 
 const CONTENT string = `<script language="javascript" type="text/javascript">

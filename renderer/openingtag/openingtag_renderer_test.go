@@ -1,9 +1,9 @@
 package openingtag
 
 import (
+	"testing"
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/server/mock"
-	"testing"
 )
 
 func TestNewOpenRenderer(t *testing.T) {

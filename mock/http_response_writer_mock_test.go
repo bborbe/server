@@ -1,9 +1,9 @@
 package mock
 
 import (
-	. "github.com/bborbe/assert"
 	"net/http"
 	"testing"
+	. "github.com/bborbe/assert"
 )
 
 func TestNewHttpResponseWriterMock(t *testing.T) {

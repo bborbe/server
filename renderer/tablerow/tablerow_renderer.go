@@ -1,10 +1,11 @@
 package tablerow
 
 import (
+	"io"
+
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/list"
 	"github.com/bborbe/server/renderer/tag"
-	"io"
 )
 
 type TablerowRenderer interface {

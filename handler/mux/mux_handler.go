@@ -1,8 +1,9 @@
 package mux
 
 import (
-	"github.com/bborbe/server/handler_finder"
 	"net/http"
+
+	"github.com/bborbe/server/handler_finder"
 )
 
 type muxHandler struct {

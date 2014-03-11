@@ -1,11 +1,11 @@
 package failure
 
 import (
+	"net/http"
+	"testing"
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/server/mock"
 	"github.com/bborbe/server/renderer"
-	"net/http"
-	"testing"
 )
 
 func TestImplementsRenderer(t *testing.T) {

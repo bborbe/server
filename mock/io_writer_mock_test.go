@@ -1,9 +1,9 @@
 package mock
 
 import (
-	. "github.com/bborbe/assert"
 	"io"
 	"testing"
+	. "github.com/bborbe/assert"
 )
 
 func TestImplementsIoWriter(t *testing.T) {

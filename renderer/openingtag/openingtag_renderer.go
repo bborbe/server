@@ -1,10 +1,11 @@
 package openingtag
 
 import (
-	"github.com/bborbe/server/renderer"
 	"io"
 	"sort"
 	"strings"
+
+	"github.com/bborbe/server/renderer"
 )
 
 type OpeningtagRenderer interface {

@@ -1,10 +1,10 @@
 package error
 
 import (
-	. "github.com/bborbe/assert"
-	"github.com/bborbe/server/mock"
 	"net/http"
 	"testing"
+	. "github.com/bborbe/assert"
+	"github.com/bborbe/server/mock"
 )
 
 func TestImplementsRequestHandler(t *testing.T) {

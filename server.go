@@ -4,12 +4,14 @@ import (
 	"errors"
 	"net"
 	"net/http"
-	"strconv"
-	"github.com/bborbe/log"
 	"os"
 	"os/signal"
+	"strconv"
 	"syscall"
+
+	"github.com/bborbe/log"
 )
+
 var logger = log.DefaultLogger
 
 type Server interface {
@@ -68,8 +70,7 @@ func (s *server) Stop() error {
 	return l.Close()
 }
 
-
-func  (s *server) Run() {
+func (s *server) Run() {
 	defer logger.Close()
 	{
 		err := s.Start()

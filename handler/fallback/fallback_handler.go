@@ -1,9 +1,10 @@
 package fallback
 
 import (
+	"net/http"
+
 	"github.com/bborbe/log"
 	"github.com/bborbe/server/handler_finder"
-	"net/http"
 )
 
 type fallback struct {

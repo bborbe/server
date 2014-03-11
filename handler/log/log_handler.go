@@ -1,9 +1,10 @@
 package log
 
 import (
-	"github.com/bborbe/log"
 	"net/http"
 	"time"
+
+	"github.com/bborbe/log"
 )
 
 var logger = log.DefaultLogger

@@ -1,13 +1,13 @@
 package table
 
 import (
+	"testing"
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/server/mock"
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/content"
 	"github.com/bborbe/server/renderer/tablecell"
 	"github.com/bborbe/server/renderer/tablerow"
-	"testing"
 )
 
 func TestImplementsRenderer(t *testing.T) {

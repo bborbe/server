@@ -1,11 +1,11 @@
 package ul
 
 import (
+	"testing"
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/server/mock"
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/li"
-	"testing"
 )
 
 func TestImplementsRenderer(t *testing.T) {

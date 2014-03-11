@@ -1,10 +1,10 @@
 package mock
 
 import (
-	. "github.com/bborbe/assert"
 	"io"
 	"io/ioutil"
 	"testing"
+	. "github.com/bborbe/assert"
 )
 
 func TestNewReadCloserString(t *testing.T) {

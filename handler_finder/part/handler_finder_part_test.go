@@ -1,11 +1,11 @@
 package part
 
 import (
+	"testing"
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/server/handler/static"
 	"github.com/bborbe/server/handler_finder"
 	"github.com/bborbe/server/mock"
-	"testing"
 )
 
 func TestImplementsHandlerFinder(t *testing.T) {

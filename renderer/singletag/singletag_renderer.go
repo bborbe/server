@@ -1,9 +1,10 @@
 package singletag
 
 import (
+	"io"
+
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/openingtag"
-	"io"
 )
 
 type SingletagRenderer interface {

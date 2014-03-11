@@ -1,9 +1,9 @@
 package mock
 
 import (
+	"testing"
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/server/requestbuilder"
-	"testing"
 )
 
 func TestImplementsHttpRequestBuilder(t *testing.T) {

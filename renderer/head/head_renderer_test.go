@@ -1,10 +1,10 @@
 package head
 
 import (
+	"testing"
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/server/mock"
 	"github.com/bborbe/server/renderer"
-	"testing"
 )
 
 func TestImplementsRenderer(t *testing.T) {

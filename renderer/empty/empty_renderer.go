@@ -1,8 +1,9 @@
 package empty
 
 import (
-	"github.com/bborbe/server/renderer"
 	"io"
+
+	"github.com/bborbe/server/renderer"
 )
 
 type EmptyRenderer interface {
