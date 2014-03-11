@@ -5,12 +5,18 @@ import (
 	"net"
 	"net/http"
 	"strconv"
+	"github.com/bborbe/log"
+	"os"
+	"os/signal"
+	"syscall"
 )
+var logger = log.DefaultLogger
 
 type Server interface {
 	Start() error
 	Stop() error
 	Wait()
+	Run()
 }
 
 type server struct {
@@ -60,4 +66,33 @@ func (s *server) Stop() error {
 	l := s.listener
 	s.listener = nil
 	return l.Close()
+}
+
+
+func  (s *server) Run() {
+	defer logger.Close()
+	{
+		err := s.Start()
+		if err != nil {
+			logger.Errorf("start server failed, %v", err)
+			return
+		}
+	}
+
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt)
+	signal.Notify(c, syscall.SIGTERM)
+	go func() {
+		<-c
+		err := s.Stop()
+		if err != nil {
+			logger.Errorf("stop server failed, %v", err)
+			return
+		}
+		logger.Debug("server finished")
+		logger.Close()
+		os.Exit(0)
+	}()
+
+	s.Wait()
 }
