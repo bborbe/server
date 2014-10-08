@@ -3,7 +3,7 @@ package singletag
 import (
 	"testing"
 	. "github.com/bborbe/assert"
-	"github.com/bborbe/server/mock"
+	"github.com/bborbe/io"
 	"github.com/bborbe/server/renderer"
 )
 
@@ -28,7 +28,7 @@ func TestImplementsSingletagRenderer(t *testing.T) {
 func TestRender(t *testing.T) {
 	var err error
 	v := NewSingletagRenderer("mysingletag")
-	writer := mock.NewWriter()
+	writer := io.NewWriter()
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)

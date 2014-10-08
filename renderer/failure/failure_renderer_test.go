@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"testing"
 	. "github.com/bborbe/assert"
-	"github.com/bborbe/server/mock"
+	"github.com/bborbe/io"
 	"github.com/bborbe/server/renderer"
 )
 
@@ -19,7 +19,7 @@ func TestImplementsRenderer(t *testing.T) {
 
 func TestNewFailureRenderer(t *testing.T) {
 	r := NewFailureRenderer(http.StatusInternalServerError)
-	writer := mock.NewWriter()
+	writer := io.NewWriter()
 	err := r.Render(writer)
 	if err != nil {
 		t.Fatal(err)
@@ -32,7 +32,7 @@ func TestNewFailureRenderer(t *testing.T) {
 
 func TestNewFailureRendererMessage(t *testing.T) {
 	r := NewFailureRendererMessage(http.StatusInternalServerError, "foo bar")
-	writer := mock.NewWriter()
+	writer := io.NewWriter()
 	err := r.Render(writer)
 	if err != nil {
 		t.Fatal(err)

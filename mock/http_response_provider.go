@@ -1,6 +1,10 @@
 package mock
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/bborbe/io"
+)
 
 type ResponseProvider interface {
 	GetResponse() *http.Response
@@ -24,7 +28,7 @@ func NewResponseProvider(status int, content string, err error) *responseProvide
 func (p *responseProvider) GetResponse() *http.Response {
 	response := new(http.Response)
 	response.StatusCode = p.status
-	response.Body = NewReadCloserString(p.content)
+	response.Body = io.NewReadCloserString(p.content)
 	return response
 }
 

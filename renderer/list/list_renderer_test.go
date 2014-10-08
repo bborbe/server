@@ -3,7 +3,7 @@ package list
 import (
 	"testing"
 	. "github.com/bborbe/assert"
-	"github.com/bborbe/server/mock"
+	"github.com/bborbe/io"
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/singletag"
 )
@@ -28,7 +28,7 @@ func TestImplementsListRenderer(t *testing.T) {
 func TestRenderEmpty(t *testing.T) {
 	var err error
 	v := NewListRenderer()
-	writer := mock.NewWriter()
+	writer := io.NewWriter()
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
@@ -42,7 +42,7 @@ func TestRenderEmpty(t *testing.T) {
 func TestRenderOne(t *testing.T) {
 	var err error
 	v := NewListRenderer(singletag.NewSingletagRenderer("br"))
-	writer := mock.NewWriter()
+	writer := io.NewWriter()
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
@@ -60,7 +60,7 @@ func TestRenderOne(t *testing.T) {
 func TestRenderTwo(t *testing.T) {
 	var err error
 	v := NewListRenderer(singletag.NewSingletagRenderer("br"), singletag.NewSingletagRenderer("hr"))
-	writer := mock.NewWriter()
+	writer := io.NewWriter()
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)

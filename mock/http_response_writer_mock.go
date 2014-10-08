@@ -1,17 +1,21 @@
 package mock
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/bborbe/io"
+)
 
 type responseWriterMock struct {
 	status int
-	writer *writer
+	writer io.WriterContent
 	header http.Header
 }
 
 func NewHttpResponseWriterMock() *responseWriterMock {
 	r := new(responseWriterMock)
 	r.header = make(http.Header)
-	r.writer = NewWriter()
+	r.writer = io.NewWriter()
 	return r
 }
 

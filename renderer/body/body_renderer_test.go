@@ -3,7 +3,7 @@ package body
 import (
 	"testing"
 	. "github.com/bborbe/assert"
-	"github.com/bborbe/server/mock"
+	"github.com/bborbe/io"
 	"github.com/bborbe/server/renderer"
 )
 
@@ -28,7 +28,7 @@ func TestImplementsBodyRenderer(t *testing.T) {
 func TestRender(t *testing.T) {
 	var err error
 	v := NewBodyRenderer()
-	writer := mock.NewWriter()
+	writer := io.NewWriter()
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)

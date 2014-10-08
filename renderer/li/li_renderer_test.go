@@ -3,7 +3,7 @@ package li
 import (
 	"testing"
 	. "github.com/bborbe/assert"
-	"github.com/bborbe/server/mock"
+	"github.com/bborbe/io"
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/content"
 )
@@ -28,7 +28,7 @@ func TestImplementsUlRenderer(t *testing.T) {
 
 func TestRender(t *testing.T) {
 	r := NewLiRenderer()
-	writer := mock.NewWriter()
+	writer := io.NewWriter()
 	err := r.Render(writer)
 	if err != nil {
 		t.Fatal(err)
@@ -45,7 +45,7 @@ func TestRenderWithContent(t *testing.T) {
 	contentRenderer.SetContentString("hello world")
 	r.SetContent(contentRenderer)
 
-	writer := mock.NewWriter()
+	writer := io.NewWriter()
 	err := r.Render(writer)
 	if err != nil {
 		t.Fatal(err)

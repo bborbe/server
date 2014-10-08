@@ -3,7 +3,7 @@ package table
 import (
 	"testing"
 	. "github.com/bborbe/assert"
-	"github.com/bborbe/server/mock"
+	"github.com/bborbe/io"
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/content"
 	"github.com/bborbe/server/renderer/tablecell"
@@ -31,7 +31,7 @@ func TestImplementsTableRenderer(t *testing.T) {
 func TestRender(t *testing.T) {
 	var err error
 	v := NewTableRenderer()
-	writer := mock.NewWriter()
+	writer := io.NewWriter()
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
@@ -64,7 +64,7 @@ func TestCompleteTable(t *testing.T) {
 	table := NewTableRenderer()
 	table.AddRow(row)
 
-	writer := mock.NewWriter()
+	writer := io.NewWriter()
 	err = table.Render(writer)
 	if err != nil {
 		t.Fatal(err)

@@ -3,7 +3,7 @@ package placeholder
 import (
 	"testing"
 	. "github.com/bborbe/assert"
-	"github.com/bborbe/server/mock"
+	"github.com/bborbe/io"
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/tag"
 )
@@ -29,7 +29,7 @@ func TestImplementsPlaceholderRenderer(t *testing.T) {
 func TestRenderWithoutContent(t *testing.T) {
 	var err error
 	v := NewPlaceholderRenderer()
-	writer := mock.NewWriter()
+	writer := io.NewWriter()
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
@@ -44,7 +44,7 @@ func TestRenderWithContent(t *testing.T) {
 	var err error
 	v := NewPlaceholderRenderer()
 	v.SetRenderer(tag.NewTagRenderer("h1"))
-	writer := mock.NewWriter()
+	writer := io.NewWriter()
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)

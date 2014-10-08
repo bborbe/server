@@ -3,13 +3,13 @@ package openingtag
 import (
 	"testing"
 	. "github.com/bborbe/assert"
-	"github.com/bborbe/server/mock"
+	"github.com/bborbe/io"
 )
 
 func TestNewOpenRenderer(t *testing.T) {
 	var err error
 	r := NewOpenRenderer("div")
-	writer := mock.NewWriter()
+	writer := io.NewWriter()
 	err = r.Render(writer)
 	if err != nil {
 		t.Fatal(err)
@@ -27,7 +27,7 @@ func TestNewOpenRenderer(t *testing.T) {
 func TestNewCloseRenderer(t *testing.T) {
 	var err error
 	r := NewCloseRenderer("div")
-	writer := mock.NewWriter()
+	writer := io.NewWriter()
 	err = r.Render(writer)
 	if err != nil {
 		t.Fatal(err)
@@ -45,7 +45,7 @@ func TestNewCloseRenderer(t *testing.T) {
 func TestAddClass(t *testing.T) {
 	var err error
 	r := NewCloseRenderer("div")
-	writer := mock.NewWriter()
+	writer := io.NewWriter()
 	r.AddClass("content")
 	err = r.Render(writer)
 	if err != nil {
@@ -64,7 +64,7 @@ func TestAddClass(t *testing.T) {
 func TestAddClassSorted(t *testing.T) {
 	var err error
 	r := NewCloseRenderer("div")
-	writer := mock.NewWriter()
+	writer := io.NewWriter()
 	r.AddClass("c")
 	r.AddClass("a")
 	r.AddClass("b")

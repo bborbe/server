@@ -3,7 +3,7 @@ package tablecell
 import (
 	"testing"
 	. "github.com/bborbe/assert"
-	"github.com/bborbe/server/mock"
+	"github.com/bborbe/io"
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/content"
 )
@@ -29,7 +29,7 @@ func TestImplementsTablecellRenderer(t *testing.T) {
 func TestRender(t *testing.T) {
 	var err error
 	v := NewTablecellRenderer()
-	writer := mock.NewWriter()
+	writer := io.NewWriter()
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
@@ -54,7 +54,7 @@ func TestSetContent(t *testing.T) {
 	contentRenderer := content.NewContentRenderer()
 	contentRenderer.SetContentString("hello world")
 	v.SetContent(contentRenderer)
-	writer := mock.NewWriter()
+	writer := io.NewWriter()
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
