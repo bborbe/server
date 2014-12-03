@@ -10,11 +10,11 @@ type RequestProvider interface {
 }
 
 type requestProvider struct {
-	err     error
-	req   *http.Request
+	err error
+	req *http.Request
 }
 
-func NewRequestProvider(req   *http.Request, err error) *requestProvider {
+func NewRequestProvider(req *http.Request, err error) *requestProvider {
 	p := new(requestProvider)
 	p.req = req
 	p.err = err
