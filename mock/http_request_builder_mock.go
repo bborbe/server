@@ -6,7 +6,7 @@ type httpRequestBuilderMock struct {
 	url              string
 	parameter        map[string][]string
 	header           http.Header
-	responseProvider ResponseProvider
+	requestProvider RequestProvider
 }
 
 func NewHttpRequestBuilderMock(url string) *httpRequestBuilderMock {
@@ -25,12 +25,12 @@ func (r *httpRequestBuilderMock) AddParameter(key string, values ...string) {
 	r.parameter[key] = values
 }
 
-func (r *httpRequestBuilderMock) GetResponse() (*http.Response, error) {
-	return r.responseProvider.GetResponse(), r.responseProvider.GetError()
+func (r *httpRequestBuilderMock) GetRequest() (*http.Request, error) {
+	return r.requestProvider.GetRequest(), r.requestProvider.GetError()
 }
 
-func (r *httpRequestBuilderMock) SetResponseBuilder(responseProvider ResponseProvider) {
-	r.responseProvider = responseProvider
+func (r *httpRequestBuilderMock) SetRequestBuilder(requestProvider RequestProvider) {
+	r.requestProvider = requestProvider
 }
 
 func (r *httpRequestBuilderMock) GetUrl() string {
