@@ -2,7 +2,7 @@ package mock
 
 import (
 	"github.com/bborbe/log"
-	"github.com/bborbe/server/requestbuilder"
+	"github.com/bborbe/http/requestbuilder"
 )
 
 type httpRequestBuilderProviderMock struct {
