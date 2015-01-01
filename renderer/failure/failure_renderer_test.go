@@ -3,6 +3,7 @@ package failure
 import (
 	"net/http"
 	"testing"
+
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/io"
 	"github.com/bborbe/server/renderer"

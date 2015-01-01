@@ -3,6 +3,7 @@ package path
 import (
 	"net/http"
 	"testing"
+
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/server/handler/mux"
 	"github.com/bborbe/server/handler/static"

@@ -3,6 +3,7 @@ package mux
 import (
 	"net/http"
 	"testing"
+
 	. "github.com/bborbe/assert"
 )
 

@@ -2,6 +2,7 @@ package openingtag
 
 import (
 	"testing"
+
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/io"
 )

@@ -3,6 +3,7 @@ package contenttype
 import (
 	"net/http"
 	"testing"
+
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/server/handler/static"
 	"github.com/bborbe/server/mock"

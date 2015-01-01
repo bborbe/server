@@ -2,6 +2,7 @@ package empty
 
 import (
 	"testing"
+
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/io"
 	"github.com/bborbe/server/renderer"

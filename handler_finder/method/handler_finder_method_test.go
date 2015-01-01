@@ -2,6 +2,7 @@ package method
 
 import (
 	"testing"
+
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/server/handler_finder"
 )
