@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	. "github.com/bborbe/assert"
-	io "github.com/bborbe/io/mock"
+	io_mock "github.com/bborbe/io/mock"
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/tag"
 )
@@ -30,7 +30,7 @@ func TestImplementsPlaceholderRenderer(t *testing.T) {
 func TestRenderWithoutContent(t *testing.T) {
 	var err error
 	v := NewPlaceholderRenderer()
-	writer := io.NewWriter()
+	writer := io_mock.NewWriter()
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
@@ -45,7 +45,7 @@ func TestRenderWithContent(t *testing.T) {
 	var err error
 	v := NewPlaceholderRenderer()
 	v.SetRenderer(tag.NewTagRenderer("h1"))
-	writer := io.NewWriter()
+	writer := io_mock.NewWriter()
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)

@@ -4,13 +4,13 @@ import (
 	"testing"
 
 	. "github.com/bborbe/assert"
-	io "github.com/bborbe/io/mock"
+	io_mock "github.com/bborbe/io/mock"
 )
 
 func TestNewOpenRenderer(t *testing.T) {
 	var err error
 	r := NewOpenRenderer("div")
-	writer := io.NewWriter()
+	writer := io_mock.NewWriter()
 	err = r.Render(writer)
 	if err != nil {
 		t.Fatal(err)
@@ -28,7 +28,7 @@ func TestNewOpenRenderer(t *testing.T) {
 func TestNewCloseRenderer(t *testing.T) {
 	var err error
 	r := NewCloseRenderer("div")
-	writer := io.NewWriter()
+	writer := io_mock.NewWriter()
 	err = r.Render(writer)
 	if err != nil {
 		t.Fatal(err)
@@ -46,7 +46,7 @@ func TestNewCloseRenderer(t *testing.T) {
 func TestAddClass(t *testing.T) {
 	var err error
 	r := NewCloseRenderer("div")
-	writer := io.NewWriter()
+	writer := io_mock.NewWriter()
 	r.AddClass("content")
 	err = r.Render(writer)
 	if err != nil {
@@ -65,7 +65,7 @@ func TestAddClass(t *testing.T) {
 func TestAddClassSorted(t *testing.T) {
 	var err error
 	r := NewCloseRenderer("div")
-	writer := io.NewWriter()
+	writer := io_mock.NewWriter()
 	r.AddClass("c")
 	r.AddClass("a")
 	r.AddClass("b")

@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	. "github.com/bborbe/assert"
-	io "github.com/bborbe/io/mock"
+	io_mock "github.com/bborbe/io/mock"
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/content"
 	"github.com/bborbe/server/renderer/tablecell"
@@ -32,7 +32,7 @@ func TestImplementsTableRenderer(t *testing.T) {
 func TestRender(t *testing.T) {
 	var err error
 	v := NewTableRenderer()
-	writer := io.NewWriter()
+	writer := io_mock.NewWriter()
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
@@ -65,7 +65,7 @@ func TestCompleteTable(t *testing.T) {
 	table := NewTableRenderer()
 	table.AddRow(row)
 
-	writer := io.NewWriter()
+	writer := io_mock.NewWriter()
 	err = table.Render(writer)
 	if err != nil {
 		t.Fatal(err)

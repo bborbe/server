@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	. "github.com/bborbe/assert"
-io	"github.com/bborbe/io/mock"
+	io_mock "github.com/bborbe/io/mock"
 	"github.com/bborbe/server/renderer"
 )
 
@@ -30,7 +30,7 @@ func TestRender(t *testing.T) {
 	var err error
 	v := NewContentRenderer()
 	v.SetContentString("mycontent")
-	writer := io.NewWriter()
+	writer := io_mock.NewWriter()
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)

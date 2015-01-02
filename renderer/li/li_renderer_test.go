@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	. "github.com/bborbe/assert"
-	io "github.com/bborbe/io/mock"
+	io_mock "github.com/bborbe/io/mock"
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/content"
 )
@@ -29,7 +29,7 @@ func TestImplementsUlRenderer(t *testing.T) {
 
 func TestRender(t *testing.T) {
 	r := NewLiRenderer()
-	writer := io.NewWriter()
+	writer := io_mock.NewWriter()
 	err := r.Render(writer)
 	if err != nil {
 		t.Fatal(err)
@@ -46,7 +46,7 @@ func TestRenderWithContent(t *testing.T) {
 	contentRenderer.SetContentString("hello world")
 	r.SetContent(contentRenderer)
 
-	writer := io.NewWriter()
+	writer := io_mock.NewWriter()
 	err := r.Render(writer)
 	if err != nil {
 		t.Fatal(err)

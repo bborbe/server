@@ -4,13 +4,13 @@ import (
 	"net/http"
 	"net/url"
 
-	io "github.com/bborbe/io/mock"
+	io_mock "github.com/bborbe/io/mock"
 )
 
 func NewHttpRequestMock(urlString string) (*http.Request, error) {
 	r := new(http.Request)
 	r.Header = make(http.Header)
-	r.Body = io.NewReadCloserString("")
+	r.Body = io_mock.NewReadCloserString("")
 	var err error
 	r.URL, err = url.Parse(urlString)
 	if err != nil {
