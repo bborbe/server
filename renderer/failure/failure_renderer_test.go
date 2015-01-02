@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	. "github.com/bborbe/assert"
-	"github.com/bborbe/io"
+	io "github.com/bborbe/io/mock"
 	"github.com/bborbe/server/renderer"
 )
 

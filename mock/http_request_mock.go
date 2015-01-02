@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/bborbe/io"
+	io "github.com/bborbe/io/mock"
 )
 
 func NewHttpRequestMock(urlString string) (*http.Request, error) {

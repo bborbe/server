@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/bborbe/log"
-	"github.com/bborbe/server/handler/error"
+	error_handler "github.com/bborbe/server/handler/error"
 )
 
 var logger = log.DefaultLogger
@@ -25,7 +25,7 @@ func (m *jsonHandler) ServeHTTP(responseWriter http.ResponseWriter, request *htt
 	b, err := json.Marshal(m.m)
 	if err != nil {
 		logger.Debugf("Marshal json failed: %v", err)
-		e := error.NewErrorMessage(http.StatusInternalServerError, err.Error())
+		e := error_handler.NewErrorMessage(http.StatusInternalServerError, err.Error())
 		e.ServeHTTP(responseWriter, request)
 		return
 	}
