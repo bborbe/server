@@ -8,7 +8,7 @@ import (
 )
 
 func TestImplementsHandlerFinder(t *testing.T) {
-	h := NewHandlerFinderMethod()
+	h := New()
 	var handler *handler_finder.HandlerFinder
 	err := AssertThat(h, Implements(handler).Message("check type"))
 	if err != nil {

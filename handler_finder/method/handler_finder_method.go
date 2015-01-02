@@ -6,7 +6,7 @@ type handlerFinderMethod struct {
 	handler map[string]http.Handler
 }
 
-func NewHandlerFinderMethod() *handlerFinderMethod {
+func New() *handlerFinderMethod {
 	h := new(handlerFinderMethod)
 	h.handler = make(map[string]http.Handler)
 	return h

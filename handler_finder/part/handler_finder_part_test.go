@@ -10,7 +10,7 @@ import (
 )
 
 func TestImplementsHandlerFinder(t *testing.T) {
-	hf := NewHandlerFinderPart("/test")
+	hf := New("/test")
 	var handlerFinder *handler_finder.HandlerFinder
 	err := AssertThat(hf, Implements(handlerFinder).Message("check type"))
 	if err != nil {
@@ -19,7 +19,7 @@ func TestImplementsHandlerFinder(t *testing.T) {
 }
 
 func TestRoot(t *testing.T) {
-	hf := NewHandlerFinderPart("")
+	hf := New("")
 	{
 		request, err := mock.NewHttpRequestMock("http://www.example.com/api")
 		if err != nil {
@@ -68,7 +68,7 @@ func TestRoot(t *testing.T) {
 }
 
 func TestSub(t *testing.T) {
-	hf := NewHandlerFinderPart("/api")
+	hf := New("/api")
 	{
 		request, err := mock.NewHttpRequestMock("http://www.example.com/api/test")
 		if err != nil {
@@ -117,7 +117,7 @@ func TestSub(t *testing.T) {
 }
 
 func TestEmpty(t *testing.T) {
-	hf := NewHandlerFinderPart("/api/v1/task")
+	hf := New("/api/v1/task")
 	hf.RegisterHandler("", static.NewHandlerStaticContent(""))
 	hf.RegisterHandler("/", static.NewHandlerStaticContent("/"))
 	{
@@ -156,7 +156,7 @@ func TestEmpty(t *testing.T) {
 }
 
 func TestSubWithoutSlash(t *testing.T) {
-	hf := NewHandlerFinderPart("/hello")
+	hf := New("/hello")
 	{
 		request, err := mock.NewHttpRequestMock("http://www.example.com/helloworld")
 		if err != nil {
@@ -195,7 +195,7 @@ func TestSubWithoutSlash(t *testing.T) {
 
 func TestWithQuestionMark(t *testing.T) {
 	content := "TestHandlerContent"
-	hf := NewHandlerFinderPart("/api")
+	hf := New("/api")
 	hf.RegisterHandler("/test", static.NewHandlerStaticContent(content))
 	{
 		request, err := mock.NewHttpRequestMock("http://www.example.com/api/test")
@@ -235,7 +235,7 @@ func TestWithQuestionMark(t *testing.T) {
 
 func TestWithQuestionMarkWithoutSlash(t *testing.T) {
 	content := "TestHandlerContent"
-	hf := NewHandlerFinderPart("/hello")
+	hf := New("/hello")
 	hf.RegisterHandler("world", static.NewHandlerStaticContent(content))
 	{
 		request, err := mock.NewHttpRequestMock("http://www.example.com/helloworld")

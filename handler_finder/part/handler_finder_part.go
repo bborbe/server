@@ -14,7 +14,7 @@ type handlerFinderPart struct {
 
 var logger = log.DefaultLogger
 
-func NewHandlerFinderPart(prefix string) *handlerFinderPart {
+func New(prefix string) *handlerFinderPart {
 	h := new(handlerFinderPart)
 	h.handler = make(map[string]http.Handler)
 	h.prefix = prefix

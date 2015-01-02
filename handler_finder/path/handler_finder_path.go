@@ -4,7 +4,7 @@ import "net/http"
 
 type handlerFinderPath map[string]http.Handler
 
-func NewHandlerFinderPath() *handlerFinderPath {
+func New() *handlerFinderPath {
 	h := make(handlerFinderPath)
 	return &h
 }
