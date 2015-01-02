@@ -23,9 +23,15 @@ func NewFallback(handlerFinder handler_finder.HandlerFinder, fallbackHandler htt
 
 func (m *fallback) ServeHTTP(responseWriter http.ResponseWriter, request *http.Request) {
 	handler := m.handlerFinder.FindHandler(request)
-	if handler == nil {
-		logger.Debug("no handler found, use fallback")
-		handler = m.fallback
+	if handler != nil {
+		logger.Debug("handler found, use handler")
+		handler.ServeHTTP(responseWriter, request)
+		return
 	}
-	handler.ServeHTTP(responseWriter, request)
+	if m.fallback != nil {
+		logger.Debug("no handler found, use fallback")
+		m.fallback.ServeHTTP(responseWriter, request)
+		return
+	}
+	logger.Info("no handler found and no fallback found")
 }

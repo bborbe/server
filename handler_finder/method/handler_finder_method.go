@@ -1,21 +1,45 @@
 package method
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/bborbe/server/handler_finder"
+	"github.com/bborbe/server/handler_finder/dummy"
+)
 
 type handlerFinderMethod struct {
-	handler map[string]http.Handler
+	handler map[string]handler_finder.HandlerFinder
+}
+
+type MethodHandlerFinder interface {
+	handler_finder.HandlerFinder
+	RegisterHandler(method string, handler http.Handler)
+	RegisterHandlerFinder(method string, handlerFinder handler_finder.HandlerFinder)
+	GetHandlerFinder(method string) handler_finder.HandlerFinder
 }
 
 func New() *handlerFinderMethod {
 	h := new(handlerFinderMethod)
-	h.handler = make(map[string]http.Handler)
+	h.handler = make(map[string]handler_finder.HandlerFinder)
 	return h
 }
 
 func (h *handlerFinderMethod) FindHandler(request *http.Request) http.Handler {
-	return h.handler[request.Method]
+	hf := h.GetHandlerFinder(request.Method)
+	if hf != nil {
+		return hf.FindHandler(request)
+	}
+	return nil
 }
 
 func (h *handlerFinderMethod) RegisterHandler(method string, handler http.Handler) {
-	h.handler[method] = handler
+	h.RegisterHandlerFinder(method, dummy.New(handler))
+}
+
+func (h *handlerFinderMethod) RegisterHandlerFinder(method string, handlerFinder handler_finder.HandlerFinder) {
+	h.handler[method] = handlerFinder
+}
+
+func (h *handlerFinderMethod) GetHandlerFinder(method string) handler_finder.HandlerFinder {
+	return h.handler[method]
 }

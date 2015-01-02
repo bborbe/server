@@ -5,29 +5,53 @@ import (
 	"strings"
 
 	"github.com/bborbe/log"
+	"github.com/bborbe/server/handler_finder"
+	"github.com/bborbe/server/handler_finder/dummy"
 )
 
 type handlerFinderPart struct {
 	prefix  string
-	handler map[string]http.Handler
+	handler map[string]handler_finder.HandlerFinder
+}
+
+type PartHandlerFinder interface {
+	handler_finder.HandlerFinder
+	RegisterHandler(part string, handler http.Handler)
+	RegisterHandlerFinder(part string, handlerFinder handler_finder.HandlerFinder)
 }
 
 var logger = log.DefaultLogger
 
 func New(prefix string) *handlerFinderPart {
 	h := new(handlerFinderPart)
-	h.handler = make(map[string]http.Handler)
+	h.handler = make(map[string]handler_finder.HandlerFinder)
 	h.prefix = prefix
 	return h
 }
 
 func (h *handlerFinderPart) RegisterHandler(part string, handler http.Handler) {
-	h.handler[part] = handler
+	h.RegisterHandlerFinder(part, dummy.New(handler))
+}
+
+func (h *handlerFinderPart) RegisterHandlerFinder(part string, handlerFinder handler_finder.HandlerFinder) {
+	h.handler[part] = handlerFinder
 }
 
 func (h *handlerFinderPart) FindHandler(request *http.Request) http.Handler {
-	rest := request.RequestURI[len(h.prefix):]
-	logger.Tracef("requestUri: %s prefix: %s => rest: %s", request.RequestURI, h.prefix, rest)
+	hf := h.FindHandlerFinder(request)
+	if hf != nil {
+		return hf.FindHandler(request)
+	}
+	return nil
+}
+
+func (h *handlerFinderPart) FindHandlerFinder(request *http.Request) handler_finder.HandlerFinder {
+	return h.FindHandlerByRequestUri(request.RequestURI)
+}
+
+func (h *handlerFinderPart) FindHandlerByRequestUri(requestUri string) handler_finder.HandlerFinder {
+	rest := requestUri[len(h.prefix):]
+	logger.Tracef("requestUri: %s prefix: %s => rest: %s", requestUri, h.prefix, rest)
 	if len(rest) == 0 {
 		return h.handler[rest]
 	}

@@ -3,34 +3,74 @@ package rest
 import (
 	"net/http"
 
-	"github.com/bborbe/server/handler/fallback"
 	"github.com/bborbe/server/handler_finder/method"
 	"github.com/bborbe/server/handler_finder/part"
-	"github.com/bborbe/server/handler_finder"
 )
 
 type restHandlerFinder struct {
-	handlerFinder handler_finder.HandlerFinder
+	prefix              string
+	methodHandlerFinder method.MethodHandlerFinder
+	getHandlerFinder    part.PartHandlerFinder
+	postHandlerFinder   part.PartHandlerFinder
+	putHandlerFinder    part.PartHandlerFinder
+	patchHandlerFinder  part.PartHandlerFinder
+	deleteHandlerFinder part.PartHandlerFinder
 }
 
-func New(prefix string, listHandler http.Handler, getHandler http.Handler, createHandler http.Handler, updateHandler http.Handler, patchHandler http.Handler, deleteHandler http.Handler) *restHandlerFinder {
-
-	partHandlerFinder := part.New(prefix)
-	partHandlerFinder.RegisterHandler("/", getHandler)
-
+func New(prefix string) *restHandlerFinder {
 	methodHandlerFinder := method.New()
-	methodHandlerFinder.RegisterHandler("GET", fallback.NewFallback(partHandlerFinder, listHandler))
-	methodHandlerFinder.RegisterHandler("POST", createHandler)
-	methodHandlerFinder.RegisterHandler("PUT", updateHandler)
-	methodHandlerFinder.RegisterHandler("PATCH", patchHandler)
-	methodHandlerFinder.RegisterHandler("DELETE", deleteHandler)
 
+	getHandlerFinder := part.New(prefix)
+	methodHandlerFinder.RegisterHandlerFinder("GET", getHandlerFinder)
+
+	postHandlerFinder := part.New(prefix)
+	methodHandlerFinder.RegisterHandlerFinder("POST", postHandlerFinder)
+
+	putHandlerFinder := part.New(prefix)
+	methodHandlerFinder.RegisterHandlerFinder("PUT", putHandlerFinder)
+
+	patchHandlerFinder := part.New(prefix)
+	methodHandlerFinder.RegisterHandlerFinder("PATCH", patchHandlerFinder)
+
+	deleteHandlerFinder := part.New(prefix)
+	methodHandlerFinder.RegisterHandlerFinder("DELETE", deleteHandlerFinder)
 
 	h := new(restHandlerFinder)
-	h.handlerFinder = methodHandlerFinder
+	h.prefix = prefix
+	h.methodHandlerFinder = methodHandlerFinder
+	h.getHandlerFinder = getHandlerFinder
+	h.postHandlerFinder = postHandlerFinder
+	h.putHandlerFinder = putHandlerFinder
+	h.patchHandlerFinder = patchHandlerFinder
+	h.deleteHandlerFinder = deleteHandlerFinder
+
 	return h
 }
 
 func (h *restHandlerFinder) FindHandler(request *http.Request) http.Handler {
-	return h.handlerFinder.FindHandler(request)
+	return h.methodHandlerFinder.FindHandler(request)
+}
+
+func (h *restHandlerFinder) RegisterListHandler(handler http.Handler) {
+	h.getHandlerFinder.RegisterHandler("", handler)
+}
+
+func (h *restHandlerFinder) RegisterGetHandler(handler http.Handler) {
+	h.getHandlerFinder.RegisterHandler("/", handler)
+}
+
+func (h *restHandlerFinder) RegisterCreateHandler(handler http.Handler) {
+	h.postHandlerFinder.RegisterHandler("", handler)
+}
+
+func (h *restHandlerFinder) RegisterDeleteHandler(handler http.Handler) {
+	h.deleteHandlerFinder.RegisterHandler("/", handler)
+}
+
+func (h *restHandlerFinder) RegisterUpdateHandler(handler http.Handler) {
+	h.putHandlerFinder.RegisterHandler("/", handler)
+}
+
+func (h *restHandlerFinder) RegisterPatchHandler(handler http.Handler) {
+	h.patchHandlerFinder.RegisterHandler("/", handler)
 }

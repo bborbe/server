@@ -12,29 +12,29 @@ import (
 )
 
 func TestImplementsHandlerFinder(t *testing.T) {
-	listHandler := static.NewHandlerStaticContent("list")
-	getHandler := static.NewHandlerStaticContent("get")
-	createHandler := static.NewHandlerStaticContent("create")
-	updateHandler := static.NewHandlerStaticContent("update")
-	patchHandler := static.NewHandlerStaticContent("patch")
-	deleteHandler := static.NewHandlerStaticContent("delete")
-	h := New("/test", listHandler, getHandler, createHandler, updateHandler, patchHandler, deleteHandler)
+	hf := New("/test")
+	hf.RegisterCreateHandler(static.NewHandlerStaticContent("create"))
+	hf.RegisterGetHandler(static.NewHandlerStaticContent("get"))
+	hf.RegisterDeleteHandler(static.NewHandlerStaticContent("delete"))
+	hf.RegisterUpdateHandler(static.NewHandlerStaticContent("update"))
+	hf.RegisterListHandler(static.NewHandlerStaticContent("list"))
+	hf.RegisterPatchHandler(static.NewHandlerStaticContent("patch"))
 	var handler *handler_finder.HandlerFinder
-	err := AssertThat(h, Implements(handler).Message("check type"))
+	err := AssertThat(hf, Implements(handler).Message("check type"))
 	if err != nil {
 		t.Fatal(err)
 	}
 }
 
 func TestGet(t *testing.T) {
-	listHandler := static.NewHandlerStaticContent("list")
-	getHandler := static.NewHandlerStaticContent("get")
-	createHandler := static.NewHandlerStaticContent("create")
-	updateHandler := static.NewHandlerStaticContent("update")
-	patchHandler := static.NewHandlerStaticContent("patch")
-	deleteHandler := static.NewHandlerStaticContent("delete")
-	hf := New("/test", listHandler, getHandler, createHandler, updateHandler, patchHandler, deleteHandler)
-	r := &http.Request{Method:"GET", RequestURI: "/test/1"}
+	hf := New("/test")
+	hf.RegisterCreateHandler(static.NewHandlerStaticContent("create"))
+	hf.RegisterGetHandler(static.NewHandlerStaticContent("get"))
+	hf.RegisterDeleteHandler(static.NewHandlerStaticContent("delete"))
+	hf.RegisterUpdateHandler(static.NewHandlerStaticContent("update"))
+	hf.RegisterListHandler(static.NewHandlerStaticContent("list"))
+	hf.RegisterPatchHandler(static.NewHandlerStaticContent("patch"))
+	r := &http.Request{Method: "GET", RequestURI: "/test/123"}
 	h := hf.FindHandler(r)
 	err := AssertThat(h, NotNilValue())
 	if err != nil {
@@ -49,14 +49,14 @@ func TestGet(t *testing.T) {
 }
 
 func TestList(t *testing.T) {
-	listHandler := static.NewHandlerStaticContent("list")
-	getHandler := static.NewHandlerStaticContent("get")
-	createHandler := static.NewHandlerStaticContent("create")
-	updateHandler := static.NewHandlerStaticContent("update")
-	patchHandler := static.NewHandlerStaticContent("patch")
-	deleteHandler := static.NewHandlerStaticContent("delete")
-	hf := New("/test", listHandler, getHandler, createHandler, updateHandler, patchHandler, deleteHandler)
-	r := &http.Request{Method:"GET", RequestURI: "/test"}
+	hf := New("/test")
+	hf.RegisterCreateHandler(static.NewHandlerStaticContent("create"))
+	hf.RegisterGetHandler(static.NewHandlerStaticContent("get"))
+	hf.RegisterDeleteHandler(static.NewHandlerStaticContent("delete"))
+	hf.RegisterUpdateHandler(static.NewHandlerStaticContent("update"))
+	hf.RegisterListHandler(static.NewHandlerStaticContent("list"))
+	hf.RegisterPatchHandler(static.NewHandlerStaticContent("patch"))
+	r := &http.Request{Method: "GET", RequestURI: "/test"}
 	h := hf.FindHandler(r)
 	err := AssertThat(h, NotNilValue())
 	if err != nil {
@@ -71,14 +71,14 @@ func TestList(t *testing.T) {
 }
 
 func TestCreate(t *testing.T) {
-	listHandler := static.NewHandlerStaticContent("list")
-	getHandler := static.NewHandlerStaticContent("get")
-	createHandler := static.NewHandlerStaticContent("create")
-	updateHandler := static.NewHandlerStaticContent("update")
-	patchHandler := static.NewHandlerStaticContent("patch")
-	deleteHandler := static.NewHandlerStaticContent("delete")
-	hf := New("/test", listHandler, getHandler, createHandler, updateHandler, patchHandler, deleteHandler)
-	r := &http.Request{Method:"POST", RequestURI: "/test"}
+	hf := New("/test")
+	hf.RegisterCreateHandler(static.NewHandlerStaticContent("create"))
+	hf.RegisterGetHandler(static.NewHandlerStaticContent("get"))
+	hf.RegisterDeleteHandler(static.NewHandlerStaticContent("delete"))
+	hf.RegisterUpdateHandler(static.NewHandlerStaticContent("update"))
+	hf.RegisterListHandler(static.NewHandlerStaticContent("list"))
+	hf.RegisterPatchHandler(static.NewHandlerStaticContent("patch"))
+	r := &http.Request{Method: "POST", RequestURI: "/test"}
 	h := hf.FindHandler(r)
 	err := AssertThat(h, NotNilValue())
 	if err != nil {
@@ -93,14 +93,14 @@ func TestCreate(t *testing.T) {
 }
 
 func TestUpdate(t *testing.T) {
-	listHandler := static.NewHandlerStaticContent("list")
-	getHandler := static.NewHandlerStaticContent("get")
-	createHandler := static.NewHandlerStaticContent("create")
-	updateHandler := static.NewHandlerStaticContent("update")
-	patchHandler := static.NewHandlerStaticContent("patch")
-	deleteHandler := static.NewHandlerStaticContent("delete")
-	hf := New("/test", listHandler, getHandler, createHandler, updateHandler, patchHandler, deleteHandler)
-	r := &http.Request{Method:"PUT", RequestURI: "/test"}
+	hf := New("/test")
+	hf.RegisterCreateHandler(static.NewHandlerStaticContent("create"))
+	hf.RegisterGetHandler(static.NewHandlerStaticContent("get"))
+	hf.RegisterDeleteHandler(static.NewHandlerStaticContent("delete"))
+	hf.RegisterUpdateHandler(static.NewHandlerStaticContent("update"))
+	hf.RegisterListHandler(static.NewHandlerStaticContent("list"))
+	hf.RegisterPatchHandler(static.NewHandlerStaticContent("patch"))
+	r := &http.Request{Method: "PUT", RequestURI: "/test/123"}
 	h := hf.FindHandler(r)
 	err := AssertThat(h, NotNilValue())
 	if err != nil {
@@ -115,14 +115,14 @@ func TestUpdate(t *testing.T) {
 }
 
 func TestPatch(t *testing.T) {
-	listHandler := static.NewHandlerStaticContent("list")
-	getHandler := static.NewHandlerStaticContent("get")
-	createHandler := static.NewHandlerStaticContent("create")
-	updateHandler := static.NewHandlerStaticContent("update")
-	patchHandler := static.NewHandlerStaticContent("patch")
-	deleteHandler := static.NewHandlerStaticContent("delete")
-	hf := New("/test", listHandler, getHandler, createHandler, updateHandler, patchHandler, deleteHandler)
-	r := &http.Request{Method:"PATCH", RequestURI: "/test"}
+	hf := New("/test")
+	hf.RegisterCreateHandler(static.NewHandlerStaticContent("create"))
+	hf.RegisterGetHandler(static.NewHandlerStaticContent("get"))
+	hf.RegisterDeleteHandler(static.NewHandlerStaticContent("delete"))
+	hf.RegisterUpdateHandler(static.NewHandlerStaticContent("update"))
+	hf.RegisterListHandler(static.NewHandlerStaticContent("list"))
+	hf.RegisterPatchHandler(static.NewHandlerStaticContent("patch"))
+	r := &http.Request{Method: "PATCH", RequestURI: "/test/123"}
 	h := hf.FindHandler(r)
 	err := AssertThat(h, NotNilValue())
 	if err != nil {
@@ -137,14 +137,14 @@ func TestPatch(t *testing.T) {
 }
 
 func TestDelete(t *testing.T) {
-	listHandler := static.NewHandlerStaticContent("list")
-	getHandler := static.NewHandlerStaticContent("get")
-	createHandler := static.NewHandlerStaticContent("create")
-	updateHandler := static.NewHandlerStaticContent("update")
-	patchHandler := static.NewHandlerStaticContent("patch")
-	deleteHandler := static.NewHandlerStaticContent("delete")
-	hf := New("/test", listHandler, getHandler, createHandler, updateHandler, patchHandler, deleteHandler)
-	r := &http.Request{Method:"DELETE", RequestURI: "/test"}
+	hf := New("/test")
+	hf.RegisterCreateHandler(static.NewHandlerStaticContent("create"))
+	hf.RegisterGetHandler(static.NewHandlerStaticContent("get"))
+	hf.RegisterDeleteHandler(static.NewHandlerStaticContent("delete"))
+	hf.RegisterUpdateHandler(static.NewHandlerStaticContent("update"))
+	hf.RegisterListHandler(static.NewHandlerStaticContent("list"))
+	hf.RegisterPatchHandler(static.NewHandlerStaticContent("patch"))
+	r := &http.Request{Method: "DELETE", RequestURI: "/test/123"}
 	h := hf.FindHandler(r)
 	err := AssertThat(h, NotNilValue())
 	if err != nil {
