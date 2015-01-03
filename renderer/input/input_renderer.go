@@ -16,7 +16,7 @@ type InputRenderer interface {
 }
 
 type inputRenderer struct {
-	renderer     singletag.SingletagRenderer
+	renderer singletag.SingletagRenderer
 }
 
 func NewInputRenderer() *inputRenderer {
