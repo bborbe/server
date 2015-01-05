@@ -3,7 +3,8 @@ package idparser
 import (
 	"net/http"
 	"strconv"
-	"strings"
+	"regexp"
+	"fmt"
 )
 
 func ParseIdFormRequest(request *http.Request) (int, error) {
@@ -11,6 +12,10 @@ func ParseIdFormRequest(request *http.Request) (int, error) {
 }
 
 func ParseIdFromUri(uri string) (int, error) {
-	pos := strings.LastIndex(uri, "/")
-	return strconv.Atoi(uri[pos+1:])
+	re := regexp.MustCompile("(\\d+)[^/]*?$")
+	matches := re.FindStringSubmatch(uri)
+	if len(matches) > 1 {
+		return strconv.Atoi(matches[1])
+	}
+	return 0, fmt.Errorf("parse id from uri %s failed", uri)
 }
