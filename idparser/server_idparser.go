@@ -1,10 +1,10 @@
 package idparser
 
 import (
-	"net/http"
-	"strconv"
-	"regexp"
 	"fmt"
+	"net/http"
+	"regexp"
+	"strconv"
 )
 
 func ParseIdFormRequest(request *http.Request) (int, error) {
