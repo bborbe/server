@@ -9,7 +9,7 @@ var ExtensionToContentType = map[string]string{
 	"json": "application/json",
 	"html": "text/html",
 	"gif":  "image/gif",
-	"jpg":  "video/jpeg",
+	"jpg":  "image/jpeg",
 	"png":  "image/png",
 	"js":   "application/javascript",
 	"css":  "text/css",
