@@ -8,7 +8,7 @@ import (
 	"net/http"
 
 	. "github.com/bborbe/assert"
-	"github.com/bborbe/http/downloader"
+	"github.com/bborbe/http/client"
 )
 
 func TestImplementsServer(t *testing.T) {
@@ -43,7 +43,7 @@ func TestStartStop(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	d := downloader.NewNoProxy()
+	d := client.NewNoProxy()
 	resp, err := d.Get("http://" + addr)
 	if err != nil {
 		t.Fatal(err)
