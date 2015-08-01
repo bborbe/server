@@ -11,7 +11,6 @@ import (
 	"github.com/bborbe/server/mock"
 )
 
-
 func TestImplementsRestHandlerFinder(t *testing.T) {
 	r := New("/test")
 	var i *RestHandlerFinder
