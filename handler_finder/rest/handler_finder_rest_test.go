@@ -11,6 +11,16 @@ import (
 	"github.com/bborbe/server/mock"
 )
 
+
+func TestImplementsRestHandlerFinder(t *testing.T) {
+	r := New("/test")
+	var i *RestHandlerFinder
+	err := AssertThat(r, Implements(i))
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
 func TestImplementsHandlerFinder(t *testing.T) {
 	hf := New("/test")
 	hf.RegisterCreateHandler(static.NewHandlerStaticContent("create"))

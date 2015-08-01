@@ -7,6 +7,15 @@ import (
 	"github.com/bborbe/server/handler_finder/part"
 )
 
+type RestHandlerFinder interface {
+	RegisterListHandler(handler http.Handler)
+	RegisterGetHandler(handler http.Handler)
+	RegisterCreateHandler(handler http.Handler)
+	RegisterDeleteHandler(handler http.Handler)
+	RegisterUpdateHandler(handler http.Handler)
+	RegisterPatchHandler(handler http.Handler)
+}
+
 type restHandlerFinder struct {
 	prefix              string
 	methodHandlerFinder method.MethodHandlerFinder
