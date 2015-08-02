@@ -31,6 +31,7 @@ func New(prefix string) *restHandlerFinder {
 
 	getHandlerFinder := part.New(prefix)
 	methodHandlerFinder.RegisterHandlerFinder("GET", getHandlerFinder)
+	methodHandlerFinder.RegisterHandlerFinder("", getHandlerFinder)
 
 	postHandlerFinder := part.New(prefix)
 	methodHandlerFinder.RegisterHandlerFinder("POST", postHandlerFinder)

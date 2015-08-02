@@ -79,6 +79,28 @@ func TestList(t *testing.T) {
 	}
 }
 
+func TestListNoMethod(t *testing.T) {
+	hf := New("/test")
+	hf.RegisterCreateHandler(static.NewHandlerStaticContent("create"))
+	hf.RegisterGetHandler(static.NewHandlerStaticContent("get"))
+	hf.RegisterDeleteHandler(static.NewHandlerStaticContent("delete"))
+	hf.RegisterUpdateHandler(static.NewHandlerStaticContent("update"))
+	hf.RegisterListHandler(static.NewHandlerStaticContent("list"))
+	hf.RegisterPatchHandler(static.NewHandlerStaticContent("patch"))
+	r := &http.Request{RequestURI: "/test"}
+	h := hf.FindHandler(r)
+	err := AssertThat(h, NotNilValue())
+	if err != nil {
+		t.Fatal(err)
+	}
+	resp := mock.NewHttpResponseWriterMock()
+	h.ServeHTTP(resp, r)
+	err = AssertThat(string(resp.Content()), Is("list"))
+	if err != nil {
+		t.Fatal(err)
+	}
+}
+
 func TestCreate(t *testing.T) {
 	hf := New("/test")
 	hf.RegisterCreateHandler(static.NewHandlerStaticContent("create"))
