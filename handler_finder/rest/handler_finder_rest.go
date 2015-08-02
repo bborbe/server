@@ -71,16 +71,20 @@ func (h *restHandlerFinder) RegisterGetHandler(handler http.Handler) {
 
 func (h *restHandlerFinder) RegisterCreateHandler(handler http.Handler) {
 	h.postHandlerFinder.RegisterHandler("", handler)
+	h.postHandlerFinder.RegisterHandler("/", handler)
 }
 
 func (h *restHandlerFinder) RegisterDeleteHandler(handler http.Handler) {
+	h.deleteHandlerFinder.RegisterHandler("", handler)
 	h.deleteHandlerFinder.RegisterHandler("/", handler)
 }
 
 func (h *restHandlerFinder) RegisterUpdateHandler(handler http.Handler) {
+	h.putHandlerFinder.RegisterHandler("", handler)
 	h.putHandlerFinder.RegisterHandler("/", handler)
 }
 
 func (h *restHandlerFinder) RegisterPatchHandler(handler http.Handler) {
+	h.patchHandlerFinder.RegisterHandler("", handler)
 	h.patchHandlerFinder.RegisterHandler("/", handler)
 }
