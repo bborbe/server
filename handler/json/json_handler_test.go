@@ -72,3 +72,16 @@ func TestRenderEmptyList(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+func TestRenderNilList(t *testing.T) {
+	var list []user
+	r := NewJsonHandler(list)
+	resp := mock.NewHttpResponseWriterMock()
+	req, err := mock.NewHttpRequestMock("/")
+	if err = AssertThat(err, NilValue()); err != nil {
+		t.Fatal()
+	}
+	r.ServeHTTP(resp, req)
+	if err = AssertThat(string(resp.Content()), Is(`[]`)); err != nil {
+		t.Fatal(err)
+	}
+}

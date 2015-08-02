@@ -1,10 +1,11 @@
 package json
 
 import (
-	"encoding/json"
 	"net/http"
 
 	"github.com/bborbe/log"
+	"reflect"
+	"encoding/json"
 	error_handler "github.com/bborbe/server/handler/error"
 )
 
@@ -22,6 +23,7 @@ func NewJsonHandler(m interface{}) *jsonHandler {
 
 func (m *jsonHandler) ServeHTTP(responseWriter http.ResponseWriter, request *http.Request) {
 	logger.Debug("write json")
+	logger.Debugf("object to convert %v", m.m)
 	b, err := json.Marshal(m.m)
 	if err != nil {
 		logger.Debugf("Marshal json failed: %v", err)
@@ -29,7 +31,15 @@ func (m *jsonHandler) ServeHTTP(responseWriter http.ResponseWriter, request *htt
 		e.ServeHTTP(responseWriter, request)
 		return
 	}
+	logger.Debugf("json string %s", string(b))
 	responseWriter.Header().Set("Content-Type", "application/json")
 	responseWriter.WriteHeader(http.StatusOK)
-	responseWriter.Write(b)
+
+	logger.Debugf("object type %v", reflect.TypeOf(m.m).Kind())
+	if reflect.TypeOf(m.m).Kind() == reflect.Slice && string(b) == "null" {
+		responseWriter.Write([]byte("[]"))
+	}   else {
+		responseWriter.Write(b)
+	}
+
 }
