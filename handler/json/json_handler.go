@@ -3,9 +3,10 @@ package json
 import (
 	"net/http"
 
-	"github.com/bborbe/log"
-	"reflect"
 	"encoding/json"
+	"reflect"
+
+	"github.com/bborbe/log"
 	error_handler "github.com/bborbe/server/handler/error"
 )
 
@@ -38,7 +39,7 @@ func (m *jsonHandler) ServeHTTP(responseWriter http.ResponseWriter, request *htt
 	logger.Debugf("object type %v", reflect.TypeOf(m.m).Kind())
 	if reflect.TypeOf(m.m).Kind() == reflect.Slice && string(b) == "null" {
 		responseWriter.Write([]byte("[]"))
-	}   else {
+	} else {
 		responseWriter.Write(b)
 	}
 
