@@ -188,3 +188,20 @@ func TestDelete(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestRegisterCustomerHandler(t *testing.T) {
+	hf := New("/test")
+	hf.RegisterHandler("POST", "/verify", static.NewHandlerStaticContent("verify"))
+	r := &http.Request{Method: "POST", RequestURI: "/test/verify"}
+	h := hf.FindHandler(r)
+	err := AssertThat(h, NotNilValue())
+	if err != nil {
+		t.Fatal(err)
+	}
+	resp := mock.NewHttpResponseWriterMock()
+	h.ServeHTTP(resp, r)
+	err = AssertThat(string(resp.Content()), Is("verify"))
+	if err != nil {
+		t.Fatal(err)
+	}
+}

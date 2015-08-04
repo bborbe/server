@@ -25,7 +25,7 @@ func New() *handlerFinderMethod {
 }
 
 func (h *handlerFinderMethod) FindHandler(request *http.Request) http.Handler {
-	hf := h.GetHandlerFinder(request.Method)
+	hf := h.GetHandlerFinder(defaultMethod(request.Method))
 	if hf != nil {
 		return hf.FindHandler(request)
 	}
@@ -33,13 +33,20 @@ func (h *handlerFinderMethod) FindHandler(request *http.Request) http.Handler {
 }
 
 func (h *handlerFinderMethod) RegisterHandler(method string, handler http.Handler) {
-	h.RegisterHandlerFinder(method, dummy.New(handler))
+	h.RegisterHandlerFinder(defaultMethod(method), dummy.New(handler))
 }
 
 func (h *handlerFinderMethod) RegisterHandlerFinder(method string, handlerFinder handler_finder.HandlerFinder) {
-	h.handler[method] = handlerFinder
+	h.handler[defaultMethod(method)] = handlerFinder
 }
 
 func (h *handlerFinderMethod) GetHandlerFinder(method string) handler_finder.HandlerFinder {
-	return h.handler[method]
+	return h.handler[defaultMethod(method)]
+}
+
+func defaultMethod(method string) string {
+	if len(method) == 0 {
+		return "GET"
+	}
+	return method
 }
