@@ -31,4 +31,3 @@ func ParseKeyFromUri(uri string) (string, error) {
 	}
 	return "", fmt.Errorf("parse key from uri %s failed", uri)
 }
-
