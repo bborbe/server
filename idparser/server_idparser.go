@@ -11,11 +11,24 @@ func ParseIdFormRequest(request *http.Request) (int, error) {
 	return ParseIdFromUri(request.RequestURI)
 }
 
+func ParseKeyFormRequest(request *http.Request) (string, error) {
+	return ParseKeyFromUri(request.RequestURI)
+}
+
 func ParseIdFromUri(uri string) (int, error) {
-	re := regexp.MustCompile("(\\d+)[^/]*?$")
+	key, err := ParseKeyFromUri(uri)
+	if err != nil {
+		return 0, err
+	}
+	return strconv.Atoi(key)
+}
+
+func ParseKeyFromUri(uri string) (string, error) {
+	re := regexp.MustCompile("[^?#]*/([^/\\?#]+?)([\\?#].*)?$")
 	matches := re.FindStringSubmatch(uri)
 	if len(matches) > 1 {
-		return strconv.Atoi(matches[1])
+		return matches[1], nil
 	}
-	return 0, fmt.Errorf("parse id from uri %s failed", uri)
+	return "", fmt.Errorf("parse key from uri %s failed", uri)
 }
+
