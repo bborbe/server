@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	. "github.com/bborbe/assert"
-	"github.com/bborbe/server/mock"
+	server_mock "github.com/bborbe/server/mock"
 )
 
 func TestImplementsRequestHandler(t *testing.T) {
@@ -19,8 +19,8 @@ func TestImplementsRequestHandler(t *testing.T) {
 
 func TestContent(t *testing.T) {
 	handler := NewError(http.StatusNotFound)
-	responseWriter := mock.NewHttpResponseWriterMock()
-	request, err := mock.NewHttpRequestMock("http://www.example.com/foobar")
+	responseWriter := server_mock.NewHttpResponseWriterMock()
+	request, err := server_mock.NewHttpRequestMock("http://www.example.com/foobar")
 	if err != nil {
 		t.Error(err)
 	}

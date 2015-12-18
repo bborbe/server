@@ -6,7 +6,7 @@ import (
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/server/handler/static"
 	"github.com/bborbe/server/handler_finder"
-	"github.com/bborbe/server/mock"
+	server_mock "github.com/bborbe/server/mock"
 )
 
 func TestImplementsHandlerFinder(t *testing.T) {
@@ -21,7 +21,7 @@ func TestImplementsHandlerFinder(t *testing.T) {
 func TestRoot(t *testing.T) {
 	hf := New("")
 	{
-		request, err := mock.NewHttpRequestMock("http://www.example.com/api")
+		request, err := server_mock.NewHttpRequestMock("http://www.example.com/api")
 		if err != nil {
 			t.Error(err)
 		}
@@ -33,7 +33,7 @@ func TestRoot(t *testing.T) {
 	}
 	hf.RegisterHandler("/api", static.NewHandlerStaticContent("/api"))
 	{
-		request, err := mock.NewHttpRequestMock("http://www.example.com/api")
+		request, err := server_mock.NewHttpRequestMock("http://www.example.com/api")
 		if err != nil {
 			t.Error(err)
 		}
@@ -44,7 +44,7 @@ func TestRoot(t *testing.T) {
 		}
 	}
 	{
-		request, err := mock.NewHttpRequestMock("http://www.example.com/foo")
+		request, err := server_mock.NewHttpRequestMock("http://www.example.com/foo")
 		if err != nil {
 			t.Error(err)
 		}
@@ -55,7 +55,7 @@ func TestRoot(t *testing.T) {
 		}
 	}
 	{
-		request, err := mock.NewHttpRequestMock("http://www.example.com/api/v1")
+		request, err := server_mock.NewHttpRequestMock("http://www.example.com/api/v1")
 		if err != nil {
 			t.Error(err)
 		}
@@ -70,7 +70,7 @@ func TestRoot(t *testing.T) {
 func TestSub(t *testing.T) {
 	hf := New("/api")
 	{
-		request, err := mock.NewHttpRequestMock("http://www.example.com/api/test")
+		request, err := server_mock.NewHttpRequestMock("http://www.example.com/api/test")
 		if err != nil {
 			t.Error(err)
 		}
@@ -82,7 +82,7 @@ func TestSub(t *testing.T) {
 	}
 	hf.RegisterHandler("/test", static.NewHandlerStaticContent("/test"))
 	{
-		request, err := mock.NewHttpRequestMock("http://www.example.com/api/test")
+		request, err := server_mock.NewHttpRequestMock("http://www.example.com/api/test")
 		if err != nil {
 			t.Error(err)
 		}
@@ -93,7 +93,7 @@ func TestSub(t *testing.T) {
 		}
 	}
 	{
-		request, err := mock.NewHttpRequestMock("http://www.example.com/api/foo")
+		request, err := server_mock.NewHttpRequestMock("http://www.example.com/api/foo")
 		if err != nil {
 			t.Error(err)
 		}
@@ -104,7 +104,7 @@ func TestSub(t *testing.T) {
 		}
 	}
 	{
-		request, err := mock.NewHttpRequestMock("http://www.example.com/api/test/foo")
+		request, err := server_mock.NewHttpRequestMock("http://www.example.com/api/test/foo")
 		if err != nil {
 			t.Error(err)
 		}
@@ -121,7 +121,7 @@ func TestEmpty(t *testing.T) {
 	hf.RegisterHandler("", static.NewHandlerStaticContent(""))
 	hf.RegisterHandler("/", static.NewHandlerStaticContent("/"))
 	{
-		request, err := mock.NewHttpRequestMock("http://www.example.com/api/v1/task")
+		request, err := server_mock.NewHttpRequestMock("http://www.example.com/api/v1/task")
 		if err != nil {
 			t.Error(err)
 		}
@@ -132,7 +132,7 @@ func TestEmpty(t *testing.T) {
 		}
 	}
 	{
-		request, err := mock.NewHttpRequestMock("http://www.example.com/api/v1/task/")
+		request, err := server_mock.NewHttpRequestMock("http://www.example.com/api/v1/task/")
 		if err != nil {
 			t.Error(err)
 		}
@@ -143,7 +143,7 @@ func TestEmpty(t *testing.T) {
 		}
 	}
 	{
-		request, err := mock.NewHttpRequestMock("http://www.example.com/api/v1/task/123")
+		request, err := server_mock.NewHttpRequestMock("http://www.example.com/api/v1/task/123")
 		if err != nil {
 			t.Error(err)
 		}
@@ -158,7 +158,7 @@ func TestEmpty(t *testing.T) {
 func TestSubWithoutSlash(t *testing.T) {
 	hf := New("/hello")
 	{
-		request, err := mock.NewHttpRequestMock("http://www.example.com/helloworld")
+		request, err := server_mock.NewHttpRequestMock("http://www.example.com/helloworld")
 		if err != nil {
 			t.Error(err)
 		}
@@ -170,7 +170,7 @@ func TestSubWithoutSlash(t *testing.T) {
 	}
 	hf.RegisterHandler("world", static.NewHandlerStaticContent("world"))
 	{
-		request, err := mock.NewHttpRequestMock("http://www.example.com/helloworld")
+		request, err := server_mock.NewHttpRequestMock("http://www.example.com/helloworld")
 		if err != nil {
 			t.Error(err)
 		}
@@ -181,7 +181,7 @@ func TestSubWithoutSlash(t *testing.T) {
 		}
 	}
 	{
-		request, err := mock.NewHttpRequestMock("http://www.example.com/helloworld/foo")
+		request, err := server_mock.NewHttpRequestMock("http://www.example.com/helloworld/foo")
 		if err != nil {
 			t.Error(err)
 		}
@@ -198,11 +198,11 @@ func TestWithQuestionMark(t *testing.T) {
 	hf := New("/api")
 	hf.RegisterHandler("/test", static.NewHandlerStaticContent(content))
 	{
-		request, err := mock.NewHttpRequestMock("http://www.example.com/api/test")
+		request, err := server_mock.NewHttpRequestMock("http://www.example.com/api/test")
 		if err != nil {
 			t.Error(err)
 		}
-		response := mock.NewHttpResponseWriterMock()
+		response := server_mock.NewHttpResponseWriterMock()
 		handler := hf.FindHandler(request)
 		err = AssertThat(handler, NotNilValue().Message("handler registered"))
 		if err != nil {
@@ -215,11 +215,11 @@ func TestWithQuestionMark(t *testing.T) {
 		}
 	}
 	{
-		request, err := mock.NewHttpRequestMock("http://www.example.com/api/test?paramName=paramValue")
+		request, err := server_mock.NewHttpRequestMock("http://www.example.com/api/test?paramName=paramValue")
 		if err != nil {
 			t.Error(err)
 		}
-		response := mock.NewHttpResponseWriterMock()
+		response := server_mock.NewHttpResponseWriterMock()
 		handler := hf.FindHandler(request)
 		err = AssertThat(handler, NotNilValue().Message("handler registered"))
 		if err != nil {
@@ -238,11 +238,11 @@ func TestWithQuestionMarkWithoutSlash(t *testing.T) {
 	hf := New("/hello")
 	hf.RegisterHandler("world", static.NewHandlerStaticContent(content))
 	{
-		request, err := mock.NewHttpRequestMock("http://www.example.com/helloworld")
+		request, err := server_mock.NewHttpRequestMock("http://www.example.com/helloworld")
 		if err != nil {
 			t.Error(err)
 		}
-		response := mock.NewHttpResponseWriterMock()
+		response := server_mock.NewHttpResponseWriterMock()
 		handler := hf.FindHandler(request)
 		err = AssertThat(handler, NotNilValue().Message("handler registered"))
 		if err != nil {
@@ -255,11 +255,11 @@ func TestWithQuestionMarkWithoutSlash(t *testing.T) {
 		}
 	}
 	{
-		request, err := mock.NewHttpRequestMock("http://www.example.com/helloworld?paramName=paramValue")
+		request, err := server_mock.NewHttpRequestMock("http://www.example.com/helloworld?paramName=paramValue")
 		if err != nil {
 			t.Error(err)
 		}
-		response := mock.NewHttpResponseWriterMock()
+		response := server_mock.NewHttpResponseWriterMock()
 		handler := hf.FindHandler(request)
 		err = AssertThat(handler, NotNilValue().Message("handler registered"))
 		if err != nil {

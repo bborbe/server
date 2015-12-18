@@ -6,7 +6,7 @@ import (
 
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/server/handler/static"
-	"github.com/bborbe/server/mock"
+	server_mock "github.com/bborbe/server/mock"
 )
 
 func TestImplementsHandler(t *testing.T) {
@@ -21,8 +21,8 @@ func TestImplementsHandler(t *testing.T) {
 func TestIgnoreUnkownExtention(t *testing.T) {
 	subHandler := static.NewHandlerStaticContent("foo bar")
 	handler := NewContentTypeHandler(subHandler)
-	responseWriter := mock.NewHttpResponseWriterMock()
-	request, err := mock.NewHttpRequestMock("http://www.example.com/bla")
+	responseWriter := server_mock.NewHttpResponseWriterMock()
+	request, err := server_mock.NewHttpRequestMock("http://www.example.com/bla")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -36,8 +36,8 @@ func TestIgnoreUnkownExtention(t *testing.T) {
 func TestKownExtention(t *testing.T) {
 	subHandler := static.NewHandlerStaticContent("foo bar")
 	handler := NewContentTypeHandler(subHandler)
-	responseWriter := mock.NewHttpResponseWriterMock()
-	request, err := mock.NewHttpRequestMock("http://www.example.com/bla.json")
+	responseWriter := server_mock.NewHttpResponseWriterMock()
+	request, err := server_mock.NewHttpRequestMock("http://www.example.com/bla.json")
 	if err != nil {
 		t.Fatal(err)
 	}
