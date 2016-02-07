@@ -8,8 +8,8 @@ import (
 	"net/http"
 
 	. "github.com/bborbe/assert"
-
- 	http_client_builder "github.com/bborbe/http/client_builder"
+	http_client "github.com/bborbe/http/client"
+	http_client_builder "github.com/bborbe/http/client/builder"
  )
 
 func TestImplementsServer(t *testing.T) {
@@ -44,8 +44,11 @@ func TestStartStop(t *testing.T) {
 		t.Fatal(err)
 	}
 
-	d := http_client.NewNoProxy()
-	resp, err := d.Get("http://" + addr)
+
+	httpClientBuilder := http_client_builder.New()
+	httpClient := http_client.New(httpClientBuilder.Build())
+
+	resp, err := httpClient.Get("http://" + addr)
 	if err != nil {
 		t.Fatal(err)
 	}
