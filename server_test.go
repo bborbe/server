@@ -8,9 +8,8 @@ import (
 	"net/http"
 
 	. "github.com/bborbe/assert"
-	http_client "github.com/bborbe/http/client"
-	http_client_builder "github.com/bborbe/http/client/builder"
- )
+	http_client_builder "github.com/bborbe/http/client_builder"
+)
 
 func TestImplementsServer(t *testing.T) {
 	addr := ":12345"
@@ -46,7 +45,7 @@ func TestStartStop(t *testing.T) {
 
 
 	httpClientBuilder := http_client_builder.New()
-	httpClient := http_client.New(httpClientBuilder.Build())
+	httpClient := httpClientBuilder.Build()
 
 	resp, err := httpClient.Get("http://" + addr)
 	if err != nil {
