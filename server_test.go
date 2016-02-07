@@ -9,7 +9,8 @@ import (
 
 	. "github.com/bborbe/assert"
 	http_client "github.com/bborbe/http/client"
-)
+ 	http_client_builder "github.com/bborbe/http/client/builder"
+ )
 
 func TestImplementsServer(t *testing.T) {
 	addr := ":12345"
