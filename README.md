@@ -1,4 +1,4 @@
-# server
+# Server
 
 Package provide core server modules in Go
 
