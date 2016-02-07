@@ -8,8 +8,8 @@ import (
 	"net/http"
 
 	. "github.com/bborbe/assert"
-	http_client "github.com/bborbe/http/client"
- 	http_client_builder "github.com/bborbe/http/client/builder"
+
+ 	http_client_builder "github.com/bborbe/http/client_builder"
  )
 
 func TestImplementsServer(t *testing.T) {
