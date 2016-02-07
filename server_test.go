@@ -43,7 +43,6 @@ func TestStartStop(t *testing.T) {
 		t.Fatal(err)
 	}
 
-
 	httpClientBuilder := http_client_builder.New()
 	httpClient := httpClientBuilder.Build()
 
