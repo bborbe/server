@@ -3,8 +3,9 @@ package list
 import (
 	"testing"
 
+	"bytes"
+
 	. "github.com/bborbe/assert"
-	io_mock "github.com/bborbe/io/mock"
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/singletag"
 )
@@ -29,12 +30,12 @@ func TestImplementsListRenderer(t *testing.T) {
 func TestRenderEmpty(t *testing.T) {
 	var err error
 	v := NewListRenderer()
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(len(writer.Content()), Eq(0))
+	err = AssertThat(len(writer.String()), Eq(0))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -43,16 +44,16 @@ func TestRenderEmpty(t *testing.T) {
 func TestRenderOne(t *testing.T) {
 	var err error
 	v := NewListRenderer(singletag.NewSingletagRenderer("br"))
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(len(writer.Content()), Gt(0))
+	err = AssertThat(len(writer.String()), Gt(0))
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Is("<br/>"))
+	err = AssertThat(writer.String(), Is("<br/>"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -61,16 +62,16 @@ func TestRenderOne(t *testing.T) {
 func TestRenderTwo(t *testing.T) {
 	var err error
 	v := NewListRenderer(singletag.NewSingletagRenderer("br"), singletag.NewSingletagRenderer("hr"))
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(len(writer.Content()), Gt(0))
+	err = AssertThat(len(writer.String()), Gt(0))
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Is("<br/><hr/>"))
+	err = AssertThat(writer.String(), Is("<br/><hr/>"))
 	if err != nil {
 		t.Fatal(err)
 	}

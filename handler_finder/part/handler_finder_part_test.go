@@ -209,7 +209,7 @@ func TestWithQuestionMark(t *testing.T) {
 			t.Fatal(err)
 		}
 		handler.ServeHTTP(response, request)
-		err = AssertThat(string(response.Content()), Is(content).Message("check content"))
+		err = AssertThat(response.String(), Is(content).Message("check content"))
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -226,7 +226,7 @@ func TestWithQuestionMark(t *testing.T) {
 			t.Fatal(err)
 		}
 		handler.ServeHTTP(response, request)
-		err = AssertThat(string(response.Content()), Is(content).Message("check content"))
+		err = AssertThat(response.String(), Is(content).Message("check content"))
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -249,7 +249,7 @@ func TestWithQuestionMarkWithoutSlash(t *testing.T) {
 			t.Fatal(err)
 		}
 		handler.ServeHTTP(response, request)
-		err = AssertThat(string(response.Content()), Is(content).Message("check content"))
+		err = AssertThat(response.String(), Is(content).Message("check content"))
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -266,7 +266,7 @@ func TestWithQuestionMarkWithoutSlash(t *testing.T) {
 			t.Fatal(err)
 		}
 		handler.ServeHTTP(response, request)
-		err = AssertThat(string(response.Content()), Is(content).Message("check content"))
+		err = AssertThat(response.String(), Is(content).Message("check content"))
 		if err != nil {
 			t.Fatal(err)
 		}

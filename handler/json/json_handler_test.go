@@ -34,7 +34,7 @@ func TestRenderStruct(t *testing.T) {
 		t.Fatal()
 	}
 	r.ServeHTTP(resp, req)
-	if err = AssertThat(string(resp.Content()), Is(`{"firstname":"Hello","lastname":"World"}`)); err != nil {
+	if err = AssertThat(resp.String(), Is(`{"firstname":"Hello","lastname":"World"}`)); err != nil {
 		t.Fatal(err)
 	}
 }
@@ -54,7 +54,7 @@ func TestRenderListOfStruct(t *testing.T) {
 		t.Fatal()
 	}
 	r.ServeHTTP(resp, req)
-	if err = AssertThat(string(resp.Content()), Is(`[{"firstname":"Hello","lastname":"World"},{"firstname":"Hello","lastname":"World"}]`)); err != nil {
+	if err = AssertThat(resp.String(), Is(`[{"firstname":"Hello","lastname":"World"},{"firstname":"Hello","lastname":"World"}]`)); err != nil {
 		t.Fatal(err)
 	}
 }
@@ -68,7 +68,7 @@ func TestRenderEmptyList(t *testing.T) {
 		t.Fatal()
 	}
 	r.ServeHTTP(resp, req)
-	if err = AssertThat(string(resp.Content()), Is(`[]`)); err != nil {
+	if err = AssertThat(resp.String(), Is(`[]`)); err != nil {
 		t.Fatal(err)
 	}
 }
@@ -81,7 +81,7 @@ func TestRenderNilList(t *testing.T) {
 		t.Fatal()
 	}
 	r.ServeHTTP(resp, req)
-	if err = AssertThat(string(resp.Content()), Is(`[]`)); err != nil {
+	if err = AssertThat(resp.String(), Is(`[]`)); err != nil {
 		t.Fatal(err)
 	}
 }

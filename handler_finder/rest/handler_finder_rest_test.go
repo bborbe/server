@@ -51,7 +51,7 @@ func TestGet(t *testing.T) {
 	}
 	resp := mock.NewHttpResponseWriterMock()
 	h.ServeHTTP(resp, r)
-	err = AssertThat(string(resp.Content()), Is("get"))
+	err = AssertThat(resp.String(), Is("get"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -73,7 +73,7 @@ func TestList(t *testing.T) {
 	}
 	resp := mock.NewHttpResponseWriterMock()
 	h.ServeHTTP(resp, r)
-	err = AssertThat(string(resp.Content()), Is("list"))
+	err = AssertThat(resp.String(), Is("list"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -95,7 +95,7 @@ func TestListNoMethod(t *testing.T) {
 	}
 	resp := mock.NewHttpResponseWriterMock()
 	h.ServeHTTP(resp, r)
-	err = AssertThat(string(resp.Content()), Is("list"))
+	err = AssertThat(resp.String(), Is("list"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -117,7 +117,7 @@ func TestCreate(t *testing.T) {
 	}
 	resp := mock.NewHttpResponseWriterMock()
 	h.ServeHTTP(resp, r)
-	err = AssertThat(string(resp.Content()), Is("create"))
+	err = AssertThat(resp.String(), Is("create"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -139,7 +139,7 @@ func TestUpdate(t *testing.T) {
 	}
 	resp := mock.NewHttpResponseWriterMock()
 	h.ServeHTTP(resp, r)
-	err = AssertThat(string(resp.Content()), Is("update"))
+	err = AssertThat(resp.String(), Is("update"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -161,7 +161,7 @@ func TestPatch(t *testing.T) {
 	}
 	resp := mock.NewHttpResponseWriterMock()
 	h.ServeHTTP(resp, r)
-	err = AssertThat(string(resp.Content()), Is("patch"))
+	err = AssertThat(resp.String(), Is("patch"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -183,7 +183,7 @@ func TestDelete(t *testing.T) {
 	}
 	resp := mock.NewHttpResponseWriterMock()
 	h.ServeHTTP(resp, r)
-	err = AssertThat(string(resp.Content()), Is("delete"))
+	err = AssertThat(resp.String(), Is("delete"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -200,7 +200,7 @@ func TestRegisterCustomerHandler(t *testing.T) {
 	}
 	resp := mock.NewHttpResponseWriterMock()
 	h.ServeHTTP(resp, r)
-	err = AssertThat(string(resp.Content()), Is("verify"))
+	err = AssertThat(resp.String(), Is("verify"))
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -3,8 +3,9 @@ package li
 import (
 	"testing"
 
+	"bytes"
+
 	. "github.com/bborbe/assert"
-	io_mock "github.com/bborbe/io/mock"
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/content"
 )
@@ -29,12 +30,12 @@ func TestImplementsUlRenderer(t *testing.T) {
 
 func TestRender(t *testing.T) {
 	r := NewLiRenderer()
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	err := r.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Is("<li></li>"))
+	err = AssertThat(writer.String(), Is("<li></li>"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -46,12 +47,12 @@ func TestRenderWithContent(t *testing.T) {
 	contentRenderer.SetContentString("hello world")
 	r.SetContent(contentRenderer)
 
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	err := r.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Is("<li>hello world</li>"))
+	err = AssertThat(writer.String(), Is("<li>hello world</li>"))
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -3,8 +3,9 @@ package input
 import (
 	"testing"
 
+	"bytes"
+
 	. "github.com/bborbe/assert"
-	io_mock "github.com/bborbe/io/mock"
 	"github.com/bborbe/server/renderer"
 )
 
@@ -28,12 +29,12 @@ func TestImplementsInputRenderer(t *testing.T) {
 
 func TestRender(t *testing.T) {
 	r := NewInputRenderer()
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	err := r.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Is("<input/>"))
+	err = AssertThat(writer.String(), Is("<input/>"))
 	if err != nil {
 		t.Fatal(err)
 	}

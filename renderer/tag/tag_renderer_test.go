@@ -3,8 +3,9 @@ package tag
 import (
 	"testing"
 
+	"bytes"
+
 	. "github.com/bborbe/assert"
-	io_mock "github.com/bborbe/io/mock"
 	"github.com/bborbe/server/renderer"
 )
 
@@ -28,20 +29,20 @@ func TestImplementsTagRenderer(t *testing.T) {
 func TestRender(t *testing.T) {
 	var err error
 	v := NewTagRenderer("mytag")
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(len(writer.Content()), Gt(0))
+	err = AssertThat(len(writer.String()), Gt(0))
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Contains("<mytag>"))
+	err = AssertThat(writer.String(), Contains("<mytag>"))
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Contains("</mytag>"))
+	err = AssertThat(writer.String(), Contains("</mytag>"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -51,16 +52,16 @@ func TestRenderAttributes(t *testing.T) {
 	var err error
 	v := NewTagRenderer("mytag")
 	v.SetAttribute("a", "b")
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(len(writer.Content()), Gt(0))
+	err = AssertThat(len(writer.String()), Gt(0))
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Is("<mytag a=\"b\"></mytag>"))
+	err = AssertThat(writer.String(), Is("<mytag a=\"b\"></mytag>"))
 	if err != nil {
 		t.Fatal(err)
 	}

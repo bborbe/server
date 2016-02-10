@@ -3,8 +3,9 @@ package html
 import (
 	"testing"
 
+	"bytes"
+
 	. "github.com/bborbe/assert"
-	io_mock "github.com/bborbe/io/mock"
 	"github.com/bborbe/server/renderer"
 )
 
@@ -28,24 +29,24 @@ func TestImplementsHtmlRenderer(t *testing.T) {
 func TestRender(t *testing.T) {
 	var err error
 	v := NewHtmlRenderer()
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(len(writer.Content()), Gt(0))
+	err = AssertThat(len(writer.String()), Gt(0))
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Startswith("<!doctype html>"))
+	err = AssertThat(writer.String(), Startswith("<!doctype html>"))
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Contains("<html>"))
+	err = AssertThat(writer.String(), Contains("<html>"))
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Contains("</html>"))
+	err = AssertThat(writer.String(), Contains("</html>"))
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -3,8 +3,9 @@ package content
 import (
 	"testing"
 
+	"bytes"
+
 	. "github.com/bborbe/assert"
-	io_mock "github.com/bborbe/io/mock"
 	"github.com/bborbe/server/renderer"
 )
 
@@ -30,16 +31,16 @@ func TestRender(t *testing.T) {
 	var err error
 	v := NewContentRenderer()
 	v.SetContentString("mycontent")
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(len(writer.Content()), Gt(0))
+	err = AssertThat(len(writer.String()), Gt(0))
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Contains("mycontent"))
+	err = AssertThat(writer.String(), Contains("mycontent"))
 	if err != nil {
 		t.Fatal(err)
 	}

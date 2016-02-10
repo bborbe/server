@@ -3,8 +3,9 @@ package table
 import (
 	"testing"
 
+	"bytes"
+
 	. "github.com/bborbe/assert"
-	io_mock "github.com/bborbe/io/mock"
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/content"
 	"github.com/bborbe/server/renderer/tablecell"
@@ -32,20 +33,20 @@ func TestImplementsTableRenderer(t *testing.T) {
 func TestRender(t *testing.T) {
 	var err error
 	v := NewTableRenderer()
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(len(writer.Content()), Gt(0))
+	err = AssertThat(len(writer.String()), Gt(0))
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Startswith("<table"))
+	err = AssertThat(writer.String(), Startswith("<table"))
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Endswith("</table>"))
+	err = AssertThat(writer.String(), Endswith("</table>"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -65,12 +66,12 @@ func TestCompleteTable(t *testing.T) {
 	table := NewTableRenderer()
 	table.AddRow(row)
 
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	err = table.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Is("<table><tr><td>hello world</td></tr></table>"))
+	err = AssertThat(writer.String(), Is("<table><tr><td>hello world</td></tr></table>"))
 	if err != nil {
 		t.Fatal(err)
 	}

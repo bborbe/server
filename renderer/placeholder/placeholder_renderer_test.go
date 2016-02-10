@@ -3,8 +3,9 @@ package placeholder
 import (
 	"testing"
 
+	"bytes"
+
 	. "github.com/bborbe/assert"
-	io_mock "github.com/bborbe/io/mock"
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/tag"
 )
@@ -30,12 +31,12 @@ func TestImplementsPlaceholderRenderer(t *testing.T) {
 func TestRenderWithoutContent(t *testing.T) {
 	var err error
 	v := NewPlaceholderRenderer()
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(len(writer.Content()), Eq(0))
+	err = AssertThat(len(writer.String()), Eq(0))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -45,16 +46,16 @@ func TestRenderWithContent(t *testing.T) {
 	var err error
 	v := NewPlaceholderRenderer()
 	v.SetRenderer(tag.NewTagRenderer("h1"))
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(len(writer.Content()), Gt(0))
+	err = AssertThat(len(writer.String()), Gt(0))
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Contains("<h1></h1>"))
+	err = AssertThat(writer.String(), Contains("<h1></h1>"))
 	if err != nil {
 		t.Fatal(err)
 	}

@@ -19,17 +19,17 @@ func TestNewHttpResponseWriterMock(t *testing.T) {
 func TestHttpResponseWriter(t *testing.T) {
 	var err error
 	response := NewHttpResponseWriterMock()
-	err = AssertThat(string(response.Content()), Is(""))
+	err = AssertThat(response.String(), Is(""))
 	if err != nil {
 		t.Error(err)
 	}
 	response.Write([]byte("hello"))
-	err = AssertThat(string(response.Content()), Is("hello"))
+	err = AssertThat(response.String(), Is("hello"))
 	if err != nil {
 		t.Error(err)
 	}
 	response.Write([]byte(" world"))
-	err = AssertThat(string(response.Content()), Is("hello world"))
+	err = AssertThat(response.String(), Is("hello world"))
 	if err != nil {
 		t.Error(err)
 	}

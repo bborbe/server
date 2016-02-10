@@ -61,7 +61,7 @@ func TestHandlerFound(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		err = AssertThat(string(responseWriter.Content()), Is("/").Message("compare / content"))
+		err = AssertThat(responseWriter.String(), Is("/").Message("compare / content"))
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -77,7 +77,7 @@ func TestHandlerFound(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		err = AssertThat(string(responseWriter.Content()), Is("/test").Message("compare /test content"))
+		err = AssertThat(responseWriter.String(), Is("/test").Message("compare /test content"))
 		if err != nil {
 			t.Fatal(err)
 		}

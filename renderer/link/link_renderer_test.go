@@ -3,8 +3,9 @@ package link
 import (
 	"testing"
 
+	"bytes"
+
 	. "github.com/bborbe/assert"
-	io_mock "github.com/bborbe/io/mock"
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/content"
 )
@@ -29,16 +30,16 @@ func TestImplementsLinkRenderer(t *testing.T) {
 func TestRenderEmpty(t *testing.T) {
 	var err error
 	v := NewLinkRenderer()
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(len(writer.Content()), Gt(0))
+	err = AssertThat(len(writer.String()), Gt(0))
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Contains("<a></a>"))
+	err = AssertThat(writer.String(), Contains("<a></a>"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -51,16 +52,16 @@ func TestRender(t *testing.T) {
 	contentRenderer := content.NewContentRenderer()
 	contentRenderer.SetContentString("foo bar")
 	v.SetContent(contentRenderer)
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	err = v.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(len(writer.Content()), Gt(0))
+	err = AssertThat(len(writer.String()), Gt(0))
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Is("<a href=\"/links\">foo bar</a>"))
+	err = AssertThat(writer.String(), Is("<a href=\"/links\">foo bar</a>"))
 	if err != nil {
 		t.Fatal(err)
 	}

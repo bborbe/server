@@ -3,8 +3,9 @@ package ul
 import (
 	"testing"
 
+	"bytes"
+
 	. "github.com/bborbe/assert"
-	io_mock "github.com/bborbe/io/mock"
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/li"
 )
@@ -29,12 +30,12 @@ func TestImplementsUlRenderer(t *testing.T) {
 
 func TestRender(t *testing.T) {
 	r := NewUlRenderer()
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	err := r.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Is("<ul></ul>"))
+	err = AssertThat(writer.String(), Is("<ul></ul>"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -42,14 +43,14 @@ func TestRender(t *testing.T) {
 
 func TestRenderWithLi(t *testing.T) {
 	r := NewUlRenderer()
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	li := li.NewLiRenderer()
 	r.Add(li)
 	err := r.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Is("<ul><li></li></ul>"))
+	err = AssertThat(writer.String(), Is("<ul><li></li></ul>"))
 	if err != nil {
 		t.Fatal(err)
 	}

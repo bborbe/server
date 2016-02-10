@@ -1,21 +1,20 @@
 package mock
 
 import (
+	"bytes"
 	"net/http"
-
-	io_mock "github.com/bborbe/io/mock"
 )
 
 type responseWriterMock struct {
 	status int
-	writer io_mock.WriterContent
+	writer *bytes.Buffer
 	header http.Header
 }
 
 func NewHttpResponseWriterMock() *responseWriterMock {
 	r := new(responseWriterMock)
 	r.header = make(http.Header)
-	r.writer = io_mock.NewWriter()
+	r.writer = bytes.NewBufferString("")
 	return r
 }
 
@@ -35,6 +34,10 @@ func (r *responseWriterMock) Status() int {
 	return r.status
 }
 
-func (r *responseWriterMock) Content() []byte {
-	return r.writer.Content()
+func (r *responseWriterMock) String() string {
+	return r.writer.String()
+}
+
+func (r *responseWriterMock) Bytes() []byte {
+	return r.writer.Bytes()
 }

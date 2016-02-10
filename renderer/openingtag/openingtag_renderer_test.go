@@ -3,23 +3,24 @@ package openingtag
 import (
 	"testing"
 
+	"bytes"
+
 	. "github.com/bborbe/assert"
-	io_mock "github.com/bborbe/io/mock"
 )
 
 func TestNewOpenRenderer(t *testing.T) {
 	var err error
 	r := NewOpenRenderer("div")
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	err = r.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(len(writer.Content()), Gt(0))
+	err = AssertThat(len(writer.String()), Gt(0))
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Contains("<div>"))
+	err = AssertThat(writer.String(), Contains("<div>"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -28,16 +29,16 @@ func TestNewOpenRenderer(t *testing.T) {
 func TestNewCloseRenderer(t *testing.T) {
 	var err error
 	r := NewCloseRenderer("div")
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	err = r.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(len(writer.Content()), Gt(0))
+	err = AssertThat(len(writer.String()), Gt(0))
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Contains("<div/>"))
+	err = AssertThat(writer.String(), Contains("<div/>"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -46,17 +47,17 @@ func TestNewCloseRenderer(t *testing.T) {
 func TestAddClass(t *testing.T) {
 	var err error
 	r := NewCloseRenderer("div")
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	r.AddClass("content")
 	err = r.Render(writer)
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(len(writer.Content()), Gt(0))
+	err = AssertThat(len(writer.String()), Gt(0))
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Contains("<div class=\"content\"/>"))
+	err = AssertThat(writer.String(), Contains("<div class=\"content\"/>"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -65,7 +66,7 @@ func TestAddClass(t *testing.T) {
 func TestAddClassSorted(t *testing.T) {
 	var err error
 	r := NewCloseRenderer("div")
-	writer := io_mock.NewWriter()
+	writer := bytes.NewBufferString("")
 	r.AddClass("c")
 	r.AddClass("a")
 	r.AddClass("b")
@@ -73,11 +74,11 @@ func TestAddClassSorted(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(len(writer.Content()), Gt(0))
+	err = AssertThat(len(writer.String()), Gt(0))
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(string(writer.Content()), Contains("<div class=\"a b c\"/>"))
+	err = AssertThat(writer.String(), Contains("<div class=\"a b c\"/>"))
 	if err != nil {
 		t.Fatal(err)
 	}
