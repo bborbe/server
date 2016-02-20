@@ -4,7 +4,7 @@ Package provide core server modules in Go
 
 ## Continuous integration
 
-http://jenkins.benjamin-borbe.de/job/Go-Server/
+[Jenkins](https://www.benjamin-borbe.de/jenkins/job/Go-Server/)
 
 ## Copyright and license
 
