@@ -8,8 +8,8 @@ import (
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/content"
-	"github.com/bborbe/server/renderer/tablecell"
-	"github.com/bborbe/server/renderer/tablerow"
+	"github.com/bborbe/server/renderer/html/tablecell"
+	"github.com/bborbe/server/renderer/html/tablerow"
 )
 
 func TestImplementsRenderer(t *testing.T) {

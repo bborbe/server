@@ -4,7 +4,7 @@ import (
 	"io"
 
 	"github.com/bborbe/server/renderer"
-	"github.com/bborbe/server/renderer/tag"
+	"github.com/bborbe/server/renderer/html/tag"
 )
 
 type HeadRenderer interface {

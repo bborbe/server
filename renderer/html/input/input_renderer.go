@@ -4,7 +4,7 @@ import (
 	"io"
 
 	"github.com/bborbe/server/renderer"
-	"github.com/bborbe/server/renderer/singletag"
+	"github.com/bborbe/server/renderer/html/singletag"
 )
 
 type InputRenderer interface {

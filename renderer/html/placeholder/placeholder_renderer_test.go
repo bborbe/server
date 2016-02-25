@@ -7,7 +7,7 @@ import (
 
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/server/renderer"
-	"github.com/bborbe/server/renderer/tag"
+	"github.com/bborbe/server/renderer/html/tag"
 )
 
 func TestImplementsRenderer(t *testing.T) {

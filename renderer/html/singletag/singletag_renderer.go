@@ -4,7 +4,7 @@ import (
 	"io"
 
 	"github.com/bborbe/server/renderer"
-	"github.com/bborbe/server/renderer/openingtag"
+	"github.com/bborbe/server/renderer/html/openingtag"
 )
 
 type SingletagRenderer interface {

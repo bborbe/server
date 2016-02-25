@@ -5,8 +5,8 @@ import (
 
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/list"
-	"github.com/bborbe/server/renderer/tablerow"
-	"github.com/bborbe/server/renderer/tag"
+	"github.com/bborbe/server/renderer/html/tablerow"
+	"github.com/bborbe/server/renderer/html/tag"
 )
 
 type TableRenderer interface {
