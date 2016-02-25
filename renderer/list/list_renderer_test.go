@@ -43,7 +43,7 @@ func TestRenderEmpty(t *testing.T) {
 
 func TestRenderOne(t *testing.T) {
 	var err error
-	c:=content.NewContentRenderer()
+	c := content.NewContentRenderer()
 	c.SetContentString("foo")
 	v := NewListRenderer(c)
 	writer := bytes.NewBufferString("")
@@ -67,7 +67,7 @@ func TestRenderTwo(t *testing.T) {
 	c1.SetContentString("foo")
 	c2 := content.NewContentRenderer()
 	c2.SetContentString("bar")
-	v := NewListRenderer(c1,c2)
+	v := NewListRenderer(c1, c2)
 	writer := bytes.NewBufferString("")
 	err = v.Render(writer)
 	if err != nil {
