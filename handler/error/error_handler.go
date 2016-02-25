@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/bborbe/log"
-	"github.com/bborbe/server/renderer/failure"
+	"github.com/bborbe/server/renderer/json/failure"
 )
 
 var logger = log.DefaultLogger
