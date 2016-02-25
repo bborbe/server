@@ -5,8 +5,8 @@ import (
 
 	"github.com/bborbe/server/renderer"
 	"github.com/bborbe/server/renderer/html/li"
-	"github.com/bborbe/server/renderer/list"
 	"github.com/bborbe/server/renderer/html/tag"
+	"github.com/bborbe/server/renderer/list"
 )
 
 type UlRenderer interface {

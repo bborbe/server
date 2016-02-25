@@ -4,12 +4,12 @@ import (
 	"io"
 
 	"github.com/bborbe/server/renderer"
-	"github.com/bborbe/server/renderer/html/body"
 	"github.com/bborbe/server/renderer/content"
+	"github.com/bborbe/server/renderer/html/body"
 	"github.com/bborbe/server/renderer/html/head"
-	"github.com/bborbe/server/renderer/list"
 	"github.com/bborbe/server/renderer/html/placeholder"
 	"github.com/bborbe/server/renderer/html/tag"
+	"github.com/bborbe/server/renderer/list"
 )
 
 type HtmlRenderer interface {

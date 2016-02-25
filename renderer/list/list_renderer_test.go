@@ -7,7 +7,7 @@ import (
 
 	. "github.com/bborbe/assert"
 	"github.com/bborbe/server/renderer"
-	"github.com/bborbe/server/renderer/html/singletag"
+	"github.com/bborbe/server/renderer/content"
 )
 
 func TestImplementsRenderer(t *testing.T) {
@@ -43,7 +43,9 @@ func TestRenderEmpty(t *testing.T) {
 
 func TestRenderOne(t *testing.T) {
 	var err error
-	v := NewListRenderer(singletag.NewSingletagRenderer("br"))
+	c:=content.NewContentRenderer()
+	c.SetContentString("foo")
+	v := NewListRenderer(c)
 	writer := bytes.NewBufferString("")
 	err = v.Render(writer)
 	if err != nil {
@@ -53,7 +55,7 @@ func TestRenderOne(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(writer.String(), Is("<br/>"))
+	err = AssertThat(writer.String(), Is("foo"))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -61,7 +63,11 @@ func TestRenderOne(t *testing.T) {
 
 func TestRenderTwo(t *testing.T) {
 	var err error
-	v := NewListRenderer(singletag.NewSingletagRenderer("br"), singletag.NewSingletagRenderer("hr"))
+	c1 := content.NewContentRenderer()
+	c1.SetContentString("foo")
+	c2 := content.NewContentRenderer()
+	c2.SetContentString("bar")
+	v := NewListRenderer(c1,c2)
 	writer := bytes.NewBufferString("")
 	err = v.Render(writer)
 	if err != nil {
@@ -71,7 +77,7 @@ func TestRenderTwo(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	err = AssertThat(writer.String(), Is("<br/><hr/>"))
+	err = AssertThat(writer.String(), Is("foobar"))
 	if err != nil {
 		t.Fatal(err)
 	}
