@@ -20,9 +20,9 @@ func NewLogHandler(handler http.Handler) *logHandler {
 }
 
 func (m *logHandler) ServeHTTP(responseWriter http.ResponseWriter, request *http.Request) {
-	start := time.Now().Nanosecond()
+	start := time.Now()
 	logger.Debugf("%s %s", request.Method, request.RequestURI)
 	m.handler.ServeHTTP(responseWriter, request)
-	end := time.Now().Nanosecond()
-	logger.Debugf("%s %s takes %d ms", request.Method, request.RequestURI, (end-start)/1000/1000)
+	end := time.Now()
+	logger.Debugf("%s %s takes %dms", request.Method, request.RequestURI, end.Sub(start)/time.Millisecond)
 }
