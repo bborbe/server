@@ -21,8 +21,13 @@ func NewMultiFileserverHandler(dirs ...string) *multiFileserverHandler {
 }
 func reverse(dirs []string) []string {
 	result := make([]string, len(dirs))
-	for i, _ := range dirs {
-		result[i] = dirs[len(dirs)-i-1]
+	for i, dir := range dirs {
+		if _, err := os.Stat(dir); os.IsNotExist(err) {
+			logger.Warnf("dir %s not found", dir)
+		} else {
+			logger.Debugf("setup dir %s", dir)
+			result[len(result)-i-1] = dir
+		}
 	}
 	return result
 }

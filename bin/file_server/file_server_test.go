@@ -7,9 +7,11 @@ import (
 )
 
 func TestCreateServer(t *testing.T) {
-	server := createServer(8080, "/tmp", "")
-	err := AssertThat(server, NotNilValue())
-	if err != nil {
+	server, err := createServer(8080, "/tmp", "")
+	if err = AssertThat(err, NilValue()); err != nil {
+		t.Fatal(err)
+	}
+	if err = AssertThat(server, NotNilValue()); err != nil {
 		t.Fatal(err)
 	}
 }
