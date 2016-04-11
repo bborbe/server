@@ -3,38 +3,42 @@ package multi_fileserver
 import (
 	"net/http"
 	"path"
-	"strings"
-
 	"github.com/bborbe/log"
+	"os"
 )
 
 var logger = log.DefaultLogger
 
 type multiFileserverHandler struct {
-	dirs []http.Dir
+	dirs []string
 }
 
-func NewMultiFileserverHandler(dirs ...http.Dir) *multiFileserverHandler {
+func NewMultiFileserverHandler(dirs ...string) *multiFileserverHandler {
 	h := new(multiFileserverHandler)
-	h.dirs = dirs
+	h.dirs = reverse(dirs)
 	return h
+}
+func reverse(dirs []string) []string {
+	result := make([]string, len(dirs))
+	for i, _ := range dirs {
+		result[i] = dirs[len(dirs) - i - 1]
+	}
+	return result
 }
 
 func (h *multiFileserverHandler) ServeHTTP(responseWriter http.ResponseWriter, request *http.Request) {
+	name := request.URL.Path
 	for _, root := range h.dirs {
-		logger.Debugf("search in dir: %v", root)
-		upath := request.URL.Path
-		if !strings.HasPrefix(upath, "/") {
-			upath = "/" + upath
-		}
-		_, err := root.Open(path.Clean(upath))
-		if err != nil {
-			logger.Debugf("open %s failed", path.Clean(upath))
+		logger.Debugf("search file %s in directory %s", name, root)
+		file := path.Join(root, name)
+		if _, err := os.Stat(file); os.IsNotExist(err) {
+			logger.Debugf("file %s not found in directory %s", name, root)
 		} else {
-			fileServer := http.FileServer(root)
-			fileServer.ServeHTTP(responseWriter, request)
+			logger.Debugf("found file %s in directory %s", name, root)
+			http.ServeFile(responseWriter, request, file)
 			return
 		}
 	}
+	logger.Infof("file not found %s", name)
 	http.NotFound(responseWriter, request)
 }

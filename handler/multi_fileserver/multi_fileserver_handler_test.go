@@ -15,7 +15,7 @@ import (
 )
 
 func TestImplementsHandler(t *testing.T) {
-	r := NewMultiFileserverHandler(http.Dir("/tmp"))
+	r := NewMultiFileserverHandler("/tmp")
 	var i *http.Handler
 	err := AssertThat(r, Implements(i))
 	if err != nil {
@@ -30,7 +30,7 @@ func TestServeHTTP404(t *testing.T) {
 	defer os.RemoveAll(dir2)
 	writeFile(dir1, "a.txt", "a1")
 	writeFile(dir2, "b.txt", "b2")
-	h := NewMultiFileserverHandler(http.Dir(dir1), http.Dir(dir2))
+	h := NewMultiFileserverHandler(dir1, dir2)
 	response := server_mock.NewHttpResponseWriterMock()
 	request, err := server_mock.NewHttpRequestMock("http://www.example.com/foo.txt")
 	if err != nil {
@@ -49,7 +49,7 @@ func TestServeHTTPDir1(t *testing.T) {
 	defer os.RemoveAll(dir2)
 	writeFile(dir1, "a.txt", "a1")
 	writeFile(dir2, "b.txt", "b2")
-	h := NewMultiFileserverHandler(http.Dir(dir1), http.Dir(dir2))
+	h := NewMultiFileserverHandler(dir1, dir2)
 	response := server_mock.NewHttpResponseWriterMock()
 	request, err := server_mock.NewHttpRequestMock("http://www.example.com/a.txt")
 	if err != nil {
@@ -71,7 +71,7 @@ func TestServeHTTPDir2(t *testing.T) {
 	defer os.RemoveAll(dir2)
 	writeFile(dir1, "a.txt", "a1")
 	writeFile(dir2, "b.txt", "b2")
-	h := NewMultiFileserverHandler(http.Dir(dir1), http.Dir(dir2))
+	h := NewMultiFileserverHandler(dir1, dir2)
 	response := server_mock.NewHttpResponseWriterMock()
 	request, err := server_mock.NewHttpRequestMock("http://www.example.com/b.txt")
 	if err != nil {
@@ -86,14 +86,14 @@ func TestServeHTTPDir2(t *testing.T) {
 	}
 }
 
-func TestServeHTTPFirstWins(t *testing.T) {
+func TestServeHTTPLastWins(t *testing.T) {
 	dir1, _ := ioutil.TempDir("", "dir1")
 	defer os.RemoveAll(dir1)
 	dir2, _ := ioutil.TempDir("", "dir2")
 	defer os.RemoveAll(dir2)
 	writeFile(dir1, "a.txt", "a1")
 	writeFile(dir2, "a.txt", "a2")
-	h := NewMultiFileserverHandler(http.Dir(dir1), http.Dir(dir2))
+	h := NewMultiFileserverHandler(dir1, dir2)
 	response := server_mock.NewHttpResponseWriterMock()
 	request, err := server_mock.NewHttpRequestMock("http://www.example.com/a.txt")
 	if err != nil {
@@ -103,7 +103,7 @@ func TestServeHTTPFirstWins(t *testing.T) {
 	if err = AssertThat(response.Status(), Is(200)); err != nil {
 		t.Fatal(err)
 	}
-	if err = AssertThat(string(response.Bytes()), Is("a1")); err != nil {
+	if err = AssertThat(string(response.Bytes()), Is("a2")); err != nil {
 		t.Fatal(err)
 	}
 }
