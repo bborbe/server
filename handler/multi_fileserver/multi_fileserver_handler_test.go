@@ -3,13 +3,15 @@ package multi_fileserver
 import (
 	"net/http"
 	"testing"
+
 	server_mock "github.com/bborbe/server/mock"
 
-	. "github.com/bborbe/assert"
-	"os"
-	"io/ioutil"
-	"path"
 	"fmt"
+	"io/ioutil"
+	"os"
+	"path"
+
+	. "github.com/bborbe/assert"
 )
 
 func TestImplementsHandler(t *testing.T) {

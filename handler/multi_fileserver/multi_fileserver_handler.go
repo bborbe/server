@@ -2,8 +2,9 @@ package multi_fileserver
 
 import (
 	"net/http"
-	"strings"
 	"path"
+	"strings"
+
 	"github.com/bborbe/log"
 )
 
@@ -13,7 +14,7 @@ type multiFileserverHandler struct {
 	dirs []http.Dir
 }
 
-func NewMultiFileserverHandler(dirs... http.Dir) *multiFileserverHandler {
+func NewMultiFileserverHandler(dirs ...http.Dir) *multiFileserverHandler {
 	h := new(multiFileserverHandler)
 	h.dirs = dirs
 	return h
