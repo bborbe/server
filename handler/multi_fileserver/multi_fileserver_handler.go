@@ -9,6 +9,9 @@ import (
 
 var logger = log.DefaultLogger
 
+const DIRECTORY_INDEX = "index.html"
+
+
 type multiFileserverHandler struct {
 	dirs []string
 }
@@ -33,6 +36,9 @@ func reverse(dirs []string) []string {
 
 func (h *multiFileserverHandler) ServeHTTP(responseWriter http.ResponseWriter, request *http.Request) {
 	name := request.URL.Path
+	if name == "" || name == "/" {
+		name = DIRECTORY_INDEX
+	}
 	for _, root := range h.dirs {
 		logger.Debugf("search file %s in directory %s", name, root)
 		f, err := http.Dir(root).Open(name)

@@ -6,7 +6,6 @@ import (
 
 	server_mock "github.com/bborbe/server/mock"
 
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path"
@@ -113,7 +112,7 @@ func TestServeHTTPIndexHtml(t *testing.T) {
 	defer os.RemoveAll(dir1)
 	dir2, _ := ioutil.TempDir("", "dir2")
 	defer os.RemoveAll(dir2)
-	writeFile(dir1, "index.html", "MyIndex")
+	writeFile(dir1, DIRECTORY_INDEX, "MyIndex")
 	h := NewMultiFileserverHandler(dir1, dir2)
 	response := server_mock.NewHttpResponseWriterMock()
 	request, err := server_mock.NewHttpRequestMock("http://www.example.com/index.html")
@@ -129,9 +128,51 @@ func TestServeHTTPIndexHtml(t *testing.T) {
 	}
 }
 
+func TestServeHTTPRoot(t *testing.T) {
+	dir1, _ := ioutil.TempDir("", "dir1")
+	defer os.RemoveAll(dir1)
+	dir2, _ := ioutil.TempDir("", "dir2")
+	defer os.RemoveAll(dir2)
+	writeFile(dir1, DIRECTORY_INDEX, "MyIndex")
+	h := NewMultiFileserverHandler(dir1, dir2)
+	response := server_mock.NewHttpResponseWriterMock()
+	request, err := server_mock.NewHttpRequestMock("http://www.example.com")
+	if err != nil {
+		t.Fatal(err)
+	}
+	h.ServeHTTP(response, request)
+	if err = AssertThat(response.Status(), Is(200)); err != nil {
+		t.Fatal(err)
+	}
+	if err = AssertThat(string(response.Bytes()), Is("MyIndex")); err != nil {
+		t.Fatal(err)
+	}
+}
+
+func TestServeHTTPSlash(t *testing.T) {
+	dir1, _ := ioutil.TempDir("", "dir1")
+	defer os.RemoveAll(dir1)
+	dir2, _ := ioutil.TempDir("", "dir2")
+	defer os.RemoveAll(dir2)
+	writeFile(dir1, DIRECTORY_INDEX, "MyIndex")
+	h := NewMultiFileserverHandler(dir1, dir2)
+	response := server_mock.NewHttpResponseWriterMock()
+	request, err := server_mock.NewHttpRequestMock("http://www.example.com/")
+	if err != nil {
+		t.Fatal(err)
+	}
+	h.ServeHTTP(response, request)
+	if err = AssertThat(response.Status(), Is(200)); err != nil {
+		t.Fatal(err)
+	}
+	if err = AssertThat(string(response.Bytes()), Is("MyIndex")); err != nil {
+		t.Fatal(err)
+	}
+}
+
 func writeFile(dir string, name string, content string) error {
-	fmt.Printf("write dir %s name %s\n", dir, name)
+	logger.Debugf("write dir %s name %s\n", dir, name)
 	filename := path.Join(dir, name)
-	fmt.Printf("write file %s\n", filename)
+	logger.Debugf("write file %s\n", filename)
 	return ioutil.WriteFile(filename, []byte(content), 0644)
 }
