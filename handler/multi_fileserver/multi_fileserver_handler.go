@@ -2,9 +2,10 @@ package multi_fileserver
 
 import (
 	"net/http"
-	"path"
-	"github.com/bborbe/log"
 	"os"
+	"path"
+
+	"github.com/bborbe/log"
 )
 
 var logger = log.DefaultLogger
@@ -21,7 +22,7 @@ func NewMultiFileserverHandler(dirs ...string) *multiFileserverHandler {
 func reverse(dirs []string) []string {
 	result := make([]string, len(dirs))
 	for i, _ := range dirs {
-		result[i] = dirs[len(dirs) - i - 1]
+		result[i] = dirs[len(dirs)-i-1]
 	}
 	return result
 }
