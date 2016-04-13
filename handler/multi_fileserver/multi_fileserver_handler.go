@@ -11,7 +11,6 @@ var logger = log.DefaultLogger
 
 const DIRECTORY_INDEX = "index.html"
 
-
 type multiFileserverHandler struct {
 	dirs []string
 }
