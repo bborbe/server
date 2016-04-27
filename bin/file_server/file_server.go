@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+
 	flag "github.com/bborbe/flagenv"
 	io_util "github.com/bborbe/io/util"
 	"github.com/bborbe/log"
@@ -15,10 +16,10 @@ const (
 )
 
 var (
-	logger = log.DefaultLogger
-	portPtr = flag.Int("port", 8080, "Port")
+	logger          = log.DefaultLogger
+	portPtr         = flag.Int("port", 8080, "Port")
 	documentRootPtr = flag.String("root", "", "Document root directory")
-	logLevelPtr = flag.String(PARAMETER_LOGLEVEL, log.INFO_STRING, log.FLAG_USAGE)
+	logLevelPtr     = flag.String(PARAMETER_LOGLEVEL, log.INFO_STRING, log.FLAG_USAGE)
 )
 
 func main() {
