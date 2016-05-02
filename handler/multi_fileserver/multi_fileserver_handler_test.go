@@ -10,8 +10,9 @@ import (
 	"os"
 	"path"
 
-	. "github.com/bborbe/assert"
 	"fmt"
+
+	. "github.com/bborbe/assert"
 )
 
 func TestImplementsHandler(t *testing.T) {
