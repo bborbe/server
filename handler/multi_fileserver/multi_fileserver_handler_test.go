@@ -11,6 +11,7 @@ import (
 	"path"
 
 	. "github.com/bborbe/assert"
+	"fmt"
 )
 
 func TestImplementsHandler(t *testing.T) {
@@ -171,8 +172,8 @@ func TestServeHTTPSlash(t *testing.T) {
 }
 
 func writeFile(dir string, name string, content string) error {
-	logger.Debugf("write dir %s name %s\n", dir, name)
+	fmt.Printf("write dir %s name %s\n", dir, name)
 	filename := path.Join(dir, name)
-	logger.Debugf("write file %s\n", filename)
+	fmt.Printf("write file %s\n", filename)
 	return ioutil.WriteFile(filename, []byte(content), 0644)
 }
