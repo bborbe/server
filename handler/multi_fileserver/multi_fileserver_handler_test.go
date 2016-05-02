@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"testing"
 
-	"github.com/albertrdixon/gearbox/logger"
 	server_mock "github.com/bborbe/server/mock"
 
 	"io/ioutil"
