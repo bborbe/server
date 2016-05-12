@@ -1,10 +1,11 @@
 package auth_basic
 
 import (
+	"fmt"
 	"net/http"
+
 	"github.com/bborbe/http/header"
 	"github.com/bborbe/log"
-	"fmt"
 )
 
 var logger = log.DefaultLogger
