@@ -2,6 +2,12 @@
 
 Package provide core server modules in Go
 
+## Install
+
+`go get github.com/bborbe/server/bin/file_server`
+
+`go get github.com/bborbe/server/bin/overlay_server`
+
 ## Continuous integration
 
 [Jenkins](https://www.benjamin-borbe.de/jenkins/job/Go-Server/)
