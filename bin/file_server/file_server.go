@@ -13,6 +13,7 @@ import (
 )
 
 const (
+	PARAMETER_ROOT       = "root"
 	PARAMETER_LOGLEVEL   = "loglevel"
 	PARAMETER_AUTH_USER  = "auth-user"
 	PARAMETER_AUTH_PASS  = "auth-pass"
@@ -22,7 +23,7 @@ const (
 var (
 	logger          = log.DefaultLogger
 	portPtr         = flag.Int("port", 8080, "Port")
-	documentRootPtr = flag.String("root", "", "Document root directory")
+	documentRootPtr = flag.String(PARAMETER_ROOT, "", "Document root directory")
 	logLevelPtr     = flag.String(PARAMETER_LOGLEVEL, log.INFO_STRING, log.FLAG_USAGE)
 	authUserPtr     = flag.String(PARAMETER_AUTH_USER, "", "basic auth username")
 	authPassPtr     = flag.String(PARAMETER_AUTH_PASS, "", "basic auth password")
