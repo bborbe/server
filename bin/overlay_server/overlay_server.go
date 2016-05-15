@@ -15,17 +15,20 @@ import (
 )
 
 const (
+	PARAMETER_ROOT       = "root"
+	PARAMETER_PORT       = "port"
 	PARAMETER_LOGLEVEL   = "loglevel"
 	PARAMETER_AUTH_USER  = "auth-user"
 	PARAMETER_AUTH_PASS  = "auth-pass"
 	PARAMETER_AUTH_REALM = "auth-realm"
+	PARAMETER_OVERLAYS   = "overlays"
 )
 
 var (
 	logger          = log.DefaultLogger
-	portPtr         = flag.Int("port", 8080, "Port")
-	documentRootPtr = flag.String("root", "", "Document root directory")
-	overlaysPtr     = flag.String("overlays", "", "Overlay directories separated by comma")
+	portPtr         = flag.Int(PARAMETER_PORT, 8080, "Port")
+	documentRootPtr = flag.String(PARAMETER_ROOT, "", "Document root directory")
+	overlaysPtr     = flag.String(PARAMETER_OVERLAYS, "", "Overlay directories separated by comma")
 	logLevelPtr     = flag.String(PARAMETER_LOGLEVEL, log.INFO_STRING, log.FLAG_USAGE)
 	authUserPtr     = flag.String(PARAMETER_AUTH_USER, "", "basic auth username")
 	authPassPtr     = flag.String(PARAMETER_AUTH_PASS, "", "basic auth password")
@@ -50,6 +53,9 @@ func main() {
 }
 
 func createServer(port int, documentRoot string, overlays string, authUser string, authPass string, authRealm string) (*http.Server, error) {
+	if port <= 0 {
+		return nil, fmt.Errorf("parameter %s invalid", PARAMETER_PORT)
+	}
 	dirs, err := toDirs(documentRoot, overlays)
 	if err != nil {
 		return nil, err
