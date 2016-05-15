@@ -21,7 +21,7 @@ func New(handler http.Handler) *logHandler {
 
 func (m *logHandler) ServeHTTP(responseWriter http.ResponseWriter, request *http.Request) {
 	start := time.Now()
-	defer logger.Debugf("%s %s takes %dms", request.Method, request.RequestURI, time.Now().Sub(start) / time.Millisecond)
+	defer logger.Debugf("%s %s takes %dms", request.Method, request.RequestURI, time.Now().Sub(start)/time.Millisecond)
 
 	logger.Debugf("request %v: ", request)
 	m.handler.ServeHTTP(responseWriter, request)

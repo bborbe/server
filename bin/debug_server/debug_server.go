@@ -7,9 +7,9 @@ import (
 
 	flag "github.com/bborbe/flagenv"
 	"github.com/bborbe/log"
-	"github.com/facebookgo/grace/gracehttp"
 	"github.com/bborbe/server/handler/debug"
 	"github.com/bborbe/server/handler/static"
+	"github.com/facebookgo/grace/gracehttp"
 )
 
 const (
@@ -17,9 +17,9 @@ const (
 )
 
 var (
-	logger = log.DefaultLogger
-	portPtr = flag.Int("port", 8080, "Port")
-	logLevelPtr = flag.String(PARAMETER_LOGLEVEL, log.INFO_STRING, log.FLAG_USAGE)
+	logger      = log.DefaultLogger
+	portPtr     = flag.Int("port", 8080, "Port")
+	logLevelPtr = flag.String(PARAMETER_LOGLEVEL, log.DEBUG_STRING, log.FLAG_USAGE)
 )
 
 func main() {
