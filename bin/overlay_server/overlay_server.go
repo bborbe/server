@@ -12,6 +12,7 @@ import (
 	"github.com/bborbe/server/handler/auth_basic"
 	"github.com/bborbe/server/handler/multi_fileserver"
 	"github.com/facebookgo/grace/gracehttp"
+	"runtime"
 )
 
 const (
@@ -41,6 +42,8 @@ func main() {
 
 	logger.SetLevelThreshold(log.LogStringToLevel(*logLevelPtr))
 	logger.Debugf("set log level to %s", *logLevelPtr)
+
+	runtime.GOMAXPROCS(runtime.NumCPU())
 
 	server, err := createServer(*portPtr, *documentRootPtr, *overlaysPtr, *authUserPtr, *authPassPtr, *authRealmPtr)
 	if err != nil {
