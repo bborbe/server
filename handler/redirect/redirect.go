@@ -21,6 +21,6 @@ func New(target string) *handler {
 }
 
 func (h *handler) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
-	logger.Debugf("redirect to %s %d found %s %s", h.target, h.status)
+	logger.Debugf("redirect to %s %d", h.target, h.status)
 	http.Redirect(resp, req, h.target, h.status)
 }
