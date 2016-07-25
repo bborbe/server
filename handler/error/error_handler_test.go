@@ -32,7 +32,7 @@ func TestContent(t *testing.T) {
 		}
 	}
 	{
-		err := AssertThat(responseWriter.String(), Is("{\"status\":404,\"message\":\"Not Found\"}").Message("check content"))
+		err := AssertThat(responseWriter.String(), Is("{\"status\":404,\"message\":\"Not Found\"}\n").Message("check content"))
 		if err != nil {
 			t.Fatal(err)
 		}

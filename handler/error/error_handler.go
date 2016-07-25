@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/bborbe/log"
-	"github.com/bborbe/server/renderer/json/failure"
+	"gopkg.in/square/go-jose.v1/json"
 )
 
 var logger = log.DefaultLogger
@@ -27,12 +27,17 @@ func NewErrorMessage(status int, message string) *object {
 
 func (o *object) ServeHTTP(responseWriter http.ResponseWriter, request *http.Request) {
 	logger.Debug("handle error")
-	r := failure.NewFailureRendererMessage(o.status, o.message)
+
+	var data struct {
+		Status  int    `json:"status"`
+		Message string `json:"message"`
+	}
+	data.Message = o.message
+	data.Status = o.status
 	logger.Debugf("set status: %d", o.status)
 	responseWriter.WriteHeader(o.status)
 	responseWriter.Header().Set("Content-Type", "application/json")
-	err := r.Render(responseWriter)
-	if err != nil {
+	if err := json.NewEncoder(responseWriter).Encode(&data); err != nil {
 		logger.Warnf("render failureRenderer failed! %v", err)
 	}
 }
