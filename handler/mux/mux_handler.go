@@ -3,7 +3,7 @@ package mux
 import (
 	"net/http"
 
-	"github.com/bborbe/server/handler_finder"
+	"github.com/bborbe/handler_finder"
 )
 
 type muxHandler struct {
