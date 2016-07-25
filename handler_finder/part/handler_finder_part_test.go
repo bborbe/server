@@ -4,9 +4,9 @@ import (
 	"testing"
 
 	. "github.com/bborbe/assert"
+	server_mock "github.com/bborbe/http/mock"
 	"github.com/bborbe/server/handler/static"
 	"github.com/bborbe/server/handler_finder"
-	server_mock "github.com/bborbe/server/mock"
 )
 
 func TestImplementsHandlerFinder(t *testing.T) {

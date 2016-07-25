@@ -6,9 +6,9 @@ import (
 	"net/http"
 
 	. "github.com/bborbe/assert"
+	"github.com/bborbe/http/mock"
 	"github.com/bborbe/server/handler/static"
 	"github.com/bborbe/server/handler_finder"
-	"github.com/bborbe/server/mock"
 )
 
 func TestImplementsRestHandlerFinder(t *testing.T) {

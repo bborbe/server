@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	. "github.com/bborbe/assert"
-	server_mock "github.com/bborbe/server/mock"
+	server_mock "github.com/bborbe/http/mock"
 )
 
 func TestImplementsRequestHandler(t *testing.T) {

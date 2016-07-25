@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"testing"
 
-	server_mock "github.com/bborbe/server/mock"
+	server_mock "github.com/bborbe/http/mock"
 
 	"io/ioutil"
 	"os"
