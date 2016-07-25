@@ -3,8 +3,8 @@ package error
 import (
 	"net/http"
 
+	"encoding/json"
 	"github.com/bborbe/log"
-	"gopkg.in/square/go-jose.v1/json"
 )
 
 var logger = log.DefaultLogger
