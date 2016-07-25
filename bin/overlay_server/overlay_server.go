@@ -9,10 +9,10 @@ import (
 	"runtime"
 
 	flag "github.com/bborbe/flagenv"
+	"github.com/bborbe/http_handler/auth_basic"
+	"github.com/bborbe/http_handler/multi_fileserver"
 	io_util "github.com/bborbe/io/util"
 	"github.com/bborbe/log"
-	"github.com/bborbe/server/handler/auth_basic"
-	"github.com/bborbe/server/handler/multi_fileserver"
 	"github.com/facebookgo/grace/gracehttp"
 )
 

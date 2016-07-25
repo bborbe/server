@@ -8,9 +8,9 @@ import (
 	"runtime"
 
 	flag "github.com/bborbe/flagenv"
+	"github.com/bborbe/http_handler/debug"
+	"github.com/bborbe/http_handler/static"
 	"github.com/bborbe/log"
-	"github.com/bborbe/server/handler/debug"
-	"github.com/bborbe/server/handler/static"
 	"github.com/facebookgo/grace/gracehttp"
 )
 
