@@ -16,14 +16,12 @@ import (
 
 const (
 	PARAMETER_LOGLEVEL = "loglevel"
-	PARAMETER_DEBUG    = "debug"
 )
 
 var (
 	logger      = log.DefaultLogger
 	portPtr     = flag.Int("port", 8080, "Port")
 	logLevelPtr = flag.String(PARAMETER_LOGLEVEL, log.DEBUG_STRING, log.FLAG_USAGE)
-	debugPtr    = flag.Bool(PARAMETER_DEBUG, true, "debug")
 )
 
 func main() {
@@ -37,7 +35,6 @@ func main() {
 
 	server, err := createServer(
 		*portPtr,
-		*debugPtr,
 	)
 	if err != nil {
 		logger.Fatal(err)
@@ -50,13 +47,7 @@ func main() {
 
 func createServer(
 	port int,
-	debug bool,
 ) (*http.Server, error) {
-	handler := static.NewHandlerStaticContent("ok")
-
-	if debug {
-		handler = debug_handler.New(handler)
-	}
-
+	handler := debug_handler.New(static.NewHandlerStaticContent("ok"))
 	return &http.Server{Addr: fmt.Sprintf(":%d", port), Handler: handler}, nil
 }
