@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	debug_handler "github.com/bborbe/http_handler/debug"
 	"net/http"
 	"os"
 
@@ -21,6 +22,7 @@ const (
 	PARAMETER_AUTH_USER  = "auth-user"
 	PARAMETER_AUTH_PASS  = "auth-pass"
 	PARAMETER_AUTH_REALM = "auth-realm"
+	PARAMETER_DEBUG      = "debug"
 )
 
 var (
@@ -31,6 +33,7 @@ var (
 	authUserPtr     = flag.String(PARAMETER_AUTH_USER, "", "basic auth username")
 	authPassPtr     = flag.String(PARAMETER_AUTH_PASS, "", "basic auth password")
 	authRealmPtr    = flag.String(PARAMETER_AUTH_REALM, "", "basic auth realm")
+	debugPtr        = flag.Bool(PARAMETER_DEBUG, false, "debug")
 )
 
 func main() {
@@ -42,7 +45,14 @@ func main() {
 
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	server, err := createServer(*portPtr, *documentRootPtr, *authUserPtr, *authPassPtr, *authRealmPtr)
+	server, err := createServer(
+		*portPtr,
+		*debugPtr,
+		*documentRootPtr,
+		*authUserPtr,
+		*authPassPtr,
+		*authRealmPtr,
+	)
 	if err != nil {
 		logger.Fatal(err)
 		logger.Close()
@@ -52,7 +62,14 @@ func main() {
 	gracehttp.Serve(server)
 }
 
-func createServer(port int, documentRoot string, authUser string, authPass string, authRealm string) (*http.Server, error) {
+func createServer(
+	port int,
+	debug bool,
+	documentRoot string,
+	authUser string,
+	authPass string,
+	authRealm string,
+) (*http.Server, error) {
 	if port <= 0 {
 		return nil, fmt.Errorf("parameter %s invalid", PARAMETER_PORT)
 	}
@@ -66,5 +83,10 @@ func createServer(port int, documentRoot string, authUser string, authPass strin
 			return username == authUser && password == authPass, nil
 		}, authRealm)
 	}
+
+	if debug {
+		handler = debug_handler.New(handler)
+	}
+
 	return &http.Server{Addr: fmt.Sprintf(":%d", port), Handler: handler}, nil
 }
