@@ -8,6 +8,41 @@ Package provide core server modules in Go
 
 `go get github.com/bborbe/server/bin/overlay_server`
 
+## Run
+
+Debug Server always return ok  
+
+```
+debug_server \
+-loglevel=INFO \
+-port 8080
+```
+
+File Server
+
+```
+file_server \
+-loglevel=INFO \
+-port=8080 \
+-root=/tmp \
+-auth-user=user \
+-auth-pass=pass \
+-auth-realm=login-required
+```
+
+File Server with directory overlays
+
+```
+overlay_server \
+-loglevel=INFO \
+-port=8080 \
+-root=/tmp \
+-overlays=/a,/b,/c \ 
+-auth-user=user \
+-auth-pass=pass \
+-auth-realm=login-required
+```
+
 ## Continuous integration
 
 [Jenkins](https://www.benjamin-borbe.de/jenkins/job/Go-Server/)
