@@ -34,7 +34,7 @@ func main() {
 
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	server, err := createServer(
+	err := do(
 		*portPtr,
 	)
 	if err != nil {
@@ -42,8 +42,19 @@ func main() {
 		logger.Close()
 		os.Exit(1)
 	}
+}
+
+func do(
+	port int,
+) error {
+	server, err := createServer(
+		port,
+	)
+	if err != nil {
+		return err
+	}
 	logger.Debugf("start server")
-	gracehttp.Serve(server)
+	return gracehttp.Serve(server)
 }
 
 func createServer(

@@ -50,7 +50,7 @@ func main() {
 
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	server, err := createServer(
+	err := do(
 		*portPtr,
 		*debugPtr,
 		*documentRootPtr,
@@ -64,8 +64,31 @@ func main() {
 		logger.Close()
 		os.Exit(1)
 	}
+}
+
+func do(
+	port int,
+	debug bool,
+	documentRoot string,
+	overlays string,
+	authUser string,
+	authPass string,
+	authRealm string,
+) error {
+	server, err := createServer(
+		port,
+		debug,
+		documentRoot,
+		overlays,
+		authUser,
+		authPass,
+		authRealm,
+	)
+	if err != nil {
+		return err
+	}
 	logger.Debugf("start server")
-	gracehttp.Serve(server)
+	return gracehttp.Serve(server)
 }
 
 func createServer(
