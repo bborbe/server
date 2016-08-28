@@ -14,7 +14,8 @@ Debug Server always return ok
 
 ```
 debug_server \
--loglevel=INFO \
+-logtostderr \
+-v=2 \
 -port 8080
 ```
 
@@ -22,7 +23,8 @@ File Server
 
 ```
 file_server \
--loglevel=INFO \
+-logtostderr \
+-v=2 \
 -port=8080 \
 -root=/tmp \
 -auth-user=user \
@@ -34,7 +36,8 @@ File Server with directory overlays
 
 ```
 overlay_server \
--loglevel=INFO \
+-logtostderr \
+-v=2 \
 -port=8080 \
 -root=/tmp \
 -overlays=/a,/b,/c \ 

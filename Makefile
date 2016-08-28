@@ -14,11 +14,13 @@ errcheck:
 check: lint vet errcheck
 rundebug:
 	debug_server \
-	-loglevel=INFO \
+	-logtostderr \
+	-v=2 \
 	-port 8080
 runfileserver:
 	file_server \
-	-loglevel=INFO \
+	-logtostderr \
+	-v=2 \
 	-port=8080 \
 	-root=/tmp \
 	-auth-user=user \
@@ -26,7 +28,8 @@ runfileserver:
 	-auth-realm=login-required
 runoverlayserver:
 	overlay_server \
-	-loglevel=INFO \
+	-logtostderr \
+	-v=2 \
 	-port=8080 \
 	-root=/tmp \
 	-overlays=/a,/b,/c \
