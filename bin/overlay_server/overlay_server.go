@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"net/http"
-	"os"
 	"strings"
 
 	debug_handler "github.com/bborbe/http_handler/debug"
@@ -14,14 +13,13 @@ import (
 	"github.com/bborbe/http_handler/auth_basic"
 	"github.com/bborbe/http_handler/multi_fileserver"
 	io_util "github.com/bborbe/io/util"
-	"github.com/bborbe/log"
 	"github.com/facebookgo/grace/gracehttp"
+	"github.com/golang/glog"
 )
 
 const (
 	PARAMETER_ROOT       = "root"
 	PARAMETER_PORT       = "port"
-	PARAMETER_LOGLEVEL   = "loglevel"
 	PARAMETER_AUTH_USER  = "auth-user"
 	PARAMETER_AUTH_PASS  = "auth-pass"
 	PARAMETER_AUTH_REALM = "auth-realm"
@@ -30,11 +28,9 @@ const (
 )
 
 var (
-	logger          = log.DefaultLogger
 	portPtr         = flag.Int(PARAMETER_PORT, 8080, "Port")
 	documentRootPtr = flag.String(PARAMETER_ROOT, "", "Document root directory")
 	overlaysPtr     = flag.String(PARAMETER_OVERLAYS, "", "Overlay directories separated by comma")
-	logLevelPtr     = flag.String(PARAMETER_LOGLEVEL, log.INFO_STRING, log.FLAG_USAGE)
 	authUserPtr     = flag.String(PARAMETER_AUTH_USER, "", "basic auth username")
 	authPassPtr     = flag.String(PARAMETER_AUTH_PASS, "", "basic auth password")
 	authRealmPtr    = flag.String(PARAMETER_AUTH_REALM, "", "basic auth realm")
@@ -42,12 +38,9 @@ var (
 )
 
 func main() {
-	defer logger.Close()
+	defer glog.Flush()
+	glog.CopyStandardLogTo("info")
 	flag.Parse()
-
-	logger.SetLevelThreshold(log.LogStringToLevel(*logLevelPtr))
-	logger.Debugf("set log level to %s", *logLevelPtr)
-
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
 	err := do(
@@ -60,9 +53,7 @@ func main() {
 		*authRealmPtr,
 	)
 	if err != nil {
-		logger.Fatal(err)
-		logger.Close()
-		os.Exit(1)
+		glog.Exit(err)
 	}
 }
 
@@ -87,7 +78,7 @@ func do(
 	if err != nil {
 		return err
 	}
-	logger.Debugf("start server")
+	glog.V(2).Infof("start server")
 	return gracehttp.Serve(server)
 }
 
