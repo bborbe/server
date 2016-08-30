@@ -48,6 +48,6 @@ func do(
 func createServer(
 	port int,
 ) (*http.Server, error) {
-	handler := debug_handler.New(static.NewHandlerStaticContent("ok"))
+	handler := debug_handler.New(static.New("ok"))
 	return &http.Server{Addr: fmt.Sprintf(":%d", port), Handler: handler}, nil
 }

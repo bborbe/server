@@ -98,7 +98,7 @@ func createServer(
 	if err != nil {
 		return nil, err
 	}
-	var handler http.Handler = multi_fileserver.NewMultiFileserverHandler(dirs...)
+	var handler http.Handler = multi_fileserver.New(dirs...)
 	if len(authUser) > 0 && len(authPass) > 0 && len(authRealm) > 0 {
 		handler = auth_basic.New(handler.ServeHTTP, func(username string, password string) (bool, error) {
 			return username == authUser && password == authPass, nil
