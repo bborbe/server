@@ -21,7 +21,6 @@ const (
 	PARAMETER_AUTH_USER  = "auth-user"
 	PARAMETER_AUTH_PASS  = "auth-pass"
 	PARAMETER_AUTH_REALM = "auth-realm"
-	PARAMETER_DEBUG      = "debug"
 )
 
 var (
@@ -30,7 +29,6 @@ var (
 	authUserPtr     = flag.String(PARAMETER_AUTH_USER, "", "basic auth username")
 	authPassPtr     = flag.String(PARAMETER_AUTH_PASS, "", "basic auth password")
 	authRealmPtr    = flag.String(PARAMETER_AUTH_REALM, "", "basic auth realm")
-	debugPtr        = flag.Bool(PARAMETER_DEBUG, false, "debug")
 )
 
 func main() {
@@ -41,7 +39,6 @@ func main() {
 
 	err := do(
 		*portPtr,
-		*debugPtr,
 		*documentRootPtr,
 		*authUserPtr,
 		*authPassPtr,
@@ -54,7 +51,6 @@ func main() {
 
 func do(
 	port int,
-	debug bool,
 	documentRoot string,
 	authUser string,
 	authPass string,
@@ -62,7 +58,6 @@ func do(
 ) error {
 	server, err := createServer(
 		port,
-		debug,
 		documentRoot,
 		authUser,
 		authPass,
@@ -77,7 +72,6 @@ func do(
 
 func createServer(
 	port int,
-	debug bool,
 	documentRoot string,
 	authUser string,
 	authPass string,
@@ -97,7 +91,7 @@ func createServer(
 		}, authRealm)
 	}
 
-	if debug {
+	if glog.V(4) {
 		handler = debug_handler.New(handler)
 	}
 
