@@ -1,7 +1,7 @@
 install:
-	GOBIN=$(GOPATH)/bin GO15VENDOREXPERIMENT=1 go install bin/debug_server/debug_server.go
-	GOBIN=$(GOPATH)/bin GO15VENDOREXPERIMENT=1 go install bin/file_server/file_server.go
-	GOBIN=$(GOPATH)/bin GO15VENDOREXPERIMENT=1 go install bin/overlay_server/overlay_server.go
+	GOBIN=$(GOPATH)/bin GO15VENDOREXPERIMENT=1 go install bin/debug_server/*.go
+	GOBIN=$(GOPATH)/bin GO15VENDOREXPERIMENT=1 go install bin/file_server/*.go
+	GOBIN=$(GOPATH)/bin GO15VENDOREXPERIMENT=1 go install bin/overlay_server/*.go
 test:
 	GO15VENDOREXPERIMENT=1 go test -cover `glide novendor`
 vet:
