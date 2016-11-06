@@ -15,24 +15,25 @@ import (
 	io_util "github.com/bborbe/io/util"
 	"github.com/facebookgo/grace/gracehttp"
 	"github.com/golang/glog"
+	"github.com/bborbe/server/model"
 )
 
 const (
-	PARAMETER_ROOT       = "root"
-	PARAMETER_PORT       = "port"
-	PARAMETER_AUTH_USER  = "auth-user"
-	PARAMETER_AUTH_PASS  = "auth-pass"
+	PARAMETER_ROOT = "root"
+	PARAMETER_PORT = "port"
+	PARAMETER_AUTH_USER = "auth-user"
+	PARAMETER_AUTH_PASS = "auth-pass"
 	PARAMETER_AUTH_REALM = "auth-realm"
-	PARAMETER_OVERLAYS   = "overlays"
+	PARAMETER_OVERLAYS = "overlays"
 )
 
 var (
-	portPtr         = flag.Int(PARAMETER_PORT, 8080, "Port")
+	portPtr = flag.Int(PARAMETER_PORT, 8080, "Port")
 	documentRootPtr = flag.String(PARAMETER_ROOT, "", "Document root directory")
-	overlaysPtr     = flag.String(PARAMETER_OVERLAYS, "", "Overlay directories separated by comma")
-	authUserPtr     = flag.String(PARAMETER_AUTH_USER, "", "basic auth username")
-	authPassPtr     = flag.String(PARAMETER_AUTH_PASS, "", "basic auth password")
-	authRealmPtr    = flag.String(PARAMETER_AUTH_REALM, "", "basic auth realm")
+	overlaysPtr = flag.String(PARAMETER_OVERLAYS, "", "Overlay directories separated by comma")
+	authUserPtr = flag.String(PARAMETER_AUTH_USER, "", "basic auth username")
+	authPassPtr = flag.String(PARAMETER_AUTH_PASS, "", "basic auth password")
+	authRealmPtr = flag.String(PARAMETER_AUTH_REALM, "", "basic auth realm")
 )
 
 func main() {
@@ -41,35 +42,13 @@ func main() {
 	flag.Parse()
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	err := do(
-		*portPtr,
-		*documentRootPtr,
-		*overlaysPtr,
-		*authUserPtr,
-		*authPassPtr,
-		*authRealmPtr,
-	)
-	if err != nil {
+	if err := do(); err != nil {
 		glog.Exit(err)
 	}
 }
 
-func do(
-	port int,
-	documentRoot string,
-	overlays string,
-	authUser string,
-	authPass string,
-	authRealm string,
-) error {
-	server, err := createServer(
-		port,
-		documentRoot,
-		overlays,
-		authUser,
-		authPass,
-		authRealm,
-	)
+func do() error {
+	server, err := createServer()
 	if err != nil {
 		return err
 	}
@@ -77,14 +56,14 @@ func do(
 	return gracehttp.Serve(server)
 }
 
-func createServer(
-	port int,
-	documentRoot string,
-	overlays string,
-	authUser string,
-	authPass string,
-	authRealm string,
-) (*http.Server, error) {
+func createServer() (*http.Server, error) {
+	port := model.Port(*portPtr)
+	documentRoot := *documentRootPtr
+	overlays := *overlaysPtr
+	authUser := *authUserPtr
+	authPass := *authPassPtr
+	authRealm := *authRealmPtr
+
 	if port <= 0 {
 		return nil, fmt.Errorf("parameter %s invalid", PARAMETER_PORT)
 	}
@@ -103,7 +82,8 @@ func createServer(
 		handler = debug_handler.New(handler)
 	}
 
-	return &http.Server{Addr: fmt.Sprintf(":%d", port), Handler: handler}, nil
+	glog.V(2).Infof("create http server on %s", port.Address())
+	return &http.Server{Addr: port.Address(), Handler: handler}, nil
 }
 
 func toDirs(root string, overlays string) ([]string, error) {

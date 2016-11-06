@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 
 	debug_handler "github.com/bborbe/http_handler/debug"
@@ -12,6 +11,7 @@ import (
 	"github.com/bborbe/http_handler/static"
 	"github.com/facebookgo/grace/gracehttp"
 	"github.com/golang/glog"
+	"github.com/bborbe/server/model"
 )
 
 var (
@@ -24,20 +24,13 @@ func main() {
 	flag.Parse()
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	err := do(
-		*portPtr,
-	)
-	if err != nil {
+	if err := do(); err != nil {
 		glog.Exit(err)
 	}
 }
 
-func do(
-	port int,
-) error {
-	server, err := createServer(
-		port,
-	)
+func do() error {
+	server, err := createServer()
 	if err != nil {
 		return err
 	}
@@ -45,9 +38,9 @@ func do(
 	return gracehttp.Serve(server)
 }
 
-func createServer(
-	port int,
-) (*http.Server, error) {
+func createServer() (*http.Server, error) {
+	port := model.Port(*portPtr)
 	handler := debug_handler.New(static.New("ok"))
-	return &http.Server{Addr: fmt.Sprintf(":%d", port), Handler: handler}, nil
+	glog.V(2).Infof("create http server on %s", port.Address())
+	return &http.Server{Addr: port.Address(), Handler: handler}, nil
 }
