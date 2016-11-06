@@ -9,9 +9,9 @@ import (
 
 	flag "github.com/bborbe/flagenv"
 	"github.com/bborbe/http_handler/static"
+	"github.com/bborbe/server/model"
 	"github.com/facebookgo/grace/gracehttp"
 	"github.com/golang/glog"
-	"github.com/bborbe/server/model"
 )
 
 var (

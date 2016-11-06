@@ -13,27 +13,27 @@ import (
 	"github.com/bborbe/http_handler/auth_basic"
 	"github.com/bborbe/http_handler/multi_fileserver"
 	io_util "github.com/bborbe/io/util"
+	"github.com/bborbe/server/model"
 	"github.com/facebookgo/grace/gracehttp"
 	"github.com/golang/glog"
-	"github.com/bborbe/server/model"
 )
 
 const (
-	PARAMETER_ROOT = "root"
-	PARAMETER_PORT = "port"
-	PARAMETER_AUTH_USER = "auth-user"
-	PARAMETER_AUTH_PASS = "auth-pass"
+	PARAMETER_ROOT       = "root"
+	PARAMETER_PORT       = "port"
+	PARAMETER_AUTH_USER  = "auth-user"
+	PARAMETER_AUTH_PASS  = "auth-pass"
 	PARAMETER_AUTH_REALM = "auth-realm"
-	PARAMETER_OVERLAYS = "overlays"
+	PARAMETER_OVERLAYS   = "overlays"
 )
 
 var (
-	portPtr = flag.Int(PARAMETER_PORT, 8080, "Port")
+	portPtr         = flag.Int(PARAMETER_PORT, 8080, "Port")
 	documentRootPtr = flag.String(PARAMETER_ROOT, "", "Document root directory")
-	overlaysPtr = flag.String(PARAMETER_OVERLAYS, "", "Overlay directories separated by comma")
-	authUserPtr = flag.String(PARAMETER_AUTH_USER, "", "basic auth username")
-	authPassPtr = flag.String(PARAMETER_AUTH_PASS, "", "basic auth password")
-	authRealmPtr = flag.String(PARAMETER_AUTH_REALM, "", "basic auth realm")
+	overlaysPtr     = flag.String(PARAMETER_OVERLAYS, "", "Overlay directories separated by comma")
+	authUserPtr     = flag.String(PARAMETER_AUTH_USER, "", "basic auth username")
+	authPassPtr     = flag.String(PARAMETER_AUTH_PASS, "", "basic auth password")
+	authRealmPtr    = flag.String(PARAMETER_AUTH_REALM, "", "basic auth realm")
 )
 
 func main() {
