@@ -11,25 +11,25 @@ import (
 	flag "github.com/bborbe/flagenv"
 	"github.com/bborbe/http_handler/auth_basic"
 	io_util "github.com/bborbe/io/util"
+	"github.com/bborbe/server/model"
 	"github.com/facebookgo/grace/gracehttp"
 	"github.com/golang/glog"
-	"github.com/bborbe/server/model"
 )
 
 const (
-	PARAMETER_ROOT = "root"
-	PARAMETER_PORT = "port"
-	PARAMETER_AUTH_USER = "auth-user"
-	PARAMETER_AUTH_PASS = "auth-pass"
+	PARAMETER_ROOT       = "root"
+	PARAMETER_PORT       = "port"
+	PARAMETER_AUTH_USER  = "auth-user"
+	PARAMETER_AUTH_PASS  = "auth-pass"
 	PARAMETER_AUTH_REALM = "auth-realm"
 )
 
 var (
-	portPtr = flag.Int(PARAMETER_PORT, 8080, "Port")
+	portPtr         = flag.Int(PARAMETER_PORT, 8080, "Port")
 	documentRootPtr = flag.String(PARAMETER_ROOT, "", "Document root directory")
-	authUserPtr = flag.String(PARAMETER_AUTH_USER, "", "basic auth username")
-	authPassPtr = flag.String(PARAMETER_AUTH_PASS, "", "basic auth password")
-	authRealmPtr = flag.String(PARAMETER_AUTH_REALM, "", "basic auth realm")
+	authUserPtr     = flag.String(PARAMETER_AUTH_USER, "", "basic auth username")
+	authPassPtr     = flag.String(PARAMETER_AUTH_PASS, "", "basic auth password")
+	authRealmPtr    = flag.String(PARAMETER_AUTH_REALM, "", "basic auth realm")
 )
 
 func main() {
@@ -38,7 +38,7 @@ func main() {
 	flag.Parse()
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
-	if err := do();err != nil {
+	if err := do(); err != nil {
 		glog.Exit(err)
 	}
 }
@@ -52,9 +52,7 @@ func do() error {
 	return gracehttp.Serve(server)
 }
 
-func createServer(
-
-) (*http.Server, error) {
+func createServer() (*http.Server, error) {
 	port := model.Port(*portPtr)
 	documentRoot := *documentRootPtr
 	authUser := *authUserPtr
@@ -80,5 +78,5 @@ func createServer(
 	}
 
 	glog.V(2).Infof("create http server on %s", port.Address())
-	return &http.Server{Addr: fmt.Sprintf(":%d", port), Handler: handler}, nil
+	return &http.Server{Addr: port.Address(), Handler: handler}, nil
 }
