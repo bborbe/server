@@ -1,5 +1,5 @@
 hash: cc8eda7822e8e45998732ae1f71439d13575d4987072f59fd7ed60a89c18ab02
-updated: 2016-12-19T21:53:00.668055259+01:00
+updated: 2016-12-19T22:01:00.674764668+01:00
 imports:
 - name: github.com/bborbe/flagenv
   version: 96aab95bb1341e7a7ccf9160e49792e2ad3b0e08
@@ -8,7 +8,7 @@ imports:
   subpackages:
   - header
 - name: github.com/bborbe/http_handler
-  version: f8a7a22184478c1702ec45112305514b91a5c231
+  version: ba78c185d604968f5bc3f490339ae7e86e351878
   subpackages:
   - auth_basic
   - debug
