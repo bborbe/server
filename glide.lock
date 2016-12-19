@@ -1,27 +1,29 @@
 hash: cc8eda7822e8e45998732ae1f71439d13575d4987072f59fd7ed60a89c18ab02
-updated: 2016-08-30T10:03:15.554447498+02:00
+updated: 2016-12-19T21:53:00.668055259+01:00
 imports:
 - name: github.com/bborbe/flagenv
   version: 96aab95bb1341e7a7ccf9160e49792e2ad3b0e08
 - name: github.com/bborbe/http
-  version: addca5fc2e2de1bef39a64990873806e7fc9c0a9
+  version: 0af97ef0fa27c72d7ad65a5e3a15ec1aebcfe695
   subpackages:
   - header
 - name: github.com/bborbe/http_handler
-  version: 3ce100a4d1664348a31553631244fe337df991f5
+  version: f8a7a22184478c1702ec45112305514b91a5c231
   subpackages:
   - auth_basic
   - debug
+  - dump_request
+  - error
   - multi_fileserver
   - static
 - name: github.com/bborbe/io
-  version: f014e6fbe9170c0692122497023eedb9d6e53cc2
+  version: a11fbd04dece7d16d80e69884526dafdea697648
   subpackages:
   - util
 - name: github.com/facebookgo/clock
   version: 600d898af40aa09a7a93ecb9265d87b0504b6f03
 - name: github.com/facebookgo/grace
-  version: 053ab5d25436faedf3fe76fbf3da797c8c27c659
+  version: 5729e484473f52048578af1b80d0008c7024089b
   subpackages:
   - gracehttp
   - gracenet
@@ -33,4 +35,4 @@ imports:
   version: 23def4e6c14b4da8ac2ed8007337bc5eb5007998
 testImports:
 - name: github.com/bborbe/assert
-  version: 2db035a4c0870f6f48d1955f7b9542f9dbd4fb64
+  version: d2b3a7c4c731ac8cc63c6f5a1ea7d401e7547d42

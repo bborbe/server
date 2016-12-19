@@ -1,17 +1,14 @@
 package main
 
 import (
-	"net/http"
-
-	debug_handler "github.com/bborbe/http_handler/debug"
-
-	"runtime"
-
 	flag "github.com/bborbe/flagenv"
-	"github.com/bborbe/http_handler/static"
+	debug_handler "github.com/bborbe/http_handler/debug"
+	"github.com/bborbe/http_handler/dump_request"
 	"github.com/bborbe/server/model"
 	"github.com/facebookgo/grace/gracehttp"
 	"github.com/golang/glog"
+	"net/http"
+	"runtime"
 )
 
 var (
@@ -40,7 +37,7 @@ func do() error {
 
 func createServer() (*http.Server, error) {
 	port := model.Port(*portPtr)
-	handler := debug_handler.New(static.New("ok"))
+	handler := debug_handler.New(dump.New())
 	glog.V(2).Infof("create http server on %s", port.Address())
 	return &http.Server{Addr: port.Address(), Handler: handler}, nil
 }
