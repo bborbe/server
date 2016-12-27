@@ -48,7 +48,7 @@ overlay_server \
 
 ## Continuous integration
 
-[Jenkins](https://www.benjamin-borbe.de/jenkins/job/Go-Server/)
+[Jenkins](https://jenkins.benjamin-borbe.de/job/Go-Server/)
 
 ## Copyright and license
 
