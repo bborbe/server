@@ -1,10 +1,10 @@
 all: test install
 install:
-	GOBIN=$(GOPATH)/bin GO15VENDOREXPERIMENT=1 go install bin/debug_server/*.go
-	GOBIN=$(GOPATH)/bin GO15VENDOREXPERIMENT=1 go install bin/file_server/*.go
-	GOBIN=$(GOPATH)/bin GO15VENDOREXPERIMENT=1 go install bin/overlay_server/*.go
+	GOBIN=$(GOPATH)/bin GO15VENDOREXPERIMENT=1 go install cmd/debug-server/*.go
+	GOBIN=$(GOPATH)/bin GO15VENDOREXPERIMENT=1 go install cmd/file-server/*.go
+	GOBIN=$(GOPATH)/bin GO15VENDOREXPERIMENT=1 go install cmd/overlay-server/*.go
 test:
-	GO15VENDOREXPERIMENT=1 go test -cover `glide novendor`
+	go test -cover -race $(shell go list ./... | grep -v /vendor/)
 vet:
 	go tool vet .
 	go tool vet --shadow .
