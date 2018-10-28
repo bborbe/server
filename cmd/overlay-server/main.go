@@ -2,34 +2,25 @@ package main
 
 import (
 	"fmt"
-	"net/http"
-	"strings"
-	debug_handler "github.com/bborbe/http_handler/debug"
-	"runtime"
 	flag "github.com/bborbe/flagenv"
 	"github.com/bborbe/http_handler/auth_basic"
+	debug_handler "github.com/bborbe/http_handler/debug"
 	"github.com/bborbe/http_handler/multi_fileserver"
 	io_util "github.com/bborbe/io/util"
 	"github.com/facebookgo/grace/gracehttp"
 	"github.com/golang/glog"
-)
-
-const (
-	PARAMETER_ROOT       = "root"
-	PARAMETER_PORT       = "port"
-	PARAMETER_AUTH_USER  = "auth-user"
-	PARAMETER_AUTH_PASS  = "auth-pass"
-	PARAMETER_AUTH_REALM = "auth-realm"
-	PARAMETER_OVERLAYS   = "overlays"
+	"net/http"
+	"runtime"
+	"strings"
 )
 
 var (
-	portPtr         = flag.Int(PARAMETER_PORT, 8080, "Port")
-	documentRootPtr = flag.String(PARAMETER_ROOT, "", "Document root directory")
-	overlaysPtr     = flag.String(PARAMETER_OVERLAYS, "", "Overlay directories separated by comma")
-	authUserPtr     = flag.String(PARAMETER_AUTH_USER, "", "basic auth username")
-	authPassPtr     = flag.String(PARAMETER_AUTH_PASS, "", "basic auth password")
-	authRealmPtr    = flag.String(PARAMETER_AUTH_REALM, "", "basic auth realm")
+	portPtr         = flag.Int("port", 8080, "Port")
+	documentRootPtr = flag.String("root", "", "Document root directory")
+	overlaysPtr     = flag.String("overlays", "", "Overlay directories separated by comma")
+	authUserPtr     = flag.String("auth-user", "", "basic auth username")
+	authPassPtr     = flag.String("auth-pass", "", "basic auth password")
+	authRealmPtr    = flag.String("auth-realm", "", "basic auth realm")
 )
 
 func main() {
@@ -60,7 +51,7 @@ func createServer() (*http.Server, error) {
 	authRealm := *authRealmPtr
 
 	if *portPtr <= 0 {
-		return nil, fmt.Errorf("parameter %s invalid", PARAMETER_PORT)
+		return nil, fmt.Errorf("parameter %s invalid", "port")
 	}
 	dirs, err := toDirs(documentRoot, overlays)
 	if err != nil {
