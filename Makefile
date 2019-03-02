@@ -46,7 +46,7 @@ prepare:
 	npm install
 	go get -u golang.org/x/tools/cmd/goimports
 	go get -u github.com/Masterminds/glide
-	go get -u github.com/golang/lint/golint
+	go get -u golang.org/x/lint/golint
 	go get -u github.com/kisielk/errcheck
 	glide install
 update:
